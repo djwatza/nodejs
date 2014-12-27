@@ -80,7 +80,7 @@ module.exports.connections = {
     user: 'YOUR_POSTGRES_USER',
     password: 'YOUR_POSTGRES_PASSWORD',
     database: 'YOUR_POSTGRES_DB'
-  }
+  },
 
 
   /***************************************************************************
@@ -88,5 +88,11 @@ module.exports.connections = {
   * More adapters: https://github.com/balderdashy/sails                      *
   *                                                                          *
   ***************************************************************************/
+
+  devElasticsearch: {
+    adapter:'autodealio',
+    host: '54.148.1.144',
+    es: {index : 'vehicle', type : 'vehicle'}
+  }
 
 };
