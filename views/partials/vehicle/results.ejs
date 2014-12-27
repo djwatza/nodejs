@@ -1,0 +1,9 @@
+<section class="results">
+    <div class="container">
+        <div class="row">
+            <% _.each(vehicles.hits, function (vehicle) { %>
+                <%- partial ('./result', {vehicle: vehicle}) %>
+            <% }) %>
+        </div>
+    </div>
+</section>

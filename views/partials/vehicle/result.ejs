@@ -1,0 +1,19 @@
+<div class="col-lg-4 col-md-4 col-sm-6">
+    <div class="car">
+
+        <% if (vehicle._source.image_urls.length > 0 && vehicle._source.image_urls[0].length > 0) { %>
+            <img src="<%=vehicle._source.image_urls[0] %>" alt="Used car deals on a <%= vehicle._source.year %> <%= vehicle._source.make %> <%= vehicle._source.model %>">
+        <% } else { %>
+            <img src="/images/logo.png" alt="Used car deals on a <%= vehicle._source.year %> <%= vehicle._source.make %> <%= vehicle._source.model %>">
+        <% }  %>
+
+        <div class="overlay">
+            <h3>
+                <a href="/<%= vehicle._source.zip_code %>/<%= vehicle._source.vehicle_id %>">
+                    <%= vehicle._source.year %> <%= vehicle._source.make %> <%= vehicle._source.model %>
+                </a>
+            </h3>
+            <strong>Price: $<%= vehicle._source.price %></strong></div>
+    </div>
+    <div class="other-info clearfix"><span>Mileage: <%= vehicle._source.mileage %></span><small>Location: <%= vehicle._source.city %>, <%= vehicle._source.state %> </small></div>
+</div>

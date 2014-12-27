@@ -1,0 +1,179 @@
+<div class="back">
+    <div class="container"> <a href="/">Back to Search</a> </div>
+</div>
+<section class="cars">
+    <div class="container">
+        <h1><%= vehicle.year %> <%= vehicle.make %> <%= vehicle.model %> <%= vehicle.series %> - $<%= vehicle.price %></h1>
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="gallery-outer">
+                    <div id="slider1_container" style="position: relative; top: 0px; left: 0px; width: 461px; height: 470px; background: #191919; overflow: hidden;">
+
+                        <!-- Loading Screen -->
+                        <div u="loading" style="position: absolute; top: 0px; left: 0px;">
+                            <div style="filter: alpha(opacity=70); opacity:0.7; position: absolute; display: block; background-color: #000000; top: 0px; left: 0px;width: 100%;height:100%;"> </div>
+                            <div style="position: absolute; display: block; background: url(img/loading.gif) no-repeat center center;top: 0px; left: 0px;width: 100%;height:100%;"> </div>
+                        </div>
+
+                        <!-- Slides Container -->
+                        <div u="slides" style="cursor: move; position: absolute; left: 0px; top: 0px; width: 445px;; height: 334px; overflow: hidden; margin:7px">
+                            <div> <img u="image" src="img/gallery1.jpg" /> <img u="thumb" src="img/thumb.jpg" /> </div>
+                            <div> <img u="image" src="img/gallery1.jpg" /> <img u="thumb" src="img/thumb.jpg" /> </div>
+                            <div> <img u="image" src="img/gallery1.jpg" /> <img u="thumb" src="img/thumb.jpg" /> </div>
+                            <div> <img u="image" src="img/gallery1.jpg" /> <img u="thumb" src="img/thumb.jpg" /> </div>
+                            <div> <img u="image" src="img/gallery1.jpg" /> <img u="thumb" src="img/thumb.jpg" /> </div>
+                            <div> <img u="image" src="img/gallery1.jpg" /> <img u="thumb" src="img/thumb.jpg" /> </div>
+                            <div> <img u="image" src="img/gallery1.jpg" /> <img u="thumb" src="img/thumb.jpg" /> </div>
+                            <div> <img u="image" src="img/gallery1.jpg" /> <img u="thumb" src="img/thumb.jpg" /> </div>
+                            <div> <img u="image" src="img/gallery1.jpg" /> <img u="thumb" src="img/thumb.jpg" /> </div>
+                            <div> <img u="image" src="img/gallery1.jpg" /> <img u="thumb" src="img/thumb.jpg" /> </div>
+                            <div> <img u="image" src="img/gallery1.jpg" /> <img u="thumb" src="img/thumb.jpg" /> </div>
+                            <div> <img u="image" src="img/gallery1.jpg" /> <img u="thumb" src="img/thumb.jpg" /> </div>
+                        </div>
+
+                        <!-- Arrow Navigator Skin Begin -->
+                        <!-- Arrow Left -->
+                        <span u="arrowleft" class="jssora05l" style="width: 40px; height: 40px; top: 158px; left: 8px;"> </span>
+                        <!-- Arrow Right -->
+                        <span u="arrowright" class="jssora05r" style="width: 40px; height: 40px; top: 158px; right: 8px"> </span>
+                        <!-- Arrow Navigator Skin End -->
+
+                        <!-- Thumbnail Navigator Skin Begin -->
+                        <div u="thumbnavigator" class="jssort01" style="position: absolute; width: 460px; height: 130px; left:0px; bottom: 0px;  ">
+                            <!-- Thumbnail Item Skin Begin -->
+                            <div u="slides"  class="thumb1" style="cursor: move; max-width:460px; left:7px !important;">
+                                <div u="prototype" class="p" style="position: absolute; width: 70px; height: 50px; top: 0; left: 0;  ">
+                                    <div class=w >
+                                        <thumbnailtemplate style="width: 100%; height: 100%; border: none;position:absolute; top: 0; left: 0;"></thumbnailtemplate>
+                                    </div>
+                                    <div class=c> </div>
+                                </div>
+                            </div>
+                            <!-- Thumbnail Item Skin End -->
+                        </div>
+                        <!-- Thumbnail Navigator Skin End -->
+                    </div>
+                </div>
+                <div class="car-desc">
+                    <ul>
+                        <li>
+                            <div class="row">
+                                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">Dealer's Price: </div>
+                                <div class="col-lg-7 col-md-7 col-md-7 col-xs-7">$<%= vehicle.price %></div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="row">
+                                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">Location:</div>
+                                <div class="col-lg-7 col-md-7 col-md-7 col-xs-7"><%= vehicle.city %>, <%= vehicle.state %> · a few miles away</div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="row">
+                                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">Mileage:</div>
+                                <div class="col-lg-7 col-md-7 col-md-7 col-xs-7"><%= vehicle.mileage %> miles</div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="row">
+                                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">Transmission:</div>
+                                <div class="col-lg-7 col-md-7 col-md-7 col-xs-7"><%= vehicle.transmission_type %></div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="row">
+                                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">Exterior Color:</div>
+                                <div class="col-lg-7 col-md-7 col-md-7 col-xs-7"><%= vehicle.exterior_color %></div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="row">
+                                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">Interior Color: </div>
+                                <div class="col-lg-7 col-md-7 col-md-7 col-xs-7"><%= vehicle.interior_color %></div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="row">
+                                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">Number of Doors:</div>
+                                <div class="col-lg-7 col-md-7 col-md-7 col-xs-7"><%= vehicle.num_doors %></div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="row">
+                                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">Engine: </div>
+                                <div class="col-lg-7 col-md-7 col-md-7 col-xs-7">V<%= vehicle.num_cylinders %></div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="row">
+                                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">Seller: </div>
+                                <div class="col-lg-7 col-md-7 col-md-7 col-xs-7"><%= vehicle.dealer_id %></div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="row">
+                                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">VIN: </div>
+                                <div class="col-lg-7 col-md-7 col-md-7 col-xs-7"><%= vehicle.vin %></div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="row">
+                                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">Stock #: </div>
+                                <div class="col-lg-7 col-md-7 col-md-7 col-xs-7"><%= vehicle.stock_number %></div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="contact-outer">
+                    <div class="heading-box">
+                        <h2>Contact Dealer</h2>
+                    </div>
+                    <form action="#" method="get" class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-lg-4 col-md-4 control-label">Hi, my name is </label>
+                            <div class="col-lg-4 col-md-4">
+                                <input type="text" class="form-control" name="fname" placeholder="First Name">
+                            </div>
+                            <div class="col-lg-4 col-md-4">
+                                <input type="text" class="form-control" name="lname" placeholder="Last Name">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-lg-12">and I’m interested in your <strong>2012 BMW 3 Series 328i Sedan</strong> </label>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-lg-6 col-md-6 control-label">You can reach me by email at </label>
+                            <div class="col-lg-6 col-md-6">
+                                <input class="form-control" type="text" placeholder="">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-lg-12">or by phone at </label>
+                            <span>( </span>
+                            <input type="text" class="form-control phone">
+                            <span> ) </span>
+                            <input type="text" class="form-control phone">
+                            &nbsp;
+                            <input type="text" class="form-control phone1">
+                        </div>
+                        <div class="form-group">
+                            <div class="col-lg-12">
+                                <input type="submit" value="Send Message">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="options">
+                    <h3>Major Options</h3>
+                    <p><%= vehicle.features.join(", ") %></p>
+                </div>
+                <div class="description">
+                    <h3>Dealer's Description</h3>
+                    <p><%= vehicle.comments %></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

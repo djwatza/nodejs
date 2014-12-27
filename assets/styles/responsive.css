@@ -1,0 +1,35 @@
+@charset "utf-8";
+/* CSS Document */
+
+@media only screen and (max-width: 991px) {
+.search-inner .sort{margin-top:15px; }	
+.buttons{text-align:center;}
+.nav-outer .navbar > .container .navbar-brand, .nav-outer .navbar > .container-fluid .navbar-brand{  }
+.container-fluid > .navbar-header{float:none; text-align:center; }
+.contact-outer{padding-left:0px; }
+.heading-box h2{font-size:22px; }
+.heading-box h2 span{font-size:20px; }
+.contact-outer form input.form-control{margin-bottom:8px; }
+.contact-outer form label.control-label strong{display:block;}
+}
+@media only screen and (max-width: 768px ){
+.nav-outer .navbar-brand{margin-top:-5px; }
+.search-inner select.form-control{margin-bottom:10px; }	
+.search-inner h2{ font-size:24px; }
+a.remove{height:35px; width:40px; line-height:35px; }
+.buttons a{margin-bottom:10px; font-size:20px; }
+.search-inner .sort label{font-size:24px; }
+.search-inner .sort {margin-top:5px; }
+.contact-outer{ margin-bottom:30px; }
+.options, .description{padding:15px; }
+.car-desc{margin-bottom:40px; }
+.contact-outer form input[type="submit"]{padding:10px; }
+.car{width:100%; max-width:100%; }
+.car img{width:100%; height:auto; }
+.other-info{width:100%; max-width:100%; }
+}
+@media only screen and (max-width: 480px ){
+.nav-outer{min-height:90px; }
+.navbar-toggle{position:absolute; top:34px; right:0px; }
+.nav-outer .container-fluid > .navbar-header{min-height:80px;}
+}
