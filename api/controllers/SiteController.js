@@ -18,17 +18,11 @@ module.exports =
     },
     view: function (req, res)
     {
-        Vehicle.findOne({ zip_code: req.params.zip, vehicle_id: req.params.vehicle_id }, function(err, vehicle)
+        VehicleService.get_vehicle_by_zip_and_id(req.params.zip, req.params.vehicle_id, function(err, data)
         {
-            console.log(err);
-            console.log(vehicle);
-
-            res.view("vehicle/view",
-            {
-                vehicle: vehicle
+            res.view("vehicle/view",{
+                vehicle: data._source
             });
-
-
         });
     }
 };

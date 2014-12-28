@@ -182,9 +182,16 @@ module.exports = (function () {
             },
             function(err, data)
             {
-              cb(null, data._source);
+              if(err)
+                return cb(err)
+
+             return cb(null, data);
             }
         );
+
+      }
+      else
+      {
 
       }
     },
@@ -199,6 +206,39 @@ module.exports = (function () {
 
     destroy: function (connection, collection, options, values, cb) {
       return cb();
+    },
+    get_random:function(connection, collection, options, cb)
+    {
+      connections[connection].search
+      (
+          {
+            host : options.host || configs[connection].host,
+            _index : options.index || configs[connection].index,
+            _type : options.type || configs[connection].type,
+            from:options.from || 0,
+            size:options.size || 10
+          },
+          {
+            query:
+            {
+              function_score :
+              {
+                query :
+                {
+                  match_all: {}
+                },
+                random_score : {}
+              }
+            }
+          },
+          function(err, data)
+          {
+            if(err)
+              return cb(err)
+
+            return cb(null, data);
+          }
+      );
     }
 
     /*

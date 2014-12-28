@@ -80,7 +80,7 @@ module.exports.connections = {
     user: 'YOUR_POSTGRES_USER',
     password: 'YOUR_POSTGRES_PASSWORD',
     database: 'YOUR_POSTGRES_DB'
-  },
+  }
 
 
   /***************************************************************************
@@ -89,10 +89,14 @@ module.exports.connections = {
   *                                                                          *
   ***************************************************************************/
 
-  devElasticsearch: {
-    adapter:'autodealio',
-    host: '54.148.1.144',
-    es: {index : 'vehicle', type : 'vehicle'}
-  }
+  //devElasticsearch:
+  //{
+  //  adapter: 'sails-elasticsearch',
+  //  hosts: ['54.148.1.144:9200'],
+  //  sniffOnStart: true,
+  //  sniffOnConnectionFault: true,
+  //  keepAlive: false,
+  //  apiVersion: '1.4'
+  //}
 
 };
