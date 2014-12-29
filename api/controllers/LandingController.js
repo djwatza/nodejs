@@ -9,29 +9,36 @@ module.exports =
 {
     zip: function (req, res)
     {
-        var zip = req.params.zip;
-
-        var q =
-        {
-            "query": {
-                "match_all": {}
-            },
-            "filter": {
-                "term": {
-                    "zip_code": zip
-                }
-            }
-        };
-
-        Vehicle.search({body:q, size: 15, from:0}, function(err, data)
+        ZipCode.findOne({id:req.params.zip, type:"zip_code"}, function(err, zip_data)
         {
             if (err) {return res.serverError(err);}
 
-            res.view("landing/zip",{
-                vehicles: data,
-                zip_code:zip
+            var zip = zip_data;
+
+            var q =
+            {
+                "query": {
+                    "match_all": {}
+                },
+                "filter": {
+                    "term": {
+                        "zip_code": zip.zip_code
+                    }
+                }
+            };
+
+            Vehicle.search({body:q, size: 15, from:0}, function(err, data)
+            {
+                if (err) {return res.serverError(err);}
+
+                res.view("landing/zip",{
+                    vehicles: data,
+                    zip_code:zip
+                });
             });
         });
+
+
     }
 };
 

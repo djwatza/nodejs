@@ -217,15 +217,34 @@ module.exports = (function () {
     },
     findOne:function(connection, collection, options, cb)
     {
+      console.log(options);
+
+      var args =
+      {
+        host : configs[connection].host,
+        _index : configs[connection].es.index,
+        _type : configs[connection].es.type,
+        _id:options.where.id
+      };
+
+      if(typeof options.where.parent_id != 'undefined')
+      {
+        args.parent = options.where.parent_id;
+      }
+
+      if(typeof options.where.type != 'undefined')
+      {
+        args._type = options.where.type;
+      }
+
+      if(typeof options.where.index != 'undefined')
+      {
+        args._index = options.where.index;
+      }
+
       connections[connection].get
       (
-          {
-            host : configs[connection].host,
-            _index : configs[connection].index,
-            _type : configs[connection].type,
-            _id:options.where.vehicle_id,
-            parent:options.where.zip_code
-          },
+          args,
           function(err, data)
           {
             if(err)

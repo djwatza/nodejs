@@ -7,10 +7,10 @@
             var secondary_style=' style="display:none;"'
 
             if (typeof zip_code != 'undefined') {
-                zip_value = zip_code;
+                zip_value = zip_code.zip_code;
                 secondary_style = '';
             %>
-                <h2>Used Cars Near <%=zip_code %></h2>
+                <h2>Used Cars Near <%=zip_code.city %>, <%=zip_code.state_name %> (<%=zip_code.zip_code %>)</h2>
             <% } else { %>
               <h2>Local Used Car Search</h2>
             <% } %>

@@ -33,7 +33,7 @@ module.exports =
     },
     view: function (req, res)
     {
-        Vehicle.findOne({zip_code: req.params.zip, vehicle_id:req.params.vehicle_id}, function(err, data)
+        Vehicle.findOne({parent_id: req.params.zip, id:req.params.vehicle_id}, function(err, data)
         {
             res.view("vehicle/view",{
                 vehicle: data

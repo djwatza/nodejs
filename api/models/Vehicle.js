@@ -43,117 +43,111 @@ module.exports =
 {
   attributes:
   {
-    //connection: 'devElasticsearch',
-    //vehicle_id: {
-    //  type: 'integer',
-    //  defaultsTo: null
-    //},
-    //program_id: {
-    //  type: 'string',
-    //  defaultsTo: null
-    //},
-    //dealer_id: {
-    //  type: 'integer',
-    //  defaultsTo: null
-    //},
-    //zip_code: {
-    //  type: 'integer',
-    //  defaultsTo: 90293
-    //},
-    //radius: {
-    //  type: 'integer',
-    //  defaultsTo: 100
-    //},
-    //phone_number: {
-    //  type: 'string',
-    //  defaultsTo: null
-    //},
-    //vin: {
-    //  type: 'string',
-    //  defaultsTo: null
-    //},
-    //stock_number: {
-    //  type: 'string',
-    //  defaultsTo: null
-    //},
-    //year: {
-    //  type: 'integer',
-    //  defaultsTo: 2015
-    //},
-    //make: {
-    //  type: 'string',
-    //  defaultsTo: null
-    //},
-    //model: {
-    //  type: 'string',
-    //  defaultsTo: null
-    //},
-    //series: {
-    //  type: 'string',
-    //  defaultsTo: null
-    //},
-    //mileage: {
-    //  type: 'integer',
-    //  defaultsTo: null
-    //},
-    //price: {
-    //  type: 'integer',
-    //  defaultsTo: null
-    //},
-    //interior_color: {
-    //  type: 'string',
-    //  defaultsTo: null
-    //},
-    //exterior_color: {
-    //  type: 'string',
-    //  defaultsTo: null
-    //},
-    //num_doors: {
-    //  type: 'integer',
-    //  defaultsTo: null
-    //},
-    //num_cylinders: {
-    //  type: 'integer',
-    //  defaultsTo: null
-    //},
-    //transmission_type: {
-    //  type: 'string',
-    //  defaultsTo: 'AUTO'
-    //},
-    //certified_preowned: {
-    //  type: 'boolean',
-    //  defaultsTo: false
-    //},
-    //comments: {
-    //  type: 'string',
-    //  defaultsTo: null
-    //},
-    //features: {
-    //  type: 'array',
-    //  defaultsTo: []
-    //},
-    //image_urls: {
-    //  type: 'array',
-    //  defaultsTo: []
-    //},
-    //city: {
-    //  type: 'string',
-    //  defaultsTo: null
-    //},
-    //state: {
-    //  type: 'string',
-    //  defaultsTo: null
-    //},
-    //today: {
-    //  type: 'date',
-    //  defaultsTo: null
-    //},
-    //
-    //// Attribute methods
-    //get_random: function (count, cb)
-    //{
-    //
-    //}
+    connection: 'devElasticsearch',
+    vehicle_id: {
+      type: 'integer',
+      defaultsTo: null
+    },
+    program_id: {
+      type: 'string',
+      defaultsTo: null
+    },
+    dealer_id: {
+      type: 'integer',
+      defaultsTo: null
+    },
+    zip_code: {
+      type: 'integer',
+      defaultsTo: 90293
+    },
+    radius: {
+      type: 'integer',
+      defaultsTo: 100
+    },
+    phone_number: {
+      type: 'string',
+      defaultsTo: null
+    },
+    vin: {
+      type: 'string',
+      defaultsTo: null
+    },
+    stock_number: {
+      type: 'string',
+      defaultsTo: null
+    },
+    year: {
+      type: 'integer',
+      defaultsTo: 2015
+    },
+    make: {
+      type: 'string',
+      defaultsTo: null
+    },
+    model: {
+      type: 'string',
+      defaultsTo: null
+    },
+    series: {
+      type: 'string',
+      defaultsTo: null
+    },
+    mileage: {
+      type: 'integer',
+      defaultsTo: null
+    },
+    price: {
+      type: 'integer',
+      defaultsTo: null
+    },
+    interior_color: {
+      type: 'string',
+      defaultsTo: null
+    },
+    exterior_color: {
+      type: 'string',
+      defaultsTo: null
+    },
+    num_doors: {
+      type: 'integer',
+      defaultsTo: null
+    },
+    num_cylinders: {
+      type: 'integer',
+      defaultsTo: null
+    },
+    transmission_type: {
+      type: 'string',
+      defaultsTo: 'AUTO'
+    },
+    certified_preowned: {
+      type: 'boolean',
+      defaultsTo: false
+    },
+    comments: {
+      type: 'string',
+      defaultsTo: null
+    },
+    features: {
+      type: 'array',
+      defaultsTo: []
+    },
+    image_urls: {
+      type: 'array',
+      defaultsTo: []
+    },
+    city: {
+      type: 'string',
+      defaultsTo: null
+    },
+    state: {
+      type: 'string',
+      defaultsTo: null
+    },
+    today: {
+      type: 'date',
+      defaultsTo: null
+    }
   }
 };
 
