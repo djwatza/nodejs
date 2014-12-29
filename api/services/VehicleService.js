@@ -30,3 +30,32 @@ module.exports =
         );
     }
 };
+
+
+/*
+    count vehicles by zip code:
+* GET vehicle/_search?search_type=count
+ {
+ "aggs": {
+ "zip_code": {
+ "terms": {
+ "field": "zip_code"
+ },
+ "aggs": {
+ "vehicle_children": {
+ "children": {
+ "type": "vehicle"
+ },
+ "aggs": {
+ "vehicle_count": {
+ "terms": {
+ "field": "vehicle._id"
+ }
+ }
+ }
+ }
+ }
+ }
+ }
+ }
+* */

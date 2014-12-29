@@ -33,6 +33,11 @@ module.exports.routes = {
   * for configuration options and examples.                                  *
   *                                                                          *
   ***************************************************************************/
+  'get /:zip': {
+      controller: 'LandingController',
+      action: 'zip',
+      skipAssets: true
+  },
   'get /:zip/:vehicle_id': {
       controller: 'SiteController',
       action: 'view',

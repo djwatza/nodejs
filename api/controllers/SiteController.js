@@ -9,19 +9,34 @@ module.exports =
 {
     index: function (req, res)
     {
-        VehicleService.get_random(15, function(err, data)
+        var q =
+        {
+            query:
+            {
+                function_score :
+                {
+                    query :
+                    {
+                        match_all: {}
+                    },
+                    random_score : {}
+                }
+            }
+        };
+
+        Vehicle.search({body: q, size:15, from:0}, function(err, data)
         {
             res.view("homepage",{
-                vehicles: data.hits
+                vehicles: data
             });
         });
     },
     view: function (req, res)
     {
-        VehicleService.get_vehicle_by_zip_and_id(req.params.zip, req.params.vehicle_id, function(err, data)
+        Vehicle.findOne({zip_code: req.params.zip, vehicle_id:req.params.vehicle_id}, function(err, data)
         {
             res.view("vehicle/view",{
-                vehicle: data._source
+                vehicle: data
             });
         });
     }

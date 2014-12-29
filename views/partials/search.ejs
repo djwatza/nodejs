@@ -1,26 +1,38 @@
 <section class="search-form">
     <div class="container">
         <div class="search-inner"><a href="#" class="remove"><img src="images/dash.png" alt="dash"></a>
-            <h2>Used Car Search</h2>
+
+            <%
+            var zip_value = '';
+            var secondary_style=' style="display:none;"'
+
+            if (typeof zip_code != 'undefined') {
+                zip_value = zip_code;
+                secondary_style = '';
+            %>
+                <h2>Used Cars Near <%=zip_code %></h2>
+            <% } else { %>
+              <h2>Local Used Car Search</h2>
+            <% } %>
+
             <form action="#" method="get">
 
-                <div class="row">
-                    <div class="col-lg-4 col-md-4 clearfix">
+                <div class="row" id="primary-search">
+                    <div class="col-lg-6 col-md-6 clearfix">
                         <div class="form-group clearfix">
 
-                            <label for="zip_code" class="control-label">Your Zip Code</label>
+                            <label for="zip_code" class="control-label">Enter your zip code to find used cars for sale near you:</label>
                         </div>
                     </div>
 
-                    <div class="col-lg-8 col-md-8 clearfix">
+                    <div class="col-lg-6 col-md-6 clearfix">
                         <div class="form-group clearfix">
-                            <input type="text" name="zip_code" id="zip_code" class="form-control"/>
+                            <input type="text" name="zip_code" id="zip_code" class="form-control" value="<%=zip_value %>"/>
                         </div>
                     </div>
                 </div>
 
-
-                <div class="row">
+                <div class="row" id="secondary-search"<%-secondary_style %>>
                     <div class="col-lg-6 col-md-6 clearfix">
                         <div class="form-group clearfix">
                             <div class="col-lg-8 col-md-8 col-sm-6">
@@ -50,12 +62,7 @@
                                 </select>
                             </div>
                             <div class="col-lg-4 col-md-4 col-sm-6">
-                                <select class="form-control">
-                                    <option>Zip Code</option>
-                                    <option>Option 1</option>
-                                    <option>Option 1</option>
-                                    <option>Option 1</option>
-                                </select>
+
                             </div>
                         </div>
                     </div>

@@ -1,7 +1,9 @@
 /**
  * Module Dependencies
  */
+var _ = require('lodash');
 var elasticsearch = require('es');
+
 /**
  * waterline-autodealio
  *
@@ -169,31 +171,7 @@ module.exports = (function () {
      */
     find: function (connection, collection, options, cb)
     {
-      if(1 == options.limit)
-      {
-        connections[connection].get
-        (
-            {
-              host : configs[connection].host,
-              _index : configs[connection].index,
-              _type : configs[connection].type,
-              _id:options.where.vehicle_id,
-              parent:options.where.zip_code
-            },
-            function(err, data)
-            {
-              if(err)
-                return cb(err)
-
-             return cb(null, data);
-            }
-        );
-
-      }
-      else
-      {
-
-      }
+      return cb();
     },
 
     create: function (connection, collection, values, cb) {
@@ -207,7 +185,7 @@ module.exports = (function () {
     destroy: function (connection, collection, options, values, cb) {
       return cb();
     },
-    get_random:function(connection, collection, options, cb)
+    search:function(connection, collection, options, cb)
     {
       connections[connection].search
       (
@@ -218,28 +196,47 @@ module.exports = (function () {
             from:options.from || 0,
             size:options.size || 10
           },
+          options.body,
+          function(err, data)
           {
-            query:
-            {
-              function_score :
-              {
-                query :
-                {
-                  match_all: {}
-                },
-                random_score : {}
-              }
-            }
+            if(err)
+              return cb(err);
+
+            var results = _.map(data.hits.hits, function(hit) {
+              return hit._source;
+            });
+
+            var ret = {
+              hits: results,
+              total: data.hits.total
+            };
+
+            cb(null, ret);
+          }
+      );
+    },
+    findOne:function(connection, collection, options, cb)
+    {
+      connections[connection].get
+      (
+          {
+            host : configs[connection].host,
+            _index : configs[connection].index,
+            _type : configs[connection].type,
+            _id:options.where.vehicle_id,
+            parent:options.where.zip_code
           },
           function(err, data)
           {
             if(err)
               return cb(err)
 
-            return cb(null, data);
+            return cb(null, data._source);
           }
       );
     }
+
+
 
     /*
 
