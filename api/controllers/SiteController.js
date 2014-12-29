@@ -9,6 +9,14 @@ module.exports =
 {
     index: function (req, res)
     {
+        if('POST' == req.originalMethod)
+        {
+            if(typeof req.body.zip_code != 'undefined' && req.body.zip_code.length)
+            {
+                res.redirect(req.body.zip_code);
+            }
+        }
+
         var q =
         {
             query:

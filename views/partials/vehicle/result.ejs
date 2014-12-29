@@ -13,7 +13,7 @@
                     <%= vehicle.year %> <%= vehicle.make %> <%= vehicle.model %>
                 </a>
             </h3>
-            <strong>Price: $<%= vehicle.price %></strong></div>
+            <strong>Price: $<%= Number(vehicle.price).format(2, 3) %></strong></div>
     </div>
-    <div class="other-info clearfix"><span>Mileage: <%= vehicle.mileage %></span><small>Location: <%= vehicle.city %>, <%= vehicle.state %> </small></div>
+    <div class="other-info clearfix"><span>Mileage: <%=Number(vehicle.mileage).format(0,3) %></span><small>Location: <a href="/<%= vehicle.zip_code %>"><%= vehicle.city %>, <%= vehicle.state %></a> </small></div>
 </div>

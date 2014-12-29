@@ -1,5 +1,6 @@
 <section class="results">
     <div class="container">
+        <p><%= vehicles.total.format(0,3) %> used cars located</p>
         <div class="row">
             <% _.each(vehicles.hits, function (vehicle) { %>
                 <%- partial ('./result', {vehicle: vehicle}) %>
