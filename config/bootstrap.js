@@ -11,6 +11,14 @@
 
 module.exports.bootstrap = function(cb) {
 
+  String.prototype.toSlug = function()
+  {
+    return this.toLowerCase()
+        .replace(/[^\w ]+/g,'')
+        .replace(/ +/g,'-')
+        ;
+  };
+
   /**
    * http://stackoverflow.com/questions/149055/how-can-i-format-numbers-as-money-in-javascript
    *

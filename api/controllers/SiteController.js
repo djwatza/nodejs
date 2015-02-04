@@ -17,25 +17,55 @@ module.exports =
             }
         }
 
+        //var q =
+        //{
+        //    query:
+        //    {
+        //        function_score :
+        //        {
+        //            query :
+        //            {
+        //                match_all: {}
+        //            },
+        //            random_score : {}
+        //        }
+        //    }
+        //};
+
         var q =
         {
-            query:
-            {
-                function_score :
-                {
-                    query :
-                    {
-                        match_all: {}
+            size:0,
+            "aggs": {
+                "zip_code": {
+                    "terms": {
+                        "field": "state_name",
+                        "order" : { "_term" : "asc" },
+                        size:50
                     },
-                    random_score : {}
+                    "aggs": {
+                        "vehicle_children": {
+                            "children": {
+                                "type": "vehicle"
+                            },
+                            "aggs": {
+                                "vehicle_count": {
+                                    "terms": {
+                                        "field": "vehicle._id"
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
             }
         };
 
-        Vehicle.search({body: q, size:15, from:0}, function(err, data)
+        Vehicle.search({body: q, type:"zip_code"}, function(err, data)
         {
+            var states = data.aggregations;
+
             res.view("homepage",{
-                vehicles: data
+                states:states.zip_code.buckets
             });
         });
     },
@@ -43,6 +73,8 @@ module.exports =
     {
         Vehicle.findOne({parent_id: req.params.zip, id:req.params.vehicle_id}, function(err, data)
         {
+
+
             res.view("vehicle/view",{
                 vehicle: data
             });

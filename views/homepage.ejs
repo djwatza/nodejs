@@ -1,5 +1,19 @@
 <!-- Default home page -->
 
 <%- partial ('partials/search') %>
+<section class="browse-cars">
+    <div class="container">
+        <h4>Browse Used Cars by State</h4>
+        <ul>
+        <%
+        _.each(states, function (state) {
+            if(state.key.length > 0){ %>
+            <li>
+                <a href="/state/<%=state.key.toSlug() %>"><%=state.key %></a> (<em><%=Number(state.vehicle_children.doc_count).format(0, 3) %> cars</em>)
+            </li>
+        <% }}) %>
 
-<%- partial ('partials/vehicle/results') %>
+        </ul>
+    </div>
+</section>
+<!-- partial ('partials/vehicle/results')  -->

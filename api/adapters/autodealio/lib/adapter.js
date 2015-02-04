@@ -187,15 +187,26 @@ module.exports = (function () {
     },
     search:function(connection, collection, options, cb)
     {
+      var args =
+      {
+        host : configs[connection].host,
+        _index : configs[connection].es.index,
+        _type : configs[connection].es.type
+      };
+
+      if(typeof options.type != 'undefined')
+      {
+        args._type = options.type;
+      }
+
+      if(typeof options.index != 'undefined')
+      {
+        args._index = options.index;
+      }
+
       connections[connection].search
       (
-          {
-            host : options.host || configs[connection].host,
-            _index : options.index || configs[connection].index,
-            _type : options.type || configs[connection].type,
-            from:options.from || 0,
-            size:options.size || 10
-          },
+          args,
           options.body,
           function(err, data)
           {
@@ -211,14 +222,17 @@ module.exports = (function () {
               total: data.hits.total
             };
 
+            if(typeof data.aggregations != 'undefined')
+            {
+              ret.aggregations = data.aggregations;
+            }
+
             cb(null, ret);
           }
       );
     },
     findOne:function(connection, collection, options, cb)
     {
-      console.log(options);
-
       var args =
       {
         host : configs[connection].host,
