@@ -7,6 +7,14 @@
 
 module.exports =
 {
+    state: function (req, res)
+    {
+        res.send("state action ok");
+    },
+    city: function (req, res)
+    {
+        res.send("city action ok");
+    },
     zip: function (req, res)
     {
         ZipCode.findOne({id:req.params.zip, type:"zip_code"}, function(err, zip_data)
@@ -37,8 +45,6 @@ module.exports =
                 });
             });
         });
-
-
     }
 };
 

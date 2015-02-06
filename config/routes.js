@@ -33,16 +33,16 @@ module.exports.routes = {
   * for configuration options and examples.                                  *
   *                                                                          *
   ***************************************************************************/
-    //'get /:zip': {
-    //  controller: 'LandingController',
-    //  action: 'zip',
-    //  skipAssets: true
-    //},
-    //'get /:zip/:vehicle_id': {
-    //  controller: 'SiteController',
-    //  action: 'view',
-    //  skipAssets: true
-    //},
+    'get /:state': {
+      controller: 'LandingController',
+      action: 'state',
+      skipAssets: true
+    },
+    'get /:state/:city': {
+        controller: 'LandingController',
+        action: 'city',
+        skipAssets: true
+    },
     'get /api/vehicles': {
         controller: 'api/VehiclesApiController',
         action: 'list',
