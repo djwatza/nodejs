@@ -2,18 +2,17 @@ module.exports =
 {
     list: function(params, callback)
     {
-
-        console.log(params);
         var state = (UtilityService.empty(params.state)) ? null : params.state;
         var city = (UtilityService.empty(params.city)) ? null : params.city;
         var make = (UtilityService.empty(params.make)) ? null : params.make;
         var category = (UtilityService.empty(params.category)) ? null : params.category;
         var zip = (UtilityService.empty(params.zip)) ? null : params.zip;
+        var vin = (UtilityService.empty(params.vin)) ? null : params.vin;
         var page = (UtilityService.empty(params.page)) ? 1 : params.page;
         var count = (UtilityService.empty(params.count)) ? 10 : params.count;
         var random = (UtilityService.empty(params.random) || "true" != params.random) ? false : true;
 
-        if(random) 
+        if(random)
         {
             var q =
             {
@@ -53,6 +52,16 @@ module.exports =
             ({
                 "term": {
                     "state": state
+                }
+            }); 
+        }
+
+        if(!UtilityService.empty(vin))
+        {
+            q.filter.bool.must.push
+            ({
+                "term": {
+                    "vin": vin
                 }
             });
         }
