@@ -53,7 +53,7 @@ module.exports =
                 "term": {
                     "state": state
                 }
-            }); 
+            });
         }
 
         if(!UtilityService.empty(vin))
