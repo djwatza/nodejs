@@ -187,19 +187,25 @@ module.exports = (function () {
     },
     search:function(connection, collection, options, cb)
     {
+      var page = (UtilityService.empty(options.page)) ? 1 : options.page;
+      var size = (UtilityService.empty(options.count)) ? 10 : options.count;
+      var from = (page - 1) * size;
+
       var args =
       {
         host : configs[connection].host,
         _index : configs[connection].es.index,
-        _type : configs[connection].es.type
+        _type : configs[connection].es.type,
+        from : from,
+        size : size
       };
 
-      if(typeof options.type != 'undefined')
+      if(!UtilityService.empty(options.type))
       {
         args._type = options.type;
       }
 
-      if(typeof options.index != 'undefined')
+      if(!UtilityService.empty(options.index))
       {
         args._index = options.index;
       }
@@ -219,7 +225,9 @@ module.exports = (function () {
 
             var ret = {
               hits: results,
-              total: data.hits.total
+              total: parseInt(data.hits.total),
+              items_per_page: parseInt(size),
+              from:parseInt(from)
             };
 
             if(typeof data.aggregations != 'undefined')

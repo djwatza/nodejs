@@ -1,0 +1,13 @@
+geo API
+ - get states with car count
+ - get cities by state with car count per city > 0 
+ - get nearest city with results by zip code
+
+cars API
+ - get cars by state + city (paginated)
+ - get cars by state + city + make (paginated)
+ - get cars by state + city + category (paginated)
+ - get car details by vin ? ({year}-{make}-{model}-{series}-{vin})
+
+lead API
+- submit lead 

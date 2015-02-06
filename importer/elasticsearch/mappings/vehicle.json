@@ -1,0 +1,99 @@
+{
+  "_parent": {
+    "type": "zip_code"
+  },
+  "_routing": {
+    "required": true
+  },
+  "properties": {
+    "certified_preowned": {
+      "type": "boolean"
+    },
+    "city": {
+      "type": "string",
+      "index": "not_analyzed"
+    },
+    "comments": {
+      "type": "string"
+    },
+    "dealer_id": {
+      "type": "integer"
+    },
+    "exterior_color": {
+      "type": "string"
+    },
+    "features": {
+      "type": "string"
+    },
+    "image_urls": {
+      "type": "string"
+    },
+    "interior_color": {
+      "type": "string"
+    },
+    "make": {
+      "type": "string",
+      "index": "not_analyzed"
+    },
+    "mileage": {
+      "type": "integer"
+    },
+    "model": {
+      "type": "string",
+      "index": "not_analyzed"
+    },
+    "num_cylinders": {
+      "type": "integer"
+    },
+    "num_doors": {
+      "type": "integer"
+    },
+    "pin": {
+      "properties": {
+        "location": {
+          "type": "geo_point"
+        }
+      }
+    },
+    "price": {
+      "type": "float"
+    },
+    "program_id": {
+      "type": "integer"
+    },
+    "radius": {
+      "type": "string"
+    },
+    "series": {
+      "type": "string"
+    },
+    "state": {
+      "type": "string",
+      "index": "not_analyzed"
+    },
+    "stock_number": {
+      "type": "string"
+    },
+    "today": {
+      "type": "date",
+      "format": "dateOptionalTime"
+    },
+    "transmission_type": {
+      "type": "string"
+    },
+    "vehicle_id": {
+      "type": "string",
+      "index": "not_analyzed"
+    },
+    "vin": {
+      "type": "string",
+      "index": "not_analyzed"
+    },
+    "year": {
+      "type": "integer"
+    },
+    "zip_code": {
+      "type": "integer"
+    }
+  }
+}
