@@ -33,9 +33,9 @@ module.exports.routes = {
   * for configuration options and examples.                                  *
   *                                                                          *
   ***************************************************************************/
-    'get /:state': {
-      controller: 'LandingController',
-      action: 'state',
+    'get /api/vehicles': {
+      controller: 'api/VehiclesApiController',
+      action: 'list',
       skipAssets: true
     },
     'get /:state/:city': {
@@ -43,9 +43,9 @@ module.exports.routes = {
         action: 'city',
         skipAssets: true
     },
-    'get /api/vehicles': {
-        controller: 'api/VehiclesApiController',
-        action: 'list',
+    'get /:state': {
+        controller: 'LandingController',
+        action: 'state',
         skipAssets: true
     }
 };
