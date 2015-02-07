@@ -1,3 +1,11 @@
+String.prototype.toSlug = function()
+{
+    return this.toLowerCase()
+        .replace(/[^\w ]+/g,'')
+        .replace(/ +/g,'-')
+        ;
+};
+
 Autodealio = {
     params:{},
     pages: {
@@ -107,6 +115,17 @@ Autodealio.pages.landing.state =
         Autodealio.services.vehicles.list({state: t._state}, t.on_get_vehicles);
 
         $(window).scroll(t.on_scroll);
+
+        var request = $.ajax({
+            url: "/api/states/" + t._state + "/cities",
+            type: "GET",
+            data: {},
+            dataType: "json"
+        });
+        request.done(t.on_get_cities);
+        request.fail(function( jqXHR, textStatus ) {
+            Autodealio.error("get cities request failed: " + textStatus );
+        });
     },
     on_get_vehicles: function(data)
     {
@@ -120,6 +139,28 @@ Autodealio.pages.landing.state =
             t._page += 1;
             t.scroll_page(t._page);
         }
+    },
+    on_get_cities:function(data)
+    {
+        var target = jQuery("#cities-list");
+        var template = jQuery("#city-template");
+        var t = Autodealio.pages.landing.state;
+
+        var count = 0;
+
+        jQuery.each( data.hits, function( key, value )
+        {
+            var clone = template.clone().removeAttr("id").removeClass("hidden");
+
+            $("a", clone)
+                .attr("href", "/" + t._state + "/" + value.city.toSlug())
+                .text(value.city + " (" + value.count + ")");
+
+            target.append(clone);
+            count++;
+        });
+
+        $(".cities-count").text("Located used vehicles for sale in " + count + " cities ");
     },
     scroll_page: function(page)
     {

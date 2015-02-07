@@ -1,1 +1,15 @@
-<%- partial ('../partials/vehicle/grid') %>
+<section class="cities">
+    <div class="container" id="cities-container">
+        <h1>Used Cars in <%=page_params.state %></h1>
+        <h3>Browse By City</h3>
+        <p class="cities-count">0 cities located with used cars for sale</p>
+
+        <ol id="cities-list">
+            <li id="city-template" class="hidden">
+                <a href="#">City Name</a>
+            </li>
+        </ol>
+    </div>
+</section>
+
+<%- partial ('../partials/vehicle/grid', { header:"Browse All Cities"}) %>
