@@ -19,6 +19,13 @@ module.exports.bootstrap = function(cb) {
         ;
   };
 
+    String.prototype.fromSlug = function()
+    {
+        return this
+            .replace('-','')
+            .replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+    };
+
   /**
    * http://stackoverflow.com/questions/149055/how-can-i-format-numbers-as-money-in-javascript
    *

@@ -1,1 +1,15 @@
-<%- partial ('../partials/vehicle/grid') %>
+<section class="cities">
+    <div class="container" id="cities-container">
+        <h1>Used Cars in <%=page_params.city.fromSlug() %>, <%=page_params.state.toUpperCase() %></h1>
+        <h3>Browse By Make</h3>
+        <p class="cities-count">0 makes located</p>
+
+        <ol id="make-list">
+            <li id="make-template" class="hidden">
+                <a href="#">Make Model Trim</a>
+            </li>
+        </ol>
+    </div>
+</section>
+
+<%- partial ('../partials/vehicle/grid', { header:"Browse All Makes and Models"}) %>

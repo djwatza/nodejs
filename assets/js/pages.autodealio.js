@@ -6,6 +6,13 @@ String.prototype.toSlug = function()
         ;
 };
 
+String.prototype.fromSlug = function()
+{
+    return this
+        .replace('-','')
+        .replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+};
+
 Autodealio = {
     params:{},
     pages: {
@@ -61,11 +68,12 @@ Autodealio.pages.grid.vehicle =
             layoutMode: 'masonry'
         });
     },
-    append: function(data)
+    append: function(data, header)
     {
         var t = Autodealio.pages.grid.vehicle;
 
-        $(".results-count", t._container).text(data.total + " used cars located in " + Autodealio.params.state);
+
+        $(".results-count", t._container).text(header);
 
         var children = [];
 
@@ -93,6 +101,49 @@ Autodealio.pages.grid.vehicle =
         });
 
         t._target.isotope( 'appended', children );
+    }
+};
+
+Autodealio.pages.landing.city =
+{
+    _state: null,
+    _city: null,
+    _page: null,
+    run: function()
+    {
+        var container = $(Autodealio.params.container_id);
+        var template = $(Autodealio.params.template_id);
+
+        var t = Autodealio.pages.landing.city;
+
+        t._state = Autodealio.params.state.toUpperCase();
+        t._city = Autodealio.params.city.fromSlug();
+        t._page = 1;
+
+        Autodealio.pages.grid.vehicle.initialize(container, template);
+
+        Autodealio.services.vehicles.list({state: t._state, city: t._city}, t.on_get_vehicles);
+
+        $(window).scroll(t.on_scroll);
+    },
+    on_get_vehicles: function(data)
+    {
+        Autodealio.pages.grid.vehicle.append(data, data.total + " used cars located in " + Autodealio.params.city.fromSlug() + ", " + Autodealio.params.state);
+    },
+    on_scroll: function()
+    {
+        if ($(window).scrollTop() >= $(document).height() - $(window).height() - 100)
+        {
+            var t = Autodealio.pages.landing.city;
+            t._page += 1;
+            t.scroll_page(t._page);
+        }
+    },
+    scroll_page: function(page)
+    {
+        var t = Autodealio.pages.landing.city;
+
+        Autodealio.services.vehicles.list({state: t._state, city: t._city,page: page}, t.on_get_vehicles);
     }
 };
 
@@ -129,7 +180,7 @@ Autodealio.pages.landing.state =
     },
     on_get_vehicles: function(data)
     {
-        Autodealio.pages.grid.vehicle.append(data);
+        Autodealio.pages.grid.vehicle.append(data, data.total + " used cars located in " + Autodealio.params.state);
     },
     on_scroll: function()
     {

@@ -14,6 +14,10 @@ Autodealio.initialize = function(current_page, page_params)
         case "landing_state":
             Autodealio.pages.landing.state.run();
             break;
+
+        case "landing_city":
+            Autodealio.pages.landing.city.run();
+            break;
     }
 };
 //
