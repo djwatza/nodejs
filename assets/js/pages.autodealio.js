@@ -42,27 +42,15 @@ Autodealio.pages.grid.vehicle =
     _container:null,
     _template:null,
     _target:null,
-    _page:null,
-    _on_scroll:null,
-    initialize: function(container, template, scroll_callback)
+    initialize: function(container, template)
     {
         var t = Autodealio.pages.grid.vehicle;
         t._container = container;
         t._template = template;
         t._target = $("div.row", container);
-        t._on_scroll = scroll_callback;
         t._target.isotope({
             itemSelector : '.vehicle-grid-item',
             layoutMode: 'masonry'
-        });
-        t._page = 1;
-
-        $(window).scroll(function ()
-        {
-            if ($(window).scrollTop() >= $(document).height() - $(window).height() - 100) { // height - 100px
-                t._page += 1;
-                t._on_scroll(t._page);
-            }
         });
     },
     append: function(data)
@@ -103,23 +91,37 @@ Autodealio.pages.grid.vehicle =
 Autodealio.pages.landing.state =
 {
     _state:null,
+    _page:null,
     run: function()
     {
         var container = $(Autodealio.params.container_id);
         var template = $(Autodealio.params.template_id);
 
         var t = Autodealio.pages.landing.state;
-        t._state = Autodealio.params.state;
 
-        Autodealio.pages.grid.vehicle.initialize(container, template, t.on_scroll);
+        t._state = Autodealio.params.state;
+        t._page = 1;
+
+        Autodealio.pages.grid.vehicle.initialize(container, template);
 
         Autodealio.services.vehicles.list({state: t._state}, t.on_get_vehicles);
+
+        $(window).scroll(t.on_scroll);
     },
     on_get_vehicles: function(data)
     {
         Autodealio.pages.grid.vehicle.append(data);
     },
-    on_scroll: function(page)
+    on_scroll: function()
+    {
+        if ($(window).scrollTop() >= $(document).height() - $(window).height() - 100)
+        {
+            var t = Autodealio.pages.landing.state;
+            t._page += 1;
+            t.scroll_page(t._page);
+        }
+    },
+    scroll_page: function(page)
     {
         var t = Autodealio.pages.landing.state;
 
