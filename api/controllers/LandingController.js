@@ -19,7 +19,11 @@ module.exports =
     city: function (req, res)
     {
         res.view("landing/city",{
-            current_page: "landing_city"
+            current_page: "landing_city",
+            page_params: {
+                state: req.params.state,
+                city: req.params.city
+            }
         });
     },
     zip: function (req, res)
@@ -49,7 +53,8 @@ module.exports =
                 res.view("landing/zip",{
                     vehicles: data,
                     zip_code:zip,
-                    current_page: "landing_zip"
+                    current_page: "landing_zip",
+                    page_params:{}
                 });
             });
         });

@@ -50,7 +50,9 @@ module.exports =
             var states = data.aggregations;
 
             res.view("homepage",{
-                states:states.zip_code.buckets
+                states:states.zip_code.buckets,
+                page_params:{},
+                current_page: "home"
             });
         });
     },
@@ -58,10 +60,10 @@ module.exports =
     {
         Vehicle.findOne({parent_id: req.params.zip, id:req.params.vehicle_id}, function(err, data)
         {
-
-
             res.view("vehicle/view",{
-                vehicle: data
+                vehicle: data,
+                page_params:{},
+                current_page: "details_vehicle"
             });
         });
     }
