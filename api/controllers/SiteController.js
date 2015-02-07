@@ -17,21 +17,6 @@ module.exports =
             }
         }
 
-        //var q =
-        //{
-        //    query:
-        //    {
-        //        function_score :
-        //        {
-        //            query :
-        //            {
-        //                match_all: {}
-        //            },
-        //            random_score : {}
-        //        }
-        //    }
-        //};
-
         var q =
         {
             size:0,

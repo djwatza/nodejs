@@ -1,3 +1,7 @@
+<%
+page_params.thumbnails = {
+    base: sails.config.autodealio.images.base_url
+}; %>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -15,16 +19,33 @@
         <!--STYLES END-->
     </head>
     <body>
+                <script type="text/javascript">
+                    var current_page = false;
+                    var page_params = {};
+                </script>
             <%- partial ('../partials/header.ejs') %>
             <%- body %>
             <!--SCRIPTS-->
             <script src="/js/dependencies/sails.io.js"></script>
+            <script src="/js/dependencies/jquery.min.js"></script>
+            <script src="/js/external/isotope.pkgd.min.js"></script>
+            <script src="/js/external/jquery.infinitescroll.min.js"></script>
             <script src="/js/bootstrap.js"></script>
             <script src="/js/bootstrap.min.js"></script>
-            <script src="/js/jquery.min.js"></script>
             <script src="/js/jssor.js"></script>
             <script src="/js/jssor.slider.js"></script>
-            <script src="/js/script.js"></script>
+            <script src="/js/pages.autodealio.js"></script>
+            <script src="/js/scripts.autodealio.js"></script>
             <!--SCRIPTS END-->
+
+            <script type="text/javascript">
+
+                current_page = "<%= current_page %>";
+                page_params = <%- JSON.stringify(page_params) %>
+
+                jQuery( document ).ready(function() {
+                    Autodealio.initialize(current_page, page_params);
+                });
+            </script>
     </body>
 </html>

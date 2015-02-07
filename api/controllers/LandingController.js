@@ -9,11 +9,18 @@ module.exports =
 {
     state: function (req, res)
     {
-        res.send("state action ok");
+        res.view("landing/state",{
+            current_page: "landing_state",
+            page_params: {
+                state: req.params.state
+            }
+        });
     },
     city: function (req, res)
     {
-        res.send("city action ok");
+        res.view("landing/city",{
+            current_page: "landing_city"
+        });
     },
     zip: function (req, res)
     {
@@ -41,7 +48,8 @@ module.exports =
 
                 res.view("landing/zip",{
                     vehicles: data,
-                    zip_code:zip
+                    zip_code:zip,
+                    current_page: "landing_zip"
                 });
             });
         });

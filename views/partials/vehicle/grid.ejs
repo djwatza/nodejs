@@ -1,0 +1,32 @@
+<%
+    page_params.container_id = "#results-container";
+    page_params.template_id = "#result-template";
+%>
+<section class="results">
+    <div class="container" id="results-container">
+        <p class="results-count">0 used cars located</p>
+        <div class="row">
+            <div class="col-lg-4 col-md-4 col-sm-6 hidden" id="result-template">
+                <div class="car">
+                    <img class="result-img" src="/images/default-photo.png" alt="Used car deals on a {year} {make} {model}">
+                    <div class="overlay">
+                        <h3>
+                            <a href="#">
+                                {year} {make} {model}
+                            </a>
+                        </h3>
+                        <strong>Price: ${price}</strong></div>
+                </div>
+                <div class="other-info clearfix">
+                    <span>Mileage: {mileage}</span>
+                    <small>
+                        Location: <a href="#">{city}, {state}</a>
+                    </small>
+                </div>
+            </div>
+        </div>
+        <nav id="page_nav">
+            <a href="/api/vehicles?state=TX&page=2"></a>
+        </nav>
+    </div>
+</section>
