@@ -32,7 +32,8 @@ module.exports =
 
             var cities = [];
 
-            for (var i = 0, len = cities_agg.state.state_cities.buckets.length; i < len; i++) {
+            for (var i = 0, len = cities_agg.state.state_cities.buckets.length; i < len; i++)
+            {
                 var city = cities_agg.state.state_cities.buckets[i];
 
                 cities.push({
@@ -45,6 +46,7 @@ module.exports =
                 hits: cities,
                 total: cities_agg.state.doc_count
             };
+
             callback(null, ret);
         });
     }

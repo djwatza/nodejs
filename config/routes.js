@@ -38,6 +38,11 @@ module.exports.routes = {
       action: 'list',
       skipAssets: true
     },
+    'get /api/states/:state/cities': {
+        controller: 'api/GeographyApiController',
+        action: 'cities',
+        skipAssets: true
+    },
     'get /:state/:city': {
         controller: 'LandingController',
         action: 'city',

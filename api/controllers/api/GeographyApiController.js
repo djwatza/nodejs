@@ -13,7 +13,13 @@ module.exports =
     },
     cities: function (req, res)
     {
+        GeographyService.get_cities_by_state(req.params.state, function(err, data)
+        {
+            if (err)
+                return res.serverError(err);
 
+            res.jsonx(data);
+        });
     },
     nearest: function (req, res)
     {
