@@ -9,8 +9,23 @@ String.prototype.toSlug = function()
 String.prototype.fromSlug = function()
 {
     return this
-        .replace('-','')
+        .replace('-',' ')
         .replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+};
+
+String.prototype.format = function() {
+    var args = arguments;
+    return this.replace(/{(\d+)}/g, function(match, number) {
+        return typeof args[number] != 'undefined'
+            ? args[number]
+            : match
+            ;
+    });
+};
+
+Number.prototype.format = function(n, x) {
+    var re = '\\d(?=(\\d{' + (x || 3) + '})+' + (n > 0 ? '\\.' : '$') + ')';
+    return this.toFixed(Math.max(0, ~~n)).replace(new RegExp(re, 'g'), '$&,');
 };
 
 Autodealio = {
@@ -90,10 +105,13 @@ Autodealio.pages.grid.vehicle =
                 $(".result-img", clone).attr("src", Autodealio.thumbnail(value.image_urls[0], 330, 440, 'crop'))
             }
 
+            var state_url = "/" + value.state.toUpperCase();
+            var city_url = state_url + "/" + value.city.toSlug();
+
             $(".overlay h3 a", clone).text(name);
-            $(".overlay strong", clone).text("Price: $" + value.price);
-            $(".other-info span", clone).text("Mileage: " + value.mileage);
-            $(".other-info small", clone).html("Location: <a href=\"#\">" + value.city + ", " + value.state + "</a>");
+            $(".overlay strong", clone).text("Price: $" + parseInt(value.price).format(0,3));
+            $(".other-info span", clone).html("Mileage:<br/>{0}".format(parseInt(value.mileage).format(0,3)));
+            $(".other-info small", clone).html("Location:<br/><a href=\"{0}\">{1}</a>, <a href=\"{2}\">{3}</a>".format(city_url, value.city, state_url, value.state));
 
             children.push(clone);
 

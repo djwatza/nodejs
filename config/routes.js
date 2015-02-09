@@ -53,4 +53,6 @@ module.exports.routes = {
         action: 'state',
         skipAssets: true
     }
+
+    //  /{year}-{make}-{model}-{series}-{vin}/
 };
