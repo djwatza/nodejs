@@ -44,7 +44,7 @@ page_params.thumbnails = {
                 page_params = <%- JSON.stringify(page_params) %>
 
                 jQuery( document ).ready(function() {
-                    Autodealio.initialize(current_page, page_params);
+                    Autodealio.router.initialize(current_page, page_params);
                 });
             </script>
     </body>

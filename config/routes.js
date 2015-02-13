@@ -33,6 +33,11 @@ module.exports.routes = {
   * for configuration options and examples.                                  *
   *                                                                          *
   ***************************************************************************/
+    'get /:year-:make-:model-:series-:vin': {
+      controller: 'SiteController',
+      action: 'view',
+      skipAssets: true
+    },
     'get /api/vehicles': {
       controller: 'api/VehiclesApiController',
       action: 'list',
@@ -53,6 +58,4 @@ module.exports.routes = {
         action: 'state',
         skipAssets: true
     }
-
-    //  /{year}-{make}-{model}-{series}-{vin}/
 };

@@ -58,12 +58,23 @@ module.exports =
     },
     view: function (req, res)
     {
-        Vehicle.findOne({parent_id: req.params.zip, id:req.params.vehicle_id}, function(err, data)
+        console.log("view params");
+        console.log(req.params);
+
+        var vin = req.params.vin;
+
+        if(vin.indexOf("-") != -1)
+        {
+            var tmp = vin.split("-");
+            vin = tmp[vin.length - 1];
+        }
+
+        VehicleService.list({vin: vin}, function(err, data)
         {
             res.view("vehicle/view",{
-                vehicle: data,
-                page_params:{},
-                current_page: "details_vehicle"
+                vehicle: data.hits[0],
+                page_params:req.params,
+                current_page: "view_vehicle"
             });
         });
     }
