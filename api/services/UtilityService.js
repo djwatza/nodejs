@@ -70,6 +70,15 @@ module.exports =
 
         return '';
     },
+    abbr_state:function(abbr)
+    {
+        for (var i = 0, len = UtilityService._states.length; i < len; i++) {
+            if(abbr.toUpperCase() == UtilityService._states[i].abbreviation.toUpperCase())
+                return UtilityService._states[i].name;
+        }
+
+        return '';
+    },
 //  http://54.69.100.173:8080/crop/400x300/http://ucimages.services.autobytel.com/cyber/216797/i4JGDA5HB6EA327436_1.jpg
     crop_url: function(url, height, width, operation)
     {

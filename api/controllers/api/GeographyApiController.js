@@ -9,7 +9,13 @@ module.exports =
 {
     states: function (req, res)
     {
+        GeographyService.get_states(function(err, data)
+        {
+            if (err)
+                return res.serverError(err);
 
+            res.jsonx(data);
+        });
     },
     cities: function (req, res)
     {
