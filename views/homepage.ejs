@@ -4,23 +4,11 @@
 <section class="browse-cars">
     <div class="container">
         <h4>Browse Used Cars by State</h4>
-        <ol>
-        <%
-        _.each(states, function (state) {
-            if(state.key.length > 0){ %>
-            <li>
 
-            <% if(Number(state.vehicle_children.doc_count) > 0){ %>
-                <a href="/<%=UtilityService.state_abbr(state.key.toSlug()) %>"><%=state.key %></a> (<em><%=Number(state.vehicle_children.doc_count).format(0, 3) %> cars</em>)
-            <%} else { %>
-                <%=state.key %> (<em><%=Number(state.vehicle_children.doc_count).format(0, 3) %> cars</em>)
-            <% }%>
-
-
+        <ol id="states-list">
+            <li id="state-template" class="hidden">
+                <a href="#">State Name</a> <span>0 Vehicles</span>
             </li>
-        <% }}) %>
-
         </ol>
     </div>
 </section>
-<!-- partial ('partials/vehicle/results')  -->

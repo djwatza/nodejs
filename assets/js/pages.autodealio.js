@@ -126,6 +126,49 @@ Autodealio.pages.grid.vehicle =
     }
 };
 
+Autodealio.pages.landing.homepage =
+{
+    run: function()
+    {
+        var t = Autodealio.pages.landing.homepage;
+
+        var request = $.ajax({
+            url: "/api/states",
+            type: "GET",
+            data: {},
+            dataType: "json"
+        });
+
+        request.done(t.on_get_states);
+        request.fail(function( jqXHR, textStatus ) {
+            Autodealio.error("get states request failed: " + textStatus );
+        });
+    },
+    on_get_states:function(data)
+    {
+        var target = jQuery("#states-list");
+        var template = jQuery("#state-template");
+        var t = Autodealio.pages.landing.homepage;
+
+        var count = 0;
+
+        jQuery.each( data.hits, function( key, value )
+        {
+            var clone = template.clone().removeAttr("id").removeClass("hidden");
+
+            $("a", clone)
+                .attr("href", "/" + value.state.toUpperCase())
+                .text(value.state_name);
+
+            $("span", clone)
+                .text("(" + value.count + " vehicles)"); 
+
+            target.append(clone);
+            count++;
+        });
+    }
+};
+
 Autodealio.pages.landing.city =
 {
     _state: null,

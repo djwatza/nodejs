@@ -8,6 +8,10 @@ Autodealio.router =
 
         switch (current_page)
         {
+            case "homepage":
+                Autodealio.pages.landing.homepage.run();
+                break;
+
             case "landing_state":
                 Autodealio.pages.landing.state.run();
                 break;
