@@ -7,6 +7,19 @@
 
 module.exports =
 {
+    search: function (req, res)
+    {
+        if(typeof req.query.q == "undefined")
+            return res.serverError("q is undefined");
+
+        GeographyService.search(req.query.q, function(err, data)
+        {
+            if (err)
+                return res.serverError(err);
+
+            res.jsonx(data);
+        });
+    },
     states: function (req, res)
     {
         GeographyService.get_states(function(err, data)
@@ -26,10 +39,6 @@ module.exports =
 
             res.jsonx(data);
         });
-    },
-    nearest: function (req, res)
-    {
-
     }
 };
 

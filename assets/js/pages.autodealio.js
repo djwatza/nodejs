@@ -161,7 +161,7 @@ Autodealio.pages.landing.homepage =
                 .text(value.state_name);
 
             $("span", clone)
-                .text("(" + value.count + " vehicles)");
+                .text(value.count + " vehicles");
 
             target.append(clone);
             count++;
@@ -285,7 +285,7 @@ Autodealio.pages.landing.state =
                 .text(value.city);
 
             $("span", clone)
-                .text("(" + value.count + " vehicles)");
+                .text(value.count + " vehicles");
 
             target.append(clone);
             count++;

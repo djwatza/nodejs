@@ -126,6 +126,7 @@ var Importer =
 
         row.country = data[0];
         row.zip_code = data[1];
+        row.zip_string = data[1];
         row.city = data[2];
         row.state_name = data[3];
         row.state = data[4];

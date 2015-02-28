@@ -1,5 +1,44 @@
 module.exports =
 {
+    search: function(term, callback)
+    {
+        if(UtilityService.is_number(term))
+        {
+            var q = {
+                "query": {
+                    "prefix": {
+                        "zip_string": {
+                            "value": term
+                        }
+                    }
+                }
+            };
+        }
+        else
+        {
+            var q = {
+                "query": {
+                    "match": {
+                        "city": term.toLowerCase()
+                    }
+                }
+            };
+        }
+
+        ZipCode.search({body: q, type:"zip_code"}, function(err, data)
+        {
+            console.log("zip code data");
+            console.log(data);
+
+            var ret = {
+                //hits: cities,
+                //total: cities_agg.state.doc_count
+            };
+
+            callback(null, data);
+        });
+
+    },
     get_states: function(callback)
     {
         var q = {

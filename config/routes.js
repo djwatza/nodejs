@@ -38,6 +38,11 @@ module.exports.routes = {
       action: 'view',
       skipAssets: true
     },
+    'get /api/geo/search': {
+        controller: 'api/GeographyApiController',
+        action: 'search',
+        skipAssets: true
+    },
     'get /api/vehicles': {
       controller: 'api/VehiclesApiController',
       action: 'list',

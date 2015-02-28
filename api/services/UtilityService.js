@@ -79,6 +79,11 @@ module.exports =
 
         return '';
     },
+//  http://stackoverflow.com/questions/18082/validate-decimal-numbers-in-javascript-isnumeric
+    is_number: function (n)
+    {
+        return !isNaN(parseFloat(n)) && isFinite(n);
+    },
 //  http://54.69.100.173:8080/crop/400x300/http://ucimages.services.autobytel.com/cyber/216797/i4JGDA5HB6EA327436_1.jpg
     crop_url: function(url, height, width, operation)
     {
