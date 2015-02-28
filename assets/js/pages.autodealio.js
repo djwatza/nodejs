@@ -154,17 +154,29 @@ Autodealio.pages.landing.homepage =
 
         jQuery.each( data.hits, function( key, value )
         {
-            var clone = template.clone().removeAttr("id").removeClass("hidden");
+            var clone = template.clone().removeAttr("id").removeClass("hidden").addClass("state-item");
 
             $("a", clone)
                 .attr("href", "/" + value.state.toUpperCase())
                 .text(value.state_name);
 
             $("span", clone)
-                .text("(" + value.count + " vehicles)"); 
+                .text("(" + value.count + " vehicles)");
 
             target.append(clone);
             count++;
+        });
+
+        var container = target.isotope({
+            itemSelector: '.state-item',
+            layoutMode: 'fitRows',
+            cellsByRow: {
+                columnWidth: 110,
+                rowHeight: 110
+            },
+            masonry: {
+                columnWidth: 110
+            }
         });
     }
 };
@@ -266,14 +278,29 @@ Autodealio.pages.landing.state =
 
         jQuery.each( data.hits, function( key, value )
         {
-            var clone = template.clone().removeAttr("id").removeClass("hidden");
+            var clone = template.clone().removeAttr("id").removeClass("hidden").addClass("city-item");
 
             $("a", clone)
                 .attr("href", "/" + t._state + "/" + value.city.toSlug())
-                .text(value.city + " (" + value.count + ")");
+                .text(value.city);
+
+            $("span", clone)
+                .text("(" + value.count + " vehicles)");
 
             target.append(clone);
             count++;
+        });
+
+        var container = target.isotope({
+            itemSelector: '.city-item',
+            layoutMode: 'fitRows',
+            cellsByRow: {
+                columnWidth: 110,
+                rowHeight: 110
+            },
+            masonry: {
+                columnWidth: 110
+            }
         });
 
         $(".cities-count").text("Located used vehicles for sale in " + count + " cities ");

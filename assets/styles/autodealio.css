@@ -145,3 +145,22 @@ a.remove {position:absolute; width:50px; height:45px; background:#c8c8c8; top:0p
 .jssora05ldn { background-position: -250px -40px; }
 .jssora05rdn { background-position: -310px -40px; }
 
+#states-list, #cities-list
+{
+	list-style: none;
+	margin:0;
+	padding: 0;
+}
+
+#states-list li.state-item, #cities-list li.city-item
+{
+	margin: 5px;
+	padding: 10px;
+	background: #D9E8BA;
+	color: #262524;
+}
+
+#states-list li.state-item a, #cities-list li.city-item a
+{
+	font-size: 18px;
+}
