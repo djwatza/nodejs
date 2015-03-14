@@ -126,6 +126,27 @@ Autodealio.pages.grid.vehicle =
     }
 };
 
+Autodealio.pages.landing.search =
+{
+    _q:null,
+    run: function(query)
+    {
+        var t = Autodealio.pages.landing.search;
+        t._q = query
+
+        var container = $(Autodealio.params.container_id);
+        var template = $(Autodealio.params.template_id);
+
+        Autodealio.pages.grid.vehicle.initialize(container, template);
+
+        Autodealio.services.vehicles.list(t._q, t.on_get_vehicles);
+    },
+    on_get_vehicles: function(data)
+    {
+        Autodealio.log(data);
+    }
+};
+
 Autodealio.pages.landing.homepage =
 {
     run: function()

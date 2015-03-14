@@ -9,7 +9,11 @@ Autodealio.router =
         switch (current_page)
         {
             case "homepage":
-                Autodealio.pages.landing.homepage.run();
+                Autodealio.pages.landing.homepage.run(Autodealio.params);
+                break;
+
+            case "landing_search":
+                Autodealio.pages.landing.search.run({});
                 break;
 
             case "landing_state":
@@ -37,14 +41,18 @@ Autodealio.router =
 Autodealio.search =
 {
     _form:null,
+    _field:null,
     initialize: function(form)
     {
         var t = Autodealio.search;
 
-        t._form = form;
+        t._form = form
+        t._form.submit(t.on_submit);
 
-        $('input[name="zip_code"]', t._form).autoComplete({
-            minChars: 2,
+        t._field = $('input[name="autocomplete"]', t._form);
+        t._field.autoComplete({
+            minChars: 3,
+            onSelect: t.on_autocomplete_select,
             source: function(term, suggest)
             {
                 term = term.toLowerCase();
@@ -54,7 +62,7 @@ Autodealio.search =
                 var matches = [];
 
                 try { xhr.abort(); } catch(e){}
-                
+
                 var request = $.ajax({
                     url: "/api/geo/search",
                     type: "GET",
@@ -76,9 +84,25 @@ Autodealio.search =
 
                 request.fail(function( jqXHR, textStatus ) {
                     Autodealio.error("get states request failed: " + textStatus );
+                    suggest(null);
                 });
             }
         });
-    }
+    },
+    on_submit:function(e)
+    {
+        var t = Autodealio.search;
 
+        var term = t._field.val();
+
+        t.on_autocomplete_select(term);
+    },
+    on_autocomplete_select:function(term)
+    {
+        var t = Autodealio.search;
+
+        var tmp = term.split(":");
+
+        $('input[name="zip"]', t._form).val(tmp[0]);
+    }
 };

@@ -7,6 +7,13 @@
 
 module.exports =
 {
+    search: function (req, res)
+    {
+        res.view("landing/search",{
+            current_page: "landing_search",
+            page_params: req.query
+        });
+    },
     state: function (req, res)
     {
         res.view("landing/state",{
