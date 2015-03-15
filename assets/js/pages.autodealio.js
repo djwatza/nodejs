@@ -129,10 +129,12 @@ Autodealio.pages.grid.vehicle =
 Autodealio.pages.landing.search =
 {
     _q:null,
+    _page:1,
     run: function(query)
     {
         var t = Autodealio.pages.landing.search;
-        t._q = query
+        t._q = query;
+        t._page = 1;
 
         var container = $(Autodealio.params.container_id);
         var template = $(Autodealio.params.template_id);
@@ -140,10 +142,29 @@ Autodealio.pages.landing.search =
         Autodealio.pages.grid.vehicle.initialize(container, template);
 
         Autodealio.services.vehicles.list(t._q, t.on_get_vehicles);
+
+        $(window).scroll(t.on_scroll);
     },
     on_get_vehicles: function(data)
     {
-        Autodealio.log(data);
+        var t = Autodealio.pages.landing.search;
+
+        Autodealio.pages.grid.vehicle.append(data, data.total + " used cars located near " + t._q.autocomplete);
+    },
+    on_scroll: function()
+    {
+        if ($(window).scrollTop() >= $(document).height() - $(window).height() - 100)
+        {
+            var t = Autodealio.pages.landing.search;
+            t._page += 1;
+            t.scroll_page(t._page);
+        }
+    },
+    scroll_page: function(page)
+    {
+        var t = Autodealio.pages.landing.search;
+
+        Autodealio.services.vehicles.list({zip: t._q.zip, page: page}, t.on_get_vehicles);
     }
 };
 

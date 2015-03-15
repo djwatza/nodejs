@@ -13,7 +13,7 @@ Autodealio.router =
                 break;
 
             case "landing_search":
-                Autodealio.pages.landing.search.run({});
+                Autodealio.pages.landing.search.run({zip: Autodealio.params.zip, autocomplete: Autodealio.params.autocomplete});
                 break;
 
             case "landing_state":

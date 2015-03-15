@@ -69,8 +69,6 @@ module.exports =
 
         if(!UtilityService.empty(lat) && !UtilityService.empty(lon))
         {
-            console.log("GEO SEARCH: %s, %s", lat, lon);
-
             q.filter.bool.must.push
             ({
                 "has_parent" :
