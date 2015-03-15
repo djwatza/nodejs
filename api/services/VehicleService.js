@@ -90,6 +90,19 @@ module.exports =
                     }
                 }
             });
+
+            q.sort = [
+            {
+                "_geo_distance": {
+                    "location": {
+                        "lat": lat,
+                        "lon": lon
+                    },
+                    "order": "asc",
+                    "unit": "mi",
+                    "distance_type": "plane"
+                }
+            }];
         }
 
         if(!UtilityService.empty(state))

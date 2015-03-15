@@ -219,8 +219,16 @@ module.exports = (function () {
             if(err)
               return cb(err);
 
-            var results = _.map(data.hits.hits, function(hit) {
-              return hit._source;
+            var results = _.map(data.hits.hits, function(hit)
+            {
+              var row = hit._source;
+
+              if(!UtilityService.empty(hit.sort))
+              {
+                row.sort = hit.sort;
+              }
+
+              return row;
             });
 
             var ret = {
