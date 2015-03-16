@@ -71,20 +71,13 @@ module.exports =
         {
             q.filter.bool.must.push
             ({
-                "has_parent" :
+                "geo_distance":
                 {
-                    "type" : "zip_code",
-                    "filter" :
+                    "distance": radius + "mi",
+                    "pin.location":
                     {
-                        "geo_distance":
-                        {
-                            "distance": radius + "mi",
-                            "pin.location":
-                            {
-                                "lat": lat,
-                                "lon": lon
-                            }
-                        }
+                        "lat": lat,
+                        "lon": lon
                     }
                 }
             });
@@ -98,7 +91,7 @@ module.exports =
                     },
                     "order": "asc",
                     "unit": "mi",
-                    "distance_type": "plane"
+                    "distance_type": "arc"
                 }
             }];
         }

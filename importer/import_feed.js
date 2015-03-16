@@ -168,7 +168,7 @@ var Importer =
 
                         data.pin = Importer.zip_cache[data.zip_code];
                     }
-                    
+
                     Importer.buffer.push
                     (
                         { index : { _index : 'vehicle', _type : 'vehicle', _id : data.vin, parent: data.zip_code } },
