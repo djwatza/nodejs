@@ -115,7 +115,7 @@ Autodealio.pages.grid.vehicle =
             $(".overlay h3 a", clone).text(name).attr("href", Autodealio.make_url(value));
             $(".overlay strong", clone).text("Price: $" + parseInt(value.price).format(0,3));
             $(".other-info span", clone).html("Mileage:<br/>{0}".format(parseInt(value.mileage).format(0,3)));
-            $(".other-info small", clone).html("Location:<br/><a href=\"{0}\">{1}</a>, <a href=\"{2}\">{3}</a>".format(city_url, value.city, state_url, value.state));
+            $(".other-info small", clone).html("Location:<br/><a href=\"{0}\">{1}</a>, <a href=\"{2}\">{3}</a> ({4} mi)".format(city_url, value.city, state_url, value.state, value.sort[0].format(2,3)));
 
             children.push(clone);
 

@@ -91,7 +91,7 @@ module.exports =
                     },
                     "order": "asc",
                     "unit": "mi",
-                    "distance_type": "arc"
+                    "distance_type": "sloppy_arc"
                 }
             }];
         }
