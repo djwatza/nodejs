@@ -33,6 +33,7 @@ var Importer =
     es_fired:0,
     es_err:0,
     es_done:0,
+    zip_cache:{},
     error_handler: function(err)
     {
         console.log("there was an error -> [" + JSON.stringify(err, null, 2) + "]\nimporter failed, please try again...");
@@ -147,11 +148,45 @@ var Importer =
     {
 //        console.log("%s. (%s of %s) buffering vehicle [%s] - %s %s %s %s", ++Importer.row_cursor, Importer.buffer.length, Importer.max_buffer, data.vehicle_id, data.year, data.make, data.model, data.series);
 
-        Importer.buffer.push
-        (
-            { index : { _index : 'vehicle', _type : 'vehicle', _id : data.vehicle_id, parent: data.zip_code } },
-            data
-        );
+        if(typeof Importer.zip_cache[data.zip_code] == 'undefined')
+        {
+            var args =
+            {
+                _index : "vehicle",
+                _type : "zip_code",
+                _id:data.zip_code
+            };
+
+            Importer.es.get
+            (
+                args,
+                function(err, zd)
+                {
+                    if(undefined != zd)
+                    {
+                        Importer.zip_cache[data.zip_code] = zd._source.pin;
+
+                        data.pin = Importer.zip_cache[data.zip_code];
+                    }
+                    
+                    Importer.buffer.push
+                    (
+                        { index : { _index : 'vehicle', _type : 'vehicle', _id : data.vin, parent: data.zip_code } },
+                        data
+                    );
+                }
+            );
+        }
+        else
+        {
+            data.pin = Importer.zip_cache[data.zip_code];
+
+            Importer.buffer.push
+            (
+                { index : { _index : 'vehicle', _type : 'vehicle', _id : data.vin, parent: data.zip_code } },
+                data
+            );
+        }
 
         if(Importer.buffer.length > Importer.max_buffer)
         {

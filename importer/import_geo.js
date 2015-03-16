@@ -150,7 +150,7 @@ var Importer =
 
         Importer.es.request.on('error', function (err)
         {
-            console.log("zip code indexing failed\n%s", JSON.stringify(err)); 
+            console.log("zip code indexing failed\n%s", JSON.stringify(err));
         });
 
         Importer.es.index({_index : Importer.index, _type : Importer.type, host : '127.0.0.1', _id: data.zip_code}, data, Importer.on_index);
