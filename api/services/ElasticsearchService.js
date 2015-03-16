@@ -4,7 +4,7 @@ module.exports =
 {
     index:'vehicle',
     type:'vehicle',
-    host: '54.148.1.144',
+    host: '127.0.0.1',
     es:null,
     client:function()
     {
@@ -13,7 +13,7 @@ module.exports =
             this.es = elasticsearch({
                 _index : 'vehicle',
                 _type : 'vehicle',
-                host : '54.148.1.144'
+                host : '127.0.0.1'
             });
         }
 

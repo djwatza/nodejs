@@ -110,7 +110,7 @@ var Importer =
             Importer.es = elasticsearch({
                 _index : 'vehicle',
                 _type : 'vehicle',
-                host : '54.148.1.144'
+                host : '127.0.0.1'
             });
 
             console.log('elasticsearch is online. parsing csv file...');
@@ -178,7 +178,7 @@ var Importer =
 
         console.log("#%s. flush buffer -> [%s] rows",Importer.es_fired, rows.length);
 
-        Importer.es.bulk({host : '54.148.1.144', timeout : 90000}, rows, Importer.on_bulk_index);
+        Importer.es.bulk({host : '127.0.0.1', timeout : 90000}, rows, Importer.on_bulk_index);
     },
     on_bulk_index:function(err, data)
     {
