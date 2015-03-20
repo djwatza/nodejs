@@ -32,17 +32,14 @@ module.exports =
         var lat = (UtilityService.empty(params.lat)) ? null : params.lat
         var lon = (UtilityService.empty(params.lon)) ? null : params.lon;
         var radius = (UtilityService.empty(params.radius)) ? 50 : params.radius;
+        var sort = (UtilityService.empty(params.sort)) ? 'default' : params.sort;
 
         if(random)
         {
-            var q =
-            {
-                "query":
-                {
-                    "function_score" :
-                    {
-                        "query" :
-                        {
+            var q = {
+                "query": {
+                    "function_score" : {
+                        "query": {
                             "match_all": {}
                         },
                         "random_score" : {}
@@ -52,38 +49,39 @@ module.exports =
         }
         else
         {
-            var q =
-            {
+            var q ={
                 "query": {
                     "match_all": {}
                 }
             };
         }
 
-        q.filter =
-        {
+        q.filter = {
             "bool" : {
                 "must" : []
             }
         };
 
+        q.sort = [];
+
+        var geo_filter = false;
+
         if(!UtilityService.empty(lat) && !UtilityService.empty(lon))
         {
-            q.filter.bool.must.push
-            ({
-                "geo_distance":
-                {
+            geo_filter = {
+                "geo_distance": {
                     "distance": radius + "mi",
-                    "pin.location":
-                    {
+                    "pin.location": {
                         "lat": lat,
                         "lon": lon
                     }
                 }
-            });
+            };
 
-            q.sort = [
-            {
+            q.filter.bool.must.push(geo_filter);
+
+            q.sort.push
+            ({
                 "_geo_distance": {
                     "location": {
                         "lat": lat,
@@ -93,7 +91,7 @@ module.exports =
                     "unit": "mi",
                     "distance_type": "sloppy_arc"
                 }
-            }];
+            });
         }
 
         if(!UtilityService.empty(state))
@@ -139,9 +137,85 @@ module.exports =
             });
         }
 
-        console.log("base query\n%s", JSON.stringify(q));
+        var base_agg =
+        {
+            "makes": {
+                "terms": {
+                    "field": "make",
+                    "order": {
+                        "_term": "asc"
+                    },
+                    "size": 10
+                },
+                "aggs": {
+                    "models": {
+                        "terms": {
+                            "field": "model",
+                            "order": {
+                                "_term": "asc"
+                            },
+                            "size": 20
+                        }
+                    }
+                }
+            }
+        };
 
-        Vehicle.search({body: q, page: page, count: count}, callback);
+        if(false == geo_filter)
+        {
+            q.aggs = base_agg;
+        }
+        else
+        {
+            q.aggs = {
+                "location": {
+                    "filter": geo_filter,
+                    "aggs": base_agg
+                }
+            };
+        }
+
+        console.log("ES query\n%s", JSON.stringify(q));
+
+        Vehicle.search({body: q, page: page, count: count}, function(err, data)
+        {
+            if(err)
+                return callback(err, null);
+
+            if(UtilityService.empty(data.aggregations))
+                return callback(null, data);
+
+            var buckets = (UtilityService.empty(data.aggregations.location)) ? data.aggregations.makes.buckets : data.aggregations.location.makes.buckets;
+
+            var makes = [];
+
+            for (var i = 0; i < buckets.length; i++) {
+
+                var make = {
+                    name:buckets[i].key,
+                    count: buckets[i].doc_count,
+                    models:[]
+                };
+
+                var model_buckets = buckets[i].models.buckets;
+
+                for (var x = 0; x < model_buckets.length; x++) {
+
+                    make.models.push({
+                        name: model_buckets[x].key,
+                        count: model_buckets[x].doc_count
+                    });
+                }
+
+                makes[i] = make;
+            }
+
+            data.aggregations = {
+                makes: makes
+            };
+
+            return callback(null, data);
+        });
     },
     get_vehicle_by_zip_and_id: function(zip, id, callback)
     {
@@ -173,6 +247,80 @@ module.exports =
         );
     }
 };
+
+
+/*
+ GETvehicle/vehicle/_search{
+ "query": {
+ "match_all": {
+
+ }
+ },
+ "filter": {
+ "bool": {
+ "must": [
+ {
+ "geo_distance": {
+ "distance": "50mi",
+ "pin.location": {
+ "lat": "43.1317",
+ "lon": "-77.6062"
+ }
+ }
+ }
+ ]
+ }
+ },
+ "sort": [
+ {
+ "_geo_distance": {
+ "location": {
+ "lat": "43.1317",
+ "lon": "-77.6062"
+ },
+ "order": "asc",
+ "unit": "mi",
+ "distance_type": "sloppy_arc"
+ }
+ }
+ ],
+ "aggs": {
+ "location": {
+ "filter": {
+ "geo_distance": {
+ "distance": "50mi",
+ "pin.location": {
+ "lat": "43.1317",
+ "lon": "-77.6062"
+ }
+ }
+ },
+ "aggs": {
+ "makes": {
+ "terms": {
+ "field": "make",
+ "order": {
+ "_term": "asc"
+ },
+ "size": 50
+ },
+ "aggs": {
+ "models": {
+ "terms": {
+ "field": "model",
+ "order": {
+ "_term": "asc"
+ },
+ "size": 20
+ }
+ }
+ }
+ }
+ }
+ }
+ }
+ }
+* */
 
 
 /*
