@@ -1,4 +1,10 @@
 <%
+if(typeof page_params == 'undefined' || UtilityService.empty(page_params))
+    page_params = {};
+
+if(typeof current_page == 'undefined' || UtilityService.empty(current_page))
+    current_page = 1;
+
 page_params.thumbnails = {
     base: sails.config.autodealio.images.base_url
 }; %>
@@ -35,8 +41,8 @@ page_params.thumbnails = {
             <script src="/js/jssor.js"></script>
             <script src="/js/jssor.slider.js"></script>
             <script src="/js/jquery.auto-complete.min.js"></script>
-            <script src="/js/pages.autodealio.js"></script>
-            <script src="/js/scripts.autodealio.js"></script>
+            <script src="/js/autodealio.pages.js"></script>
+            <script src="/js/autodealio.scripts.js"></script>
             <!--SCRIPTS END-->
 
             <script type="text/javascript">

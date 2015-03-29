@@ -7,6 +7,16 @@
 
 module.exports =
 {
+    post: function(req, res)
+    {
+        AutobytelService.post(req.query, function(err, data)
+        {
+            if (err)
+                return res.serverError(err);
+
+            res.jsonx(data);
+        });
+    },
     list: function (req, res)
     {
         VehicleService.list(req.query, function(err, data)
