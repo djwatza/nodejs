@@ -15,10 +15,10 @@ module.exports =
             RequestDate:null,
             Vehicle:{
                 Status: "Used",
-                VehicleID:113902761,
-                Year:2010,
+                VehicleID:106563034,
+                Year:2013,
                 PreferedFinanceMethod:"Finance",
-                DownPayment:2000
+                DownPayment:6000
             },
             Customer:{
                 FirstName:'Melina',
@@ -40,7 +40,10 @@ module.exports =
     },
     post:function(request, callback)
     {
-        var live = (UtilityService.empty(request.live)) ? false : true;
+        console.log("api request");
+        console.log(request);
+
+        var live = (request.live) ? true:false;
 
         var url = (live) ? AutobytelService.endpoints.production : AutobytelService.endpoints.staging;
 
@@ -57,6 +60,16 @@ module.exports =
 
                 if(err)
                     callback(err, null);
+
+                if(!result.PostResult.Accepted)
+                {
+                    var e = {
+                        message: "Lead API returned an error",
+                        error: result.PostResult.Errors.Error
+                    };
+
+                   return callback(e, null);
+                }
 
                 console.log("SOAP result");
                 console.log(JSON.stringify(result));

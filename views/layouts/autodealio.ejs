@@ -31,28 +31,28 @@ page_params.thumbnails = {
                 </script>
             <%- partial ('../partials/header.ejs') %>
             <%- body %>
-            <!--SCRIPTS-->
-            <script src="/js/dependencies/sails.io.js"></script>
-            <script src="/js/dependencies/jquery.min.js"></script>
-            <script src="/js/external/isotope.pkgd.min.js"></script>
-            <script src="/js/external/jquery.infinitescroll.min.js"></script>
-            <script src="/js/bootstrap.js"></script>
-            <script src="/js/bootstrap.min.js"></script>
-            <script src="/js/jssor.js"></script>
-            <script src="/js/jssor.slider.js"></script>
-            <script src="/js/jquery.auto-complete.min.js"></script>
-            <script src="/js/autodealio.pages.js"></script>
-            <script src="/js/autodealio.scripts.js"></script>
-            <!--SCRIPTS END-->
 
-            <script type="text/javascript">
+                <!--SCRIPTS-->
+                <script src="/js/dependencies/jquery.min.js"></script>
+                <script src="/js/external/isotope.pkgd.min.js"></script>
+                <script src="/js/external/jquery.infinitescroll.min.js"></script>
+                <script src="/js/bootstrap.js"></script>
+                <script src="/js/bootstrap.min.js"></script>
+                <script src="/js/jssor.js"></script>
+                <script src="/js/jssor.slider.js"></script>
+                <script src="/js/jquery.auto-complete.min.js"></script>
+                <script src="/js/autodealio.pages.js"></script>
+                <script src="/js/autodealio.scripts.js"></script>
+                <!--SCRIPTS END-->
 
-                current_page = "<%= current_page %>";
-                page_params = <%- JSON.stringify(page_params) %>
+                <script type="text/javascript">
 
-                jQuery( document ).ready(function() {
-                    Autodealio.router.initialize(current_page, page_params);
-                });
-            </script>
+                    current_page = "<%= current_page %>";
+                    page_params = <%- JSON.stringify(page_params) %>
+
+                            jQuery( document ).ready(function() {
+                                Autodealio.router.initialize(current_page, page_params);
+                            });
+                </script>
     </body>
 </html>

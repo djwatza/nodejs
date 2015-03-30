@@ -58,7 +58,15 @@ module.exports =
 
         q.filter = {
             "bool" : {
-                "must" : []
+                "must" : [
+                    {
+                        "range": {
+                            "today": {
+                                "gte": UtilityService.today()
+                            }
+                        }
+                    }
+                ]
             }
         };
 

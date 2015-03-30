@@ -1,3 +1,5 @@
+var moment = require('moment');
+
 module.exports =
 {
     _states: [
@@ -110,5 +112,9 @@ module.exports =
         }
 
         return true;
+    },
+    today: function()
+    {
+        return moment().format("YYYYMMDD");
     }
 };
