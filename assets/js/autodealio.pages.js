@@ -126,7 +126,7 @@ Autodealio.pages.grid.vehicle =
 
             if(typeof value.sort == 'undefined')
             {
-                $(".other-info small", clone).html("Location:<br/><a href=\"{0}\">{1}</a>, <a href=\"{2}\">{3}</a> ({4} mi)".format(city_url, value.city, state_url, value.state, '(unknown)'));
+                $(".other-info small", clone).html("Location:<br/><a href=\"{0}\">{1}</a>, <a href=\"{2}\">{3}</a> ({4} mi)".format(city_url, value.city, state_url, value.state, '?'));
             }
             else
             {

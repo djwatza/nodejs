@@ -9,7 +9,7 @@ module.exports =
 {
     post: function(req, res)
     {
-        AutobytelService.post(req.query, function(err, data)
+        AutobytelService.post(req.body, function(err, data)
         {
             if (err)
                 return res.serverError(err);
