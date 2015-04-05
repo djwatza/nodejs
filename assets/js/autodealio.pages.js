@@ -29,6 +29,7 @@ Number.prototype.format = function(n, x) {
 };
 
 Autodealio = {
+    base:"/inventory",
     params:{},
     ui:{},
     pages: {
@@ -54,7 +55,7 @@ Autodealio = {
     },
     make_url: function(params)
     {
-        return "/{0}-{1}-{2}-{3}-{4}".format(params.year, params.make.toSlug(), params.model.toSlug(), params.series.toSlug(), params.vin);
+        return Autodealio.base + "/{0}-{1}-{2}-{3}-{4}".format(params.year, params.make.toSlug(), params.model.toSlug(), params.series.toSlug(), params.vin);
     },
     append_select: function(target, data)
     {
@@ -65,7 +66,7 @@ Autodealio = {
 Autodealio.services.vehicles.list = function(params, callback)
 {
     var request = $.ajax({
-        url: "/api/vehicles",
+        url: Autodealio.base + "/api/vehicles",
         type: "GET",
         data: params,
         dataType: "json"
@@ -225,7 +226,7 @@ Autodealio.pages.landing.homepage =
         var t = Autodealio.pages.landing.homepage;
 
         var request = $.ajax({
-            url: "/api/states",
+            url: Autodealio.base + "/api/states",
             type: "GET",
             data: {},
             dataType: "json"
@@ -249,7 +250,7 @@ Autodealio.pages.landing.homepage =
             var clone = template.clone().removeAttr("id").removeClass("hidden").addClass("state-item");
 
             $("a", clone)
-                .attr("href", "/" + value.state.toUpperCase())
+                .attr("href", Autodealio.base + "/" + value.state.toUpperCase())
                 .text(value.state_name);
 
             $("span", clone)
@@ -337,7 +338,7 @@ Autodealio.pages.landing.state =
         $(window).scroll(t.on_scroll);
 
         var request = $.ajax({
-            url: "/api/states/" + t._state + "/cities",
+            url: Autodealio.base + "/api/states/" + t._state + "/cities",
             type: "GET",
             data: {},
             dataType: "json"
@@ -373,7 +374,7 @@ Autodealio.pages.landing.state =
             var clone = template.clone().removeAttr("id").removeClass("hidden").addClass("city-item");
 
             $("a", clone)
-                .attr("href", "/" + t._state + "/" + value.city.toSlug())
+                .attr("href", Autodealio.base +  "/" + t._state + "/" + value.city.toSlug())
                 .text(value.city);
 
             $("span", clone)

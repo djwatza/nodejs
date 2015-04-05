@@ -7,7 +7,14 @@ if(typeof current_page == 'undefined' || UtilityService.empty(current_page))
 
 page_params.thumbnails = {
     base: sails.config.autodealio.images.base_url
-}; %>
+};
+
+page_params.api = {
+    base: sails.config.autodealio.api.base_url
+};
+
+
+%>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -18,9 +25,9 @@ page_params.thumbnails = {
         <title>Auto Dealio</title>
 
         <!--STYLES-->
-        <link rel="stylesheet" href="/styles/autodealio.css">
-        <link rel="stylesheet" href="/styles/bootstrap.css">
-        <link rel="stylesheet" href="/styles/importer.css">
+        <link rel="stylesheet" href="http://api.autodealio.com/styles/autodealio.css">
+        <link rel="stylesheet" href="http://api.autodealio.com/styles/bootstrap.css">
+        <link rel="stylesheet" href="http://api.autodealio.com/styles/importer.css">
         <link rel="stylesheet" href="/styles/responsive.css">
         <!--STYLES END-->
     </head>

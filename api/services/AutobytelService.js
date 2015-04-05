@@ -130,7 +130,7 @@ module.exports =
                         console.log("SOAP result");
                         console.log(JSON.stringify(result));
 
-                        callback(null, result);
+                        callback(null, {success:true, lead_id:result.LeadID});
 
                     });
                 });
