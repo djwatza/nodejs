@@ -33,18 +33,85 @@ Autodealio.router =
 
         if(search_form.length > 0)
         {
-            Autodealio.search.initialize(search_form);
+            Autodealio.forms.search.initialize(search_form);
+        }
+
+        var lead_form = $("form#autodealio-lead-form");
+
+        if(lead_form.length > 0)
+        {
+            Autodealio.forms.lead.initialize(lead_form);
         }
     }
 };
 
-Autodealio.search =
+Autodealio.forms.lead =
+{
+    _form:null,
+    _action:null,
+    initialize: function(form)
+    {
+        var t = Autodealio.forms.lead;
+
+        t._form = form;
+
+        t._action = t._form.attr("action");
+
+        //t._form.validate({
+        //    rules: {
+        //        first_name: "required",
+        //        last_name: "required",
+        //        email: {
+        //            required: true,
+        //            email: true
+        //        }
+        //        //address: "required"
+        //    }
+        //});
+
+        t._form.submit(t.on_submit);
+    },
+    on_submit:function(e)
+    {
+        e.preventDefault();
+
+        var t = Autodealio.forms.lead;
+
+        var data = t._form.serializeObject();
+
+        Autodealio.log(data);
+
+        var request = $.ajax({
+            contentType: 'application/json',
+            url: Autodealio.base + t._action,
+            type: "POST",
+            data: JSON.stringify(data),
+            dataType: "json"
+        });
+
+        request.done(t.on_get_states);
+        request.fail(function( jqXHR, textStatus ) {
+            Autodealio.error("get states request failed: " + textStatus );
+        });
+    },
+    on_post_succes:function(data)
+    {
+
+    },
+    on_post_error:function(error)
+    {
+
+    }
+
+};
+
+Autodealio.forms.search =
 {
     _form:null,
     _field:null,
     initialize: function(form)
     {
-        var t = Autodealio.search;
+        var t = Autodealio.forms.search;
 
         t._form = form
         t._form.submit(t.on_submit);
@@ -91,7 +158,7 @@ Autodealio.search =
     },
     on_submit:function(e)
     {
-        var t = Autodealio.search;
+        var t = Autodealio.forms.search;
 
         var term = t._field.val();
 
@@ -99,7 +166,7 @@ Autodealio.search =
     },
     on_autocomplete_select:function(term)
     {
-        var t = Autodealio.search;
+        var t = Autodealio.forms.search;
 
         var tmp = term.split(":");
 

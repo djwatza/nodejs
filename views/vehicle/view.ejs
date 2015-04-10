@@ -122,14 +122,15 @@
                     <div class="heading-box">
                         <h2>Contact Dealer</h2>
                     </div>
-                    <form action="#" method="get" class="form-horizontal">
+                    <form action="/api/vehicles/lead" method="post" class="form-horizontal" id="autodealio-lead-form">
+                        <input type="hidden" name="vin" value="<%= vehicle.vin %>" />
                         <div class="form-group">
                             <label class="col-lg-4 col-md-4 control-label">Hi, my name is </label>
                             <div class="col-lg-4 col-md-4">
-                                <input type="text" class="form-control" name="fname" placeholder="First Name">
+                                <input type="text" class="form-control" name="first_name" placeholder="First Name">
                             </div>
                             <div class="col-lg-4 col-md-4">
-                                <input type="text" class="form-control" name="lname" placeholder="Last Name">
+                                <input type="text" class="form-control" name="last_name" placeholder="Last Name">
                             </div>
                         </div>
                         <div class="form-group">
@@ -138,18 +139,67 @@
                         <div class="form-group">
                             <label class="col-lg-6 col-md-6 control-label">You can reach me by email at </label>
                             <div class="col-lg-6 col-md-6">
-                                <input class="form-control" type="text" placeholder="">
+                                <input type="text" class="form-control" name="email" placeholder="Email" />
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-lg-12">or by phone at </label>
+                            <label class="control-label col-lg-4 col-md-4">or by phone at </label>
+
+                            <div class="col-lg-8 col-md-8">
                             <span>( </span>
-                            <input type="text" class="form-control phone">
+                            <input type="text" class="form-control phone ph1">
                             <span> ) </span>
-                            <input type="text" class="form-control phone">
+                            <input type="text" class="form-control phone ph2">
                             &nbsp;
-                            <input type="text" class="form-control phone1">
+                            <input type="text" class="form-control phone1 ph3">
+                                </div>
                         </div>
+
+                        <div class="form-group">
+                            <label class="col-lg-4 col-md-4 control-label">My Address is: </label>
+                            <div class="col-lg-8 col-md-8">
+                                <input type="text" class="form-control" name="address" placeholder="Street Address">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+
+                            <div class="col-lg-6 col-md-6">
+                                <input type="text" class="form-control" name="city" placeholder="City">
+                            </div>
+
+                            <div class="col-lg-2 col-md-2">
+                                <input type="text" class="form-control" name="state" placeholder="State" maxlength="2">
+                            </div>
+
+                            <div class="col-lg-4 col-md-4">
+                                <input type="text" class="form-control" name="zip_code" placeholder="Zip Code">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-lg-6 col-md-6">
+                                <label class="control-label" for="best_contact_time">Best time to contact:</label>
+                                <select class="form-control" id="best_contact_time" name="best_contact_time">
+                                    <option value="No Preference">No Preference </option>
+                                    <option value="Morning">Morning</option>
+                                    <option value="Afternoon">Afternoon</option>
+                                    <option value="Evening">Evening</option>
+                                </select>
+                            </div>
+
+                            <div class="col-lg-6 col-md-6">
+                                <label class="control-label" for="purchase_time_frame">I plan to buy a car within:</label>
+
+                                <select class="form-control" id="purchase_time_frame" name="purchase_time_frame">
+                                    <option value="Within30Days">Within 30 Days</option>
+                                    <option value="Within48Hours">Within 48 Hours</option>
+                                    <option value="Within14Days">Within 14 Days</option>
+                                    <option value="Over30Days">Over 30 Days</option>
+                                </select>
+                            </div>
+                        </div>
+
                         <div class="form-group">
                             <div class="col-lg-12">
                                 <input type="submit" value="Send Message">

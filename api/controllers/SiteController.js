@@ -24,8 +24,11 @@ module.exports =
         if(vin.indexOf("-") != -1)
         {
             var tmp = vin.split("-");
-            vin = tmp[vin.length - 1];
+            vin = tmp[tmp.length - 1];
+            console.log(tmp);
         }
+
+        console.log("parsed VIN >>> %s", vin);
 
         VehicleService.list({vin: vin}, function(err, data)
         {
