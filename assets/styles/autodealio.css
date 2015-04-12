@@ -5,6 +5,9 @@ body{margin:0px; padding:0px; font-family:Arial, Helvetica, sans-serif; }
 img{max-width:100%; height:auto;}
 a{ transition:all ease-in-out 0.4s; -webkit-transition:all ease-in-out 0.4s;  -moz-transition:all ease-in-out 0.4s;  -o-transition:all ease-in-out 0.4s; text-decoration:none;}
 header{padding-top:30px; }
+label.error{ color:#FF0000; }
+p.error{ color:#FF0000; font-weight: bold; }
+input.error{ border: 1px dashed red; }
 .nav-outer .navbar-default{background:none; outline:none; border-radius:0px; border:none; }
 .nav-outer .navbar-brand {padding:0px; }
 .nav-outer .navbar-nav > li > a {color:#6b6b6b; font-family:Arial, Helvetica, sans-serif; font-size:16px; padding:10px; }
@@ -38,7 +41,8 @@ min-height:75px; background:#8dc711; border-radius:5px;
 .contact-outer form .form-group{margin-left:-7px; margin-right:-7px; }
 .contact-outer form .form-group [class*='col-']{padding-left:7px; padding-right:7px; }
 .contact-outer form label.control-label {text-align:left; font-size:14px; font-family:Arial, Helvetica, sans-serif; color:#000; font-weight:normal; }
-.contact-outer form input.form-control{ border-radius:0px; background:#efefef; border:none; box-shadow:none; }
+.contact-outer form input.form-control{ border-radius:0px; background:#efefef; border:1px solid #efefef; box-shadow:none; }
+.contact-outer form input.form-control.error{ border:1px dashed #ff0000; background-color: rgba(255, 0, 0, 0.05)}
 .contact-outer form label.control-label strong{font-size:18px; font-weight:normal; }
 .contact-outer form input.form-control.phone {width:50px; display:inline-block;}
 .contact-outer form input.form-control.phone1 {width:60px; display:inline-block;}
@@ -47,19 +51,19 @@ min-height:75px; background:#8dc711; border-radius:5px;
 .contact-outer form input[type="submit"]:hover{color:#8dc711; background:#fff; }
 .contact-outer {margin-bottom:120px; }
 .contact-outer form ::-webkit-input-placeholder {
-   color: #000;
+   color: #999;
 }
 
 .contact-outer form  :-moz-placeholder { /* Firefox 18- */
-   color: #000;  
+   color: #999;
 }
 
 .contact-outer form  ::-moz-placeholder {  /* Firefox 19+ */
-   color: #000;  
+   color: #999;
 }
 
 .contact-outer form :-ms-input-placeholder {  
-   color: #000;  
+   color: #999;
 }
 .options, .description{ background:#eeeeee; padding:15px 45px 20px 34px; margin-bottom:22px; }
 .options h3, .description h3{margin:0px; padding:0px; font-size:18px; color:#000; margin-bottom:5px; font-family: 'Open Sans', sans-serif; }

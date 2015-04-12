@@ -49,6 +49,7 @@ Autodealio.forms.lead =
 {
     _form:null,
     _action:null,
+    _lead_error: "Please enter your contact info to show you are a serious buyer.",
     initialize: function(form)
     {
         var t = Autodealio.forms.lead;
@@ -57,17 +58,32 @@ Autodealio.forms.lead =
 
         t._action = t._form.attr("action");
 
-        //t._form.validate({
-        //    rules: {
-        //        first_name: "required",
-        //        last_name: "required",
-        //        email: {
-        //            required: true,
-        //            email: true
-        //        }
-        //        //address: "required"
-        //    }
-        //});
+        t._form.validate({
+            rules: {
+                first_name: "required",
+                last_name: "required",
+                email: {
+                    required: true,
+                    email: true
+                },
+                address: "required",
+                zip_code: "required",
+                city: "required",
+                state: "required",
+                phone1: "required",
+                phone2: "required",
+                phone3: "required"
+            },
+            messages: {},
+            errorPlacement: function(error, element) {
+
+                $("#lead-form-error").show();
+                if($("#lead-form-error").text().length < 1)
+                {
+                    $("#lead-form-error").text(Autodealio.forms.lead._lead_error);
+                }
+            }
+        });
 
         t._form.submit(t.on_submit);
     },
@@ -77,30 +93,35 @@ Autodealio.forms.lead =
 
         var t = Autodealio.forms.lead;
 
-        var data = t._form.serializeObject();
+        if(t._form.valid())
+        {
+            $("#lead-form-error").hide();
 
-        Autodealio.log(data);
+            var data = t._form.serializeObject();
 
-        var request = $.ajax({
-            contentType: 'application/json',
-            url: Autodealio.base + t._action,
-            type: "POST",
-            data: JSON.stringify(data),
-            dataType: "json"
-        });
+            data.phone = data.phone1 + "-" + data.phone2 + "-" + data.phone3;
 
-        request.done(t.on_get_states);
-        request.fail(function( jqXHR, textStatus ) {
-            Autodealio.error("get states request failed: " + textStatus );
-        });
+            Autodealio.log(data);
+
+            var request = $.ajax({
+                contentType: 'application/json',
+                url: Autodealio.base + t._action,
+                type: "POST",
+                data: JSON.stringify(data),
+                dataType: "json"
+            });
+
+            request.done(t.on_post_succes);
+            request.fail(t.on_post_error);
+        }
     },
     on_post_succes:function(data)
     {
-
+        Autodealio.log("post lead success");
     },
-    on_post_error:function(error)
+    on_post_error:function(jqXHR, textStatus)
     {
-
+        Autodealio.error("post lead request failed: " + textStatus );
     }
 
 };

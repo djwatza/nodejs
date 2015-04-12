@@ -9,6 +9,11 @@ module.exports =
 {
     search: function (req, res)
     {
+        if(req.query.zip.length >= 5)
+        {
+            res.cookie(sails.config.autodealio.cookie_name, { zip:req.query.zip });
+        }
+
         res.view("landing/search",{
             current_page: "landing_search",
             page_params: req.query

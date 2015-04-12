@@ -38,6 +38,11 @@ module.exports.routes = {
       action: 'view',
       skipAssets: true
     },
+    'get /:year-:make-:model--:vin': {
+        controller: 'SiteController',
+        action: 'view',
+        skipAssets: true
+    },
     'get /api/geo/search': {
         controller: 'api/GeographyApiController',
         action: 'search',

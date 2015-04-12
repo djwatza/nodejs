@@ -47,6 +47,8 @@ module.exports =
 
         var live = false;//(request.live) ? true:false;
 
+        var _d = AutobytelService._default.lead;
+
         var vin = (UtilityService.empty(request.vin)) ? null : request.vin;
         var first_name = (UtilityService.empty(request.first_name)) ? null : request.first_name;
         var last_name = (UtilityService.empty(request.last_name)) ? null : request.last_name;
@@ -54,10 +56,10 @@ module.exports =
         var zip_code = (UtilityService.empty(request.zip_code)) ? null : request.zip_code;
         var email = (UtilityService.empty(request.email)) ? null : request.email;
         var phone = (UtilityService.empty(request.phone)) ? null : request.phone;
-        var contact_method = (UtilityService.empty(request.contact_method)) ? null : request.contact_method;
-        var contact_time = (UtilityService.empty(request.contact_time)) ? null : request.contact_time;
-        var purchase_timeframe = (UtilityService.empty(request.purchase_timeframe)) ? null : request.purchase_timeframe;
-        var finance = (UtilityService.empty(request.finance_method)) ? null : request.finance_method;
+        var contact_method = (UtilityService.empty(request.contact_method)) ? _d.Customer.BestContactMethod : request.contact_method;
+        var contact_time = (UtilityService.empty(request.contact_time)) ? _d.Customer.BestContactTime : request.contact_time;
+        var purchase_timeframe = (UtilityService.empty(request.purchase_timeframe)) ? _d.Customer.PurchaseTimeFrame  : request.purchase_timeframe;
+        var finance = (UtilityService.empty(request.finance_method)) ? _d.Vehicle.PreferedFinanceMethod : request.finance_method;
 
         //TODO: save lead anyway
         if(UtilityService.empty(vin))
