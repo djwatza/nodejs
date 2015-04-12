@@ -66,6 +66,7 @@ min-height:75px; background:#8dc711; border-radius:5px;
    color: #999;
 }
 .options, .description{ background:#eeeeee; padding:15px 45px 20px 34px; margin-bottom:22px; }
+.options.success{ background-color: rgba(141, 199, 17, 0.10)}
 .options h3, .description h3{margin:0px; padding:0px; font-size:18px; color:#000; margin-bottom:5px; font-family: 'Open Sans', sans-serif; }
 .options p, .description p{font-size:14px; color:#000; line-height:18px; margin-bottom:0px;}
 .search-inner {background:#ededed; padding:20px 30px 25px 40px; position:relative; }
@@ -87,6 +88,7 @@ a.remove {position:absolute; width:50px; height:45px; background:#c8c8c8; top:0p
 .other-info span{float:left; line-height:20px; font-size:13px; color:#6b6b6b; }
 .other-info small{float:right; text-align: right; line-height:20px; font-size:13px; color:#6b6b6b; }
 .other-info { max-width:295px; margin:0 auto; margin-bottom:25px;}
+.footer{ margin-bottom: 25px;}
 
 
 /*gallery css*/

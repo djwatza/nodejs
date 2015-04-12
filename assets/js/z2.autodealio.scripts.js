@@ -118,12 +118,21 @@ Autodealio.forms.lead =
     on_post_succes:function(data)
     {
         Autodealio.log("post lead success");
+        var t = Autodealio.forms.lead;
+        t.show_success();
     },
     on_post_error:function(jqXHR, textStatus)
     {
+        var t = Autodealio.forms.lead;
+        t.show_success();
         Autodealio.error("post lead request failed: " + textStatus );
+    },
+    show_success: function()
+    {
+        var t = Autodealio.forms.lead;
+        t._form.addClass("hidden");
+        $(".options.success").removeClass("hidden");
     }
-
 };
 
 Autodealio.forms.search =

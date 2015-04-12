@@ -58,13 +58,13 @@
                         <li>
                             <div class="row">
                                 <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">Dealer's Price: </div>
-                                <div class="col-lg-7 col-md-7 col-md-7 col-xs-7">$<%= vehicle.price %></div>
+                                <div class="col-lg-7 col-md-7 col-md-7 col-xs-7">$<%= parseInt(vehicle.price).format(0, 3) %></div>
                             </div>
                         </li>
                         <li>
                             <div class="row">
                                 <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">Location:</div>
-                                <div class="col-lg-7 col-md-7 col-md-7 col-xs-7"><%= vehicle.city %>, <%= vehicle.state %> · a few miles away</div>
+                                <div class="col-lg-7 col-md-7 col-md-7 col-xs-7"><%= vehicle.city %>, <%= vehicle.state %> ·</div>
                             </div>
                         </li>
                         <li>
@@ -214,6 +214,9 @@
                             </div>
                         </div>
                     </form>
+                    <div class="options success hidden">
+                        Thank you for your interest in the <%= vehicle.year %> <%= vehicle.make %> <%= vehicle.model %> <%= vehicle.series %>. The dealer should be contacting you shortly with more information on how to complete your purchase.
+                    </div>
                 </div>
                 <div class="options">
                     <h3>Major Options</h3>
