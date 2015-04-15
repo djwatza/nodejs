@@ -75,9 +75,14 @@ Autodealio = {
     {
         return Autodealio.base + "/{0}-{1}-{2}-{3}-{4}".format(params.year, params.make.toSlug(), params.model.toSlug(), params.series.toSlug(), params.vin);
     },
-    append_select: function(target, data)
+    append_select: function(target, data, default_option)
     {
-
+        target.html("");
+        var option = '<option value="0">'+ default_option +'</option>';
+        for (i=0;i<data.length;i++){
+            option += '<option value="'+ data[i] + '">' + data[i] + '</option>';
+        }
+        target.append(option);
     }
 };
 
@@ -111,12 +116,16 @@ Autodealio.pages.grid.vehicle =
             layoutMode: 'masonry'
         });
     },
+    replace: function(data, header)
+    {
+        var t = Autodealio.pages.grid.vehicle;
+
+        t._target.html("");
+
+        t.append(data, header);
+    },
     append: function(data, header)
     {
-//        alert("here");
-
-        Autodealio.pages.grid.vehicle.ui.initialize($("form#main-search"), data);
-
         var t = Autodealio.pages.grid.vehicle;
 
         $(".results-count", t._container).text(header);
@@ -168,6 +177,7 @@ Autodealio.pages.grid.vehicle.ui =
     _data:[],
     _target:null,
     _selected:null,
+    _default_val: "Filter By Make",
     inputs:{
         make: null,
         model: null,
@@ -181,27 +191,60 @@ Autodealio.pages.grid.vehicle.ui =
 
         t._data = data;
         t._target = container;
+        t.inputs.make = $("#makes");
+
         t.populate_makes();
     },
     populate_makes:function()
     {
         var t = Autodealio.pages.grid.vehicle.ui;
 
+        var makes = [];
+
         jQuery.each( t._data.aggregations.makes, function( key, value ) {
-            Autodealio.log(value.name);
+            makes.push(value.name);
         });
+
+        Autodealio.append_select(t.inputs.make, makes, t._default_val);
+
+        t.inputs.make.change(t.on_change_make);
+    },
+    on_change_make: function()
+    {
+        var t = Autodealio.pages.grid.vehicle.ui;
+
+        if($(this).val() != t._default_val)
+        {
+            Autodealio.log("selected make: " + $( this ).val() );
+
+            var q = {
+                zip: $("#zip").val(),
+                make: $(this).val()
+            };
+
+            Autodealio.services.vehicles.list(q, t.on_get_vehicles);
+        }
+    },
+    on_get_vehicles: function(data)
+    {
+        var t = Autodealio.pages.grid.vehicle.ui;
+
+        Autodealio.pages.grid.vehicle.replace(data, data.total + " used cars located ");
     }
+
 };
 
 Autodealio.pages.landing.search =
 {
     _q:null,
     _page:1,
+    _init:false,
     run: function(query)
     {
         var t = Autodealio.pages.landing.search;
         t._q = query;
         t._page = 1;
+        t._init = false;
 
         var container = $(Autodealio.params.container_id);
         var template = $(Autodealio.params.template_id);
@@ -216,7 +259,11 @@ Autodealio.pages.landing.search =
     {
         var t = Autodealio.pages.landing.search;
 
-        console.log(data);
+        if(!t._init)
+        {
+            Autodealio.pages.grid.vehicle.ui.initialize($("form#main-search"), data);
+            t._init = true;
+        }
 
         Autodealio.pages.grid.vehicle.append(data, data.total + " used cars located near " + t._q.autocomplete);
     },
@@ -233,7 +280,14 @@ Autodealio.pages.landing.search =
     {
         var t = Autodealio.pages.landing.search;
 
-        Autodealio.services.vehicles.list({zip: t._q.zip, page: page}, t.on_get_vehicles);
+        var q = {zip: t._q.zip, page: page};
+
+        if($("#makes").val() != 0)
+        {
+            q.make = $("#makes").val();
+        }
+
+        Autodealio.services.vehicles.list(q, t.on_get_vehicles);
     }
 };
 

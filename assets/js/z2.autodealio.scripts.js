@@ -143,7 +143,7 @@ Autodealio.forms.search =
     {
         var t = Autodealio.forms.search;
 
-        t._form = form
+        t._form = form;
         t._form.submit(t.on_submit);
 
         t._field = $('input[name="autocomplete"]', t._form);
