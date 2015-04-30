@@ -1,9 +1,8 @@
-
-
-autodealio.ng.app.services.searchFactory = function ($baseService, $http) {
-
-    console.log("search service");
+autodealio.ng.app.services.searchFactory = function ($baseService, $http)
+{
     var svc = this;
+
+    $.extend( svc, $baseService);
 
     svc.vehicles = _vehicles;
 
@@ -17,50 +16,77 @@ autodealio.ng.app.services.searchFactory = function ($baseService, $http) {
         });
 
         return( request.then( success, error ) );
-
     }
 };
 
-autodealio.ng.page.searchControllerFactory = function (
+autodealio.ng.page.gridControllerFactory = function (
     $scope
     , $baseController
-    , $searchService) {
-console.log("search controller");
+    , $searchService)
+{
+//  page initialization
+//  ---------------------------------------
+
+//  initialize controller properties
     var vm = this;
-    vm.search = {};
+    vm.query = {};
     vm.vehicles = null;
-    vm.meta = null;
+    vm.meta = {
+        total_items:0
+    };
+
+    vm.paging = {
+        page: 1,
+        count:24
+    };
+
+//  inherit from app base controller
+    $.extend( vm, $baseController);
+
+//  save dependencies for later
     vm.$searchService = $searchService;
+    vm.$scope = $scope;
+
+//  expose public api
+    vm.searchVehicles = _searchVehicles;
+    vm.queryVehicles = _queryVehicles;
     vm.onVehicleSuccess = _onVehicleSuccess;
     vm.onVehicleError = _onVehicleError;
 
-    //-- this line to simulate inheritance
-    $.extend( vm, $baseController);
-
-    //this is a wrapper for our small dependency on $scope
+//  internal handler in case we need to fire angular refresh from outside event
     vm.notify = vm.$searchService.getNotifier($scope);
 
-    render();
+//  initialize the grid
+    console.log(current_page);
+    console.log(page_params);
 
-    function render() {
-        vm.$searchService.vehicles(vm.search, vm.onVehicleSuccess, vm.onVehicleError);
+    //switch (current_page)
+    //{
+    //    case
+    //}
+    _queryVehicles();
+
+//  main controller members
+//  ---------------------------------------
+    function _searchVehicles(query) {
+        vm.query = query;
+        _queryVehicles();
     }
 
-    function _onVehicleSuccess(data) {
-        console.log("vehicle data", data);
-        vm.notify(function () {
-            vm.vehicles = data.hits;
-        });
+    function _queryVehicles() {
+        vm.$searchService.vehicles(vm.query, vm.onVehicleSuccess, vm.onVehicleError);
+    }
+
+//  handlers
+//  ---------------------------------------
+    function _onVehicleSuccess(result) {
+        vm.vehicles = result.data.hits;
     }
 
     function _onVehicleError(jqXhr, error) {
-        console.error("error handled in search controller", error);
+        console.error("error while getting vehicles", error);
     }
 };
-
-/*
- Below here is where we register our service and controller with ng
- */
 
 autodealio.ng.addService(autodealio.ng.app.module
     , "$searchService"
@@ -68,6 +94,6 @@ autodealio.ng.addService(autodealio.ng.app.module
     , autodealio.ng.app.services.searchFactory);
 
 autodealio.ng.addController(autodealio.ng.app.module
-    , "searchController"
+    , "gridController"
     , ['$scope', '$baseController', "$searchService"]
-    , autodealio.ng.page.searchControllerFactory);
+    , autodealio.ng.page.gridControllerFactory);
