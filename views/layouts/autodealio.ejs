@@ -12,8 +12,6 @@ page_params.thumbnails = {
 page_params.api = {
     base: sails.config.autodealio.api.base_url
 };
-
-
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -37,9 +35,13 @@ page_params.api = {
                     var page_params = {};
                 </script>
             <%- partial ('../partials/header.ejs') %>
+                <div id="main-application" data-ng-app="autodealioApp">
             <%- body %>
+                </div>
             <%- partial ('../partials/footer.ejs') %>
 
+                <!--<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>-->
+                <!--<script src="/js/dependencies/jquery.min.js"></script>-->
                 <!--SCRIPTS-->
                 <script src="/js/dependencies/jquery.min.js"></script>
                 <script src="/js/external/jquery.validate.min.js"></script>
@@ -55,14 +57,21 @@ page_params.api = {
                 <script src="/js/z2.autodealio.scripts.js"></script>
                 <!--SCRIPTS END-->
 
+                <!--<script src="/js/dependencies/autodealio.ng.app.js"></script>-->
+                <!--<script src="/js/autodealio.ng.pages.js"></script>-->
+
                 <script type="text/javascript">
 
                     current_page = "<%= current_page %>";
                     page_params = <%- JSON.stringify(page_params) %>
 
-                            jQuery( document ).ready(function() {
+                    jQuery( document ).ready(function() {
+//                        if(jQuery("#results-container").length > 0)
+//                        {
+//                            var sc = autodealio.ng.getControllerInstance($("#results-container"));
+//                        }
                                 Autodealio.router.initialize(current_page, page_params);
-                            });
+                    });
                 </script>
     </body>
 </html>

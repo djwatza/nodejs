@@ -3,7 +3,7 @@
     page_params.template_id = "#result-template";
 %>
 <section class="results">
-    <div class="container" id="results-container">
+    <div class="container" id="results-container" data-ng-controller="searchController as grid">
         <h3><%=header %></h3>
         <p class="results-count">0 used cars located</p>
         <div class="row">

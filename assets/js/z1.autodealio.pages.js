@@ -145,7 +145,7 @@ Autodealio.pages.grid.vehicle =
                 $(".result-img", clone).attr("src", Autodealio.thumbnail(value.image_urls[0], 330, 440, 'crop'))
             }
 
-            var state_url = "/" + value.state.toUpperCase();
+            var state_url = "/inventory/" + value.state.toUpperCase();
             var city_url = state_url + "/" + value.city.toSlug();
 
             $(".overlay h3 a", clone).text(name).attr("href", Autodealio.make_url(value));
