@@ -1,24 +1,3 @@
-autodealio.ng.app.services.searchFactory = function ($baseService, $http)
-{
-    var svc = this;
-
-    $.extend( svc, $baseService);
-
-    svc.vehicles = _vehicles;
-
-    function _vehicles( query, success, error ) {
-
-        var request = $http({
-            method: "get",
-            url: "/api/vehicles",
-            params: null,
-            data: query
-        });
-
-        return( request.then( success, error ) );
-    }
-};
-
 autodealio.ng.page.gridControllerFactory = function (
     $scope
     , $baseController
@@ -60,10 +39,23 @@ autodealio.ng.page.gridControllerFactory = function (
     console.log(current_page);
     console.log(page_params);
 
-    //switch (current_page)
-    //{
-    //    case
-    //}
+    var q = vm.paging;
+
+    switch (current_page)
+    {
+        case 'landing_state':
+            $.extend( q, {state: page_params.state});
+            break;
+
+        case 'landing_city':
+            $.extend( q, {state: page_params.state, city: page_params.city});
+            break;
+    }
+
+    vm.query = q;
+
+    console.log("init query", q);
+
     _queryVehicles();
 
 //  main controller members
@@ -87,11 +79,6 @@ autodealio.ng.page.gridControllerFactory = function (
         console.error("error while getting vehicles", error);
     }
 };
-
-autodealio.ng.addService(autodealio.ng.app.module
-    , "$searchService"
-    , ["$baseService", "$http"]
-    , autodealio.ng.app.services.searchFactory);
 
 autodealio.ng.addController(autodealio.ng.app.module
     , "gridController"

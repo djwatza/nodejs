@@ -10,8 +10,8 @@
             <div class="col-lg-4 col-md-4 col-sm-6" data-ng-repeat="vehicle in grid.vehicles track by vehicle.vin">
                 <div class="car">
 
-                    <img class="result-img" data-ng-if="vehicle.image_urls.length > 0" data-ng-src="http://54.69.100.173:8080/crop/440x330/{{vehicle.image_urls[0]}}" alt="Used car deals on a {{vehicle.year}} {{vehicle.make}} {{vehicle.model}}">
-                    <img class="result-img" data-ng-if="vehicle.image_urls.length < 1" src="/images/default-photo.png" alt="Used car deals on a {{vehicle.year}} {{vehicle.make}} {{vehicle.model}}">
+                    <img class="result-img" data-ng-if="vehicle.image_urls.length > 0 && vehicle.image_urls[0].length > 0" data-ng-src="http://54.69.100.173:8080/crop/440x330/{{vehicle.image_urls[0]}}" alt="Used car deals on a {{vehicle.year}} {{vehicle.make}} {{vehicle.model}}">
+                    <img class="result-img" data-ng-if="vehicle.image_urls.length < 1 || vehicle.image_urls[0].length < 1" src="/images/default-photo.png" alt="Used car deals on a {{vehicle.year}} {{vehicle.make}} {{vehicle.model}}">
                     <div class="overlay">
                         <h3>
                             <a href="#">
