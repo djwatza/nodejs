@@ -8,6 +8,7 @@ autodealio.ng.page.gridControllerFactory = function (
 
 //  initialize controller properties
     var vm = this;
+    vm.busy = false;
     vm.query = {};
     vm.vehicles = null;
     vm.meta = {
@@ -29,6 +30,7 @@ autodealio.ng.page.gridControllerFactory = function (
 //  expose public api
     vm.searchVehicles = _searchVehicles;
     vm.queryVehicles = _queryVehicles;
+    vm.nextPage = _nextPage;
     vm.onVehicleSuccess = _onVehicleSuccess;
     vm.onVehicleError = _onVehicleError;
 
@@ -66,16 +68,31 @@ autodealio.ng.page.gridControllerFactory = function (
     }
 
     function _queryVehicles() {
+        vm.busy = true;
         vm.$searchService.vehicles(vm.query, vm.onVehicleSuccess, vm.onVehicleError);
+    }
+
+    function _nextPage()
+    {
+        vm.query.page += 1;
+        _queryVehicles();
     }
 
 //  handlers
 //  ---------------------------------------
     function _onVehicleSuccess(result) {
-        vm.vehicles = result.data.hits;
+        vm.busy = false;
+
+        if(null == vm.vehicles)
+        {
+            vm.vehicles = [];
+        }
+
+        vm.vehicles = vm.vehicles.concat(result.data.hits);
     }
 
     function _onVehicleError(jqXhr, error) {
+        vm.busy = false;
         console.error("error while getting vehicles", error);
     }
 };

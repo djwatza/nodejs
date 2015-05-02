@@ -7,10 +7,18 @@ autodealio = {
         }
         , exceptions: {}
         , examples: {}
+        , defaultDependencies: ['infinite-scroll']
+        , getModuleDependencies: function(){
+            if (autodealio.extraNgDependencies) {
+                var newItems = autodealio.ng.defaultDependencies.concat(autodealio.extraNgDependencies);
+                return newItems;
+            }
+            return autodealio.ng.defaultDependencies;
+        }
     }
 };
 
-autodealio.ng.app.module = angular.module('autodealioApp', []);
+autodealio.ng.app.module = angular.module('autodealioApp', autodealio.ng.getModuleDependencies());
 
 autodealio.ng.app.module.value('$autodealio', autodealio  );
 
