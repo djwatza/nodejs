@@ -238,6 +238,7 @@ autodealio.ng.page.gridControllerFactory = function (
         if(null == vm.vehicles)
         {
             vm.vehicles = [];
+            vm.meta.total_items = result.data.total;
         }
 
         vm.vehicles = vm.vehicles.concat(result.data.hits);
