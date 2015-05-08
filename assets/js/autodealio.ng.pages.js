@@ -1,3 +1,155 @@
+autodealio.ng.page.suggestControllerFactory = function (
+    $scope
+    , $baseController
+    , $geoService)
+{
+//  page initialization
+//  ---------------------------------------
+
+    var vm = this;
+//  inherit from app base controller
+    $.extend( vm, $baseController);
+
+//  initialize controller properties
+    vm.input = null;
+
+//  save dependencies for later
+    vm.$geoService = $geoService;
+    vm.$scope = $scope;
+
+//  expose public api
+    vm.suggest = _suggest;
+
+//  internal handler in case we need to fire angular refresh from outside event
+    vm.notify = vm.$geoService.getNotifier($scope);
+
+//  main controller members
+//  ---------------------------------------
+    function _suggest(input) {
+        vm.$geoService.zipcodeSearch(input, _onSuggestSuccess, _onSuggestError);
+    }
+
+//  handlers
+//  ---------------------------------------
+    function _onSuggestSuccess(result) {
+        vm.typeahead = result.data.hits;
+        console.log("got suggestions", vm.typeahead);
+
+        return vm.typeahead;
+    }
+
+    function _onSuggestError(jqXhr, error) {
+        console.error("error while getting typeahead", error);
+    }
+};
+
+autodealio.ng.addController(autodealio.ng.app.module
+    , "suggestController"
+    , ['$scope', '$baseController', "$geoService"]
+    , autodealio.ng.page.suggestControllerFactory);
+
+
+autodealio.ng.page.geoControllerFactory = function (
+    $scope
+    , $baseController
+    , $geoService)
+{
+//  page initialization
+//  ---------------------------------------
+
+    var vm = this;
+//  inherit from app base controller
+    $.extend( vm, $baseController);
+
+//  initialize controller properties
+    vm.query = null;
+    vm.states = null;
+    vm.statesCount = 0;
+    vm.cities = null;
+    vm.citiesCount = 0;
+    vm.typeahead = null;
+
+//  save dependencies for later
+    vm.$geoService = $geoService;
+    vm.$scope = $scope;
+
+//  expose public api
+    vm.getStates = _getStates;
+
+//  internal handler in case we need to fire angular refresh from outside event
+    vm.notify = vm.$geoService.getNotifier($scope);
+
+    switch (current_page)
+    {
+        case "landing_state":
+            _getCities(page_params.state);
+            break;
+
+        default :
+            _getStates();
+            break;
+    }
+
+    $scope.$emit('iso-option', {
+        itemSelector: '.state-item',
+        layoutMode: 'masonry',
+        cellsByRow: {
+            columnWidth: 110,
+            rowHeight: 110
+        },
+        masonry: {
+            columnWidth: 110
+        }
+    });
+
+//  main controller members
+//  ---------------------------------------
+    function _getCities(state)
+    {
+        vm.$geoService.getCities(state, _onGetCitiesSuccess, _onGetCitiesError);
+    }
+
+    function _getStates()
+    {
+        vm.$geoService.getStates(_onGetStatesSuccess, _onGetStatesError);
+    }
+
+//  handlers
+//  ---------------------------------------
+    function _onGetCitiesSuccess(result)
+    {
+        vm.cities = result.data.hits;
+        vm.citiesCount = vm.cities.length;
+
+        console.log("got cities");
+
+        return vm.states;
+    }
+
+    function _onGetCitiesError(jqXhr, error) {
+        console.error("error while getting cities", error);
+    }
+
+    function _onGetStatesSuccess(result)
+    {
+        console.log("got states");
+
+        vm.states = result.data.hits;
+
+        return vm.states;
+    }
+
+    function _onGetStatesError(jqXhr, error) {
+        console.error("error while getting states", error);
+    }
+};
+
+autodealio.ng.addController(autodealio.ng.app.module
+    , "geoController"
+    , ['$scope', '$baseController', "$geoService"]
+    , autodealio.ng.page.geoControllerFactory);
+
+
 autodealio.ng.page.gridControllerFactory = function (
     $scope
     , $baseController
@@ -17,7 +169,7 @@ autodealio.ng.page.gridControllerFactory = function (
 
     vm.paging = {
         page: 1,
-        count:24
+        count:12
     };
 
 //  inherit from app base controller
@@ -50,7 +202,7 @@ autodealio.ng.page.gridControllerFactory = function (
             break;
 
         case 'landing_city':
-            $.extend( q, {state: page_params.state, city: page_params.city});
+            $.extend( q, {state: page_params.state, city: page_params.city.fromSlug()});
             break;
     }
 

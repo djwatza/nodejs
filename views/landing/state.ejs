@@ -1,13 +1,13 @@
-<section class="cities">
+<section class="cities" data-ng-controller="geoController as geo">
     <div class="container" id="cities-container">
         <h1>Used Cars in <%=page_params.state %></h1>
         <h3>Browse By City</h3>
         <p class="cities-count">0 cities located with used cars for sale</p>
 
-        <ol id="cities-list">
-            <li id="city-template" class="hidden">
-                <a href="#">City Name</a><br/>
-                <span>0 Vehicles</span>
+        <ol id="cities-list" isotope-container="isotope-container" ng-cloak="">
+            <li data-ng-repeat="city in geo.cities track by city.city" isotope-item="isotope-item" class="city-item">
+                <a href="/inventory/<%=page_params.state %>/{{city.city | slug}}">{{city.city}}</a> <br/>
+                <span>{{city.count}} Vehicles</span>
             </li>
         </ol>
     </div>

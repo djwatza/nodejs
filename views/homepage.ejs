@@ -1,14 +1,14 @@
 <!-- Default home page -->
 
 <%- partial ('partials/search') %>
-<section class="browse-cars">
+<section class="browse-cars" data-ng-controller="geoController as geo">
     <div class="container">
         <h4>Browse Used Cars by State</h4>
 
-        <ol id="states-list">
-            <li id="state-template" class="hidden">
-                <a href="#">State Name</a> <br/>
-                <span>0 Vehicles</span>
+        <ol id="states-list" isotope-container="isotope-container" ng-cloak="">
+            <li data-ng-repeat="state in geo.states track by state.state" isotope-item="isotope-item" class="state-item">
+                <a href="/inventory/{{state.state}}">{{state.state_name}}</a> <br/>
+                <span>{{state.count}} Vehicles</span>
             </li>
         </ol>
     </div>

@@ -1,3 +1,10 @@
+String.prototype.fromSlug = function()
+{
+    return this
+        .replace('-',' ')
+        .replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+};
+
 autodealio = {
     ng : {
         page:{},
@@ -7,7 +14,7 @@ autodealio = {
         }
         , exceptions: {}
         , examples: {}
-        , defaultDependencies: ['infinite-scroll']
+        , defaultDependencies: ['infinite-scroll', 'ui.bootstrap', 'iso.directives']
         , getModuleDependencies: function(){
             if (autodealio.extraNgDependencies) {
                 var newItems = autodealio.ng.defaultDependencies.concat(autodealio.extraNgDependencies);
@@ -18,7 +25,16 @@ autodealio = {
     }
 };
 
-autodealio.ng.app.module = angular.module('autodealioApp', autodealio.ng.getModuleDependencies());
+autodealio.ng.app.module = angular.module('autodealioApp', autodealio.ng.getModuleDependencies())
+    .filter('slug', function () {
+        return function (input) {
+            if (input) {
+                return input.toLowerCase()
+                    .replace(/[^\w ]+/g,'')
+                    .replace(/ +/g,'-');
+            }
+        }
+    });
 
 autodealio.ng.app.module.value('$autodealio', autodealio  );
 
