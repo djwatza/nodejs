@@ -37,11 +37,15 @@ module.exports =
 
                 VehicleService.list({vin: vin}, function(err, data)
                 {
+                    var vehicle = data.hits[0];
+
                     res.view("vehicle/view",{
-                        vehicle: data.hits[0],
+                        vehicle: vehicle,
                         page_params:req.params,
                         current_page: "view_vehicle",
-                        zip_data:zip_data
+                        zip_data:zip_data,
+                        meta_title:"Used " + vehicle.year + " " + vehicle.make + " " + vehicle.model + " " + vehicle.series + " for Sale in " + vehicle.city + ", " + vehicle.state + " - " + vehicle.vin,
+                        meta_description:"Check out this " + vehicle.year + " " + vehicle.make + " " + vehicle.model + " " + vehicle.series + " for Sale in " + vehicle.city + ". This Vehicle is " + vehicle.exterior_color + " in Color, the Price is $" + vehicle.price + ", and the Mileage is " + vehicle.mileage + "."
                     });
                 });
             });
@@ -50,11 +54,15 @@ module.exports =
         {
             VehicleService.list({vin: vin}, function(err, data)
             {
+                var vehicle = data.hits[0];
+
                 res.view("vehicle/view",{
-                    vehicle: data.hits[0],
+                    vehicle:vehicle,
                     page_params:req.params,
                     current_page: "view_vehicle",
-                    zip_data:null
+                    zip_data:null,
+                    meta_title:"Used " + vehicle.year + " " + vehicle.make + " " + vehicle.model + " " + vehicle.series + " for Sale in " + vehicle.city + ", " + vehicle.state + " - " + vehicle.vin,
+                    meta_description:"Check out this " + vehicle.year + " " + vehicle.make + " " + vehicle.model + " " + vehicle.series + " for Sale in " + vehicle.city + ". This Vehicle is " + vehicle.exterior_color + " in Color, the Price is $" + vehicle.price + ", and the Mileage is " + vehicle.mileage + "."
                 });
             });
         }

@@ -78,6 +78,11 @@ module.exports.routes = {
         action: 'city',
         skipAssets: true
     },
+    'get /:state/:city/:make': {
+        controller: 'LandingController',
+        action: 'make',
+        skipAssets: true
+    },
     'get /:state': {
         controller: 'LandingController',
         action: 'state',

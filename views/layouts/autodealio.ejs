@@ -12,6 +12,12 @@ page_params.thumbnails = {
 page_params.api = {
     base: sails.config.autodealio.api.base_url
 };
+
+if(typeof meta_title == 'undefined' || UtilityService.empty(meta_title))
+    meta_title = "Used Cars for Sale - Trucks, SUVs, Luxury, Sports Cars, Hybrid/Electric, and More.";
+
+if(typeof meta_description == 'undefined' || UtilityService.empty(meta_description))
+    meta_description = "Looking to Buy a Used Car? Search Thousands of Used Trucks, SUVs, Luxury Cars, Sports Cars, and more. We have a Network of Trusted Dealers from across the Country.";
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -20,7 +26,9 @@ page_params.api = {
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Auto Dealio</title>
+        <title>AutoDealio.com - <%=meta_title %></title>
+
+        <meta name="description" content="<%=meta_description %>"/>
 
         <!--STYLES-->
         <link rel="stylesheet" href="http://api.autodealio.com/styles/autodealio.css">
@@ -62,5 +70,18 @@ page_params.api = {
                 <script src="/js/dependencies/autodealio.ng.app.js"></script>
                 <script src="/js/autodealio.ng.services.js"></script>
                 <script src="/js/autodealio.ng.pages.js"></script>
+
+                <script type="text/javascript">
+                    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+                        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+                    })(window,document,'script','//www.google-analytics.com/analytics.js','__gaTracker');
+
+                    __gaTracker('create', 'UA-45841215-1', 'auto');
+                    __gaTracker('set', 'forceSSL', true);
+                    __gaTracker('require', 'displayfeatures');
+                    __gaTracker('send','pageview');
+
+                </script>
     </body>
 </html>
