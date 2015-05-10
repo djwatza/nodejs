@@ -204,6 +204,10 @@ autodealio.ng.page.gridControllerFactory = function (
         case 'landing_city':
             $.extend( q, {state: page_params.state, city: page_params.city.fromSlug()});
             break;
+
+        case 'landing_make':
+            $.extend( q, {state: page_params.state, city: page_params.city.fromSlug(), make: page_params.make.fromSlug()});
+            break;
     }
 
     vm.query = q;

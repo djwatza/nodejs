@@ -1,9 +1,9 @@
 <%
-    var header = "Browse All " + page_params.make + " Cars in " + page_params.city + ", " + page_params.state;
+    var header = "Browse All " + page_params.make + " Cars in " + page_params.city.fromSlug() + ", " + page_params.state;
 %>
 <section class="cities" data-ng-controller="geoController as geo">
     <div class="container" id="cities-container">
-        <h1>Used <%=page_params.make %> Cars in <%=page_params.state %></h1>
+        <h1>Used <%=page_params.make %> Cars in <%=page_params.city.fromSlug() %>, <%=page_params.state %></h1>
         <h3>Browse By Model</h3>
     </div>
 </section>
