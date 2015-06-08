@@ -58,34 +58,42 @@ module.exports =
 
         Vehicle.search({body: q, type:"vehicle"}, function(err, data)
         {
-            var states_agg = data.aggregations;
-
-            var states = [];
-
-            for (var i = 0, len = states_agg.states.buckets.length; i < len; i++)
+            if(UtilityService.empty(data) || UtilityService.empty(data.aggregations))
             {
-                var state = states_agg.states.buckets[i];
+                callback(null, null);
+            }
+            else
+            {
+                var states_agg = data.aggregations;
 
-                var abbr = state.key;
+                var states = [];
 
-                var state_name = UtilityService.abbr_state(abbr);
-
-                if(state_name.length > 0)
+                for (var i = 0, len = states_agg.states.buckets.length; i < len; i++)
                 {
-                    states.push({
-                        state: abbr,
-                        state_name: state_name.toTitleCase(),
-                        count: state.doc_count
-                    });
+                    var state = states_agg.states.buckets[i];
+
+                    var abbr = state.key;
+
+                    var state_name = UtilityService.abbr_state(abbr);
+
+                    if(state_name.length > 0)
+                    {
+                        states.push({
+                            state: abbr,
+                            state_name: state_name.toTitleCase(),
+                            count: state.doc_count
+                        });
+                    }
                 }
+
+                var ret = {
+                    hits: states,
+                    total: states_agg.states.doc_count
+                };
+
+                callback(null, ret);
             }
 
-            var ret = {
-                hits: states,
-                total: states_agg.states.doc_count
-            };
-
-            callback(null, ret);
         });
     },
     get_cities_by_state: function (state, callback)
@@ -116,26 +124,33 @@ module.exports =
 
         Vehicle.search({body: q, type:"vehicle"}, function(err, data)
         {
-            var cities_agg = data.aggregations;
-
-            var cities = [];
-
-            for (var i = 0, len = cities_agg.state.state_cities.buckets.length; i < len; i++)
+            if(UtilityService.empty(data.aggregations))
             {
-                var city = cities_agg.state.state_cities.buckets[i];
-
-                cities.push({
-                    city: city.key,
-                    count: city.doc_count
-                });
+                callback(null, null);
             }
+            else
+            {
+                var cities_agg = data.aggregations;
 
-            var ret = {
-                hits: cities,
-                total: cities_agg.state.doc_count
-            };
+                var cities = [];
 
-            callback(null, ret);
+                for (var i = 0, len = cities_agg.state.state_cities.buckets.length; i < len; i++)
+                {
+                    var city = cities_agg.state.state_cities.buckets[i];
+
+                    cities.push({
+                        city: city.key,
+                        count: city.doc_count
+                    });
+                }
+
+                var ret = {
+                    hits: cities,
+                    total: cities_agg.state.doc_count
+                };
+
+                callback(null, ret);
+            }
         });
     }
 };

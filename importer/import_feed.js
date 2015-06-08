@@ -28,7 +28,7 @@ var Importer =
     txtpath:'',
     row_cursor:0,
     es:{},
-    max_buffer:800,
+    max_buffer:500,
     buffer:{},
     es_fired:0,
     es_err:0,
