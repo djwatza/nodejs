@@ -14,7 +14,7 @@ autodealio = {
         }
         , exceptions: {}
         , examples: {}
-        , defaultDependencies: ['infinite-scroll', 'ui.bootstrap', 'iso.directives']
+        , defaultDependencies: ['infinite-scroll', 'ui.bootstrap']
         , getModuleDependencies: function(){
             if (autodealio.extraNgDependencies) {
                 var newItems = autodealio.ng.defaultDependencies.concat(autodealio.extraNgDependencies);
