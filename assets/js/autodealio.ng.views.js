@@ -90,17 +90,17 @@ autodealio.ng.page.geoControllerFactory = function (
             break;
     }
 
-    $scope.$emit('iso-option', {
-        itemSelector: '.state-item',
-        layoutMode: 'masonry',
-        cellsByRow: {
-            columnWidth: 110,
-            rowHeight: 110
-        },
-        masonry: {
-            columnWidth: 110
-        }
-    });
+    //$scope.$emit('iso-option', {
+    //    itemSelector: '.state-item',
+    //    layoutMode: 'masonry',
+    //    cellsByRow: {
+    //        columnWidth: 110,
+    //        rowHeight: 110
+    //    },
+    //    masonry: {
+    //        columnWidth: 110
+    //    }
+    //});
 
 //  main controller members
 //  ---------------------------------------

@@ -22,7 +22,7 @@
 
 module.exports.routes = {
 
-  '/inventory': 'SiteController.index',
+  '/': 'SiteController.index',
 
   /***************************************************************************
   *                                                                          *

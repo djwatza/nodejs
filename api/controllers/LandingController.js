@@ -46,6 +46,8 @@ module.exports =
     {
         res.view("landing/make",{
             current_page: "landing_make",
+            meta_title: "Used " +  req.params.make.fromSlug() + " Cars for Sale in " +  req.params.city.fromSlug() + ", " + req.params.state,
+            meta_description:"",
             page_params: {
                 state: req.params.state,
                 city: req.params.city,

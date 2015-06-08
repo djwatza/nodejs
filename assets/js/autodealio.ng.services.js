@@ -4,6 +4,8 @@ autodealio.ng.app.services.geoFactory = function ($baseService, $http)
 
     $.extend( svc, $baseService);
 
+    //svc.baseUrl =
+
     svc.zipcodeSearch = _zipcodeSearch;
     svc.getStates = _getStates;
     svc.getCities = _getCities;
