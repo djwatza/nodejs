@@ -7,7 +7,7 @@
 
         <ol id="states-list" isotope-container="isotope-container" ng-cloak="">
             <li data-ng-repeat="state in geo.states track by state.state" isotope-item="isotope-item" class="state-item">
-                <a href="/inventory/{{state.state}}">{{state.state_name}}</a> <br/>
+                <a href="<%=sails.config.autodealio.site.base_url %>{{state.state}}">{{state.state_name}}</a> <br/>
                 <span>{{state.count}} Vehicles</span>
             </li>
         </ol>

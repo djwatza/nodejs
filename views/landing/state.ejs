@@ -6,7 +6,7 @@
 
         <ol id="cities-list" isotope-container="isotope-container" ng-cloak="">
             <li data-ng-repeat="city in geo.cities track by city.city" isotope-item="isotope-item" class="city-item">
-                <a href="/inventory/<%=page_params.state %>/{{city.city}}">{{city.city}}</a> <br/>
+                <a href="<%=sails.config.autodealio.site.base_url %><%=page_params.state %>/{{city.city}}">{{city.city}}</a> <br/>
                 <span>{{city.count}} Vehicles</span>
             </li>
         </ol>

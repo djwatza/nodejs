@@ -4,7 +4,7 @@ autodealio.ng.app.services.geoFactory = function ($baseService, $http)
 
     $.extend( svc, $baseService);
 
-    //svc.baseUrl =
+    svc.baseUrl = page_params.api.base;
 
     svc.zipcodeSearch = _zipcodeSearch;
     svc.getStates = _getStates;
@@ -14,7 +14,7 @@ autodealio.ng.app.services.geoFactory = function ($baseService, $http)
 
         var request = $http({
             method: "get",
-            url: "/api/states",
+            url: svc.baseUrl + "api/states",
             params: null
         });
 
@@ -25,7 +25,7 @@ autodealio.ng.app.services.geoFactory = function ($baseService, $http)
 
         var request = $http({
             method: "get",
-            url: "/api/states/" + state + "/cities",
+            url: svc.baseUrl + "api/states/" + state + "/cities",
             params: null
         });
 
@@ -36,7 +36,7 @@ autodealio.ng.app.services.geoFactory = function ($baseService, $http)
 
         var request = $http({
             method: "get",
-            url: "/api/geo/search",
+            url: svc.baseUrl + "api/geo/search",
             params: {q:query}
         });
 
@@ -56,12 +56,13 @@ autodealio.ng.app.services.searchFactory = function ($baseService, $http)
     $.extend( svc, $baseService);
 
     svc.vehicles = _vehicles;
+    svc.baseUrl = page_params.api.base;
 
     function _vehicles( query, success, error ) {
 
         var request = $http({
             method: "get",
-            url: "/api/vehicles",
+            url: svc.baseUrl + "api/vehicles",
             params: query
         });
 

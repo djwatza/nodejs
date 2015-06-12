@@ -5,5 +5,8 @@ module.exports.autodealio = {
     },
     api : {
         base_url : "http://api.autodealio.com/"
+    },
+    site : {
+        base_url : "http://localhost:1337/"
     }
 };
