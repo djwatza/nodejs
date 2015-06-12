@@ -80,7 +80,7 @@ min-height:75px; background:#8dc711; border-radius:5px;
 .buttons a:hover {background:#8dc711; }
 a.remove {position:absolute; width:50px; height:45px; background:#c8c8c8; top:0px; right:0px; text-align:center; line-height:40px; }
 .search-inner {margin-bottom:30px; }
-.car {position: relative; max-width: 295px; margin: 0 auto;}
+.car {position: relative; max-width: 295px; margin: 0 auto; min-height: 218px;}
 .car .overlay{position:absolute; bottom:0px; left:0px; height:77px; background:rgba(0, 0, 0, 0.57); text-align:center; width:100%; }
 .car .overlay h3{ margin-bottom:0px;   }
 .car .overlay h3 a{font-size:20px; color:#fff;  text-decoration:none;   font-family: 'Open Sans', sans-serif;}
