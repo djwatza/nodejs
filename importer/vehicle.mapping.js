@@ -122,7 +122,8 @@
                             "index" : "not_analyzed"
                         },
                         "vin": {
-                            "type": "string"
+                            "type": "string",
+                            "index" : "not_analyzed"
                         },
                         "year": {
                             "type": "integer",

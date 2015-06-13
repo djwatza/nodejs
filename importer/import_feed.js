@@ -233,9 +233,16 @@ var Importer =
         if(Importer.es_done >= Importer.es_fired)
         {
             console.log("BULK INDEXING COMPLETE");
+
+            fs.unlink(Importer.filepath, function (err) {
+                if (err) throw err;
+
+
+                console.log('successfully deleted data file %s', Importer.filepath);
+            });
         }
     }
-}
+};
 
 Importer.initialize();
 

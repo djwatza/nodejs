@@ -54,16 +54,25 @@ module.exports =
         {
             VehicleService.list({vin: vin}, function(err, data)
             {
-                var vehicle = data.hits[0];
+                if(data && data.hits && data.hits.length > 0)
+                {
+                    var vehicle = data.hits[0];
 
-                res.view("vehicle/view",{
-                    vehicle:vehicle,
-                    page_params:req.params,
-                    current_page: "view_vehicle",
-                    zip_data:null,
-                    meta_title:"Used " + vehicle.year + " " + vehicle.make + " " + vehicle.model + " " + vehicle.series + " for Sale in " + vehicle.city + ", " + vehicle.state + " - " + vehicle.vin,
-                    meta_description:"Check out this " + vehicle.year + " " + vehicle.make + " " + vehicle.model + " " + vehicle.series + " for Sale in " + vehicle.city + ". This Vehicle is " + vehicle.exterior_color + " in Color, the Price is $" + vehicle.price + ", and the Mileage is " + vehicle.mileage + "."
-                });
+                    res.view("vehicle/view",{
+                        vehicle:vehicle,
+                        page_params:req.params,
+                        current_page: "view_vehicle",
+                        zip_data:null,
+                        meta_title:"Used " + vehicle.year + " " + vehicle.make + " " + vehicle.model + " " + vehicle.series + " for Sale in " + vehicle.city + ", " + vehicle.state + " - " + vehicle.vin,
+                        meta_description:"Check out this " + vehicle.year + " " + vehicle.make + " " + vehicle.model + " " + vehicle.series + " for Sale in " + vehicle.city + ". This Vehicle is " + vehicle.exterior_color + " in Color, the Price is $" + vehicle.price + ", and the Mileage is " + vehicle.mileage + "."
+                    });
+                }
+                else
+                {
+                    console.error("problem loading vehicle data:", data);
+
+                    res.notFound();
+                }
             });
         }
     }
