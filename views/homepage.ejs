@@ -11,8 +11,8 @@
             <div  id="states-list" ng-cloak="">
                 <div data-ng-repeat="state in geo.states track by state.state" class="col-md-3">
                     <div class="state-item">
-                    <a href="<%=sails.config.autodealio.site.base_url %>{{state.state}}">{{state.state_name}}</a> <br/>
-                    <span>{{state.count}} Vehicles</span>
+                        <a href="<%=sails.config.autodealio.site.base_url %>{{state.state}}">{{state.state_name}}</a> <br/>
+                        <span>{{state.count}} Vehicles</span>
                     </div>
                 </div>
             </div>

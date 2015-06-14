@@ -1,7 +1,7 @@
 autodealio.ng.page.simpleSearchControllerFactory = function (
     $scope
     , $baseController
-    , $geoService)
+    , $searchService)
 {
 //  page initialization
 //  ---------------------------------------
@@ -11,42 +11,53 @@ autodealio.ng.page.simpleSearchControllerFactory = function (
 
 //  initialize controller properties
     vm.input = {
-        simple:null
+        simple:{
+            make:0
+        }
     };
 
+    vm.makes = null;
+    vm.models = null;
+    vm.selectedModels = null;
+
 //  save dependencies for later
-    vm.$geoService = $geoService;
+    vm.$searchService = $searchService;
     vm.$scope = $scope;
 
 //  expose public api
-    vm.suggest = _suggest;
+    vm.initialize = _initialize;
 
 //  internal handler in case we need to fire angular refresh from outside event
-    vm.notify = vm.$geoService.getNotifier($scope);
+    vm.notify = vm.$searchService.getNotifier($scope);
+
+    _initialize();
 
 //  main controller members
 //  ---------------------------------------
-    function _suggest(input) {
-        vm.$geoService.zipcodeSearch(input, _onSuggestSuccess, _onSuggestError);
+    function _initialize() {
+        vm.$searchService.vehicles({}, _onQuerySuccess, _onQueryError);
     }
 
 //  handlers
 //  ---------------------------------------
-    function _onSuggestSuccess(result) {
-        vm.typeahead = result.data.hits;
-        console.log("got suggestions", vm.typeahead);
-
-        return vm.typeahead;
+    function _onQuerySuccess(result)
+    {
+        if(result.data.aggregations && result.data.aggregations.makes)
+        {
+            vm.models = vm.$searchService.parseModels(result.data.aggregations.makes);
+            vm.makes = vm.$searchService.parseMakes(result.data.aggregations.makes);
+            vm.input.simple.make = vm.makes[0];
+        }
     }
 
-    function _onSuggestError(jqXhr, error) {
-        console.error("error while getting typeahead", error);
+    function _onQueryError(jqXhr, error) {
+        console.error("error while getting simple search query", error);
     }
 };
 
 autodealio.ng.addController(autodealio.ng.app.module
     , "simpleSearchController"
-    , ['$scope', '$baseController', "$geoService"]
+    , ['$scope', '$baseController', "$searchService"]
     , autodealio.ng.page.simpleSearchControllerFactory);
 
 

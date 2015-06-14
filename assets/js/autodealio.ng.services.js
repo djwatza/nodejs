@@ -55,8 +55,11 @@ autodealio.ng.app.services.searchFactory = function ($baseService, $http)
 
     $.extend( svc, $baseService);
 
-    svc.vehicles = _vehicles;
     svc.baseUrl = page_params.api.base;
+
+    svc.vehicles = _vehicles;
+    svc.parseMakes = _parseMakes;
+    svc.parseModels = _parseModels;
 
     function _vehicles( query, success, error ) {
 
@@ -67,6 +70,46 @@ autodealio.ng.app.services.searchFactory = function ($baseService, $http)
         });
 
         return( request.then( success, error ) );
+    }
+
+    function _parseMakes(agg)
+    {
+        var makes = [{
+            value:0,
+            label: "Makes"
+        }];
+
+        angular.forEach(agg, function(value, key) {
+
+            this.push({
+                value:value.name,
+                label: value.name + " (" +value.count + ")"
+            });
+        }, makes);
+
+        return makes;
+    }
+
+    function _parseModels(agg)
+    {
+        var models = [];
+
+        angular.forEach(agg, function(make, key) {
+
+            var makes = [];
+            angular.forEach(make.models, function(model, key) {
+
+                this.push({
+                    value:model.name,
+                    label: model.name + " (" + model.count + ")"
+                });
+            }, makes);
+
+            this[make.name] = makes;
+
+        }, models);
+
+        return models;
     }
 };
 

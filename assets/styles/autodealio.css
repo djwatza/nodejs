@@ -99,7 +99,7 @@ input.error{ border: 1px dashed red; }
 	border:0;
 	height:45px;
 }
-.search-inner form input[type="submit"]:hover{color:#36bbf3; background:#FFF; }
+.search-inner form input[type="submit"]:hover{color:#94c60b; background:#FFF; }
 
 .buttons a {background:#c1c1c1; border-radius:4px; display:inline-block; text-align:center; color:#fff; font-size:27px; text-decoration:none; line-height:42px; width:125px; margin-right:10px;}
 .buttons a:hover {background:#8dc711; }
