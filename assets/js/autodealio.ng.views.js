@@ -1,17 +1,18 @@
-autodealio.ng.page.suggestControllerFactory = function (
+autodealio.ng.page.simpleSearchControllerFactory = function (
     $scope
     , $baseController
     , $geoService)
 {
 //  page initialization
 //  ---------------------------------------
-
     var vm = this;
 //  inherit from app base controller
     $.extend( vm, $baseController);
 
 //  initialize controller properties
-    vm.input = null;
+    vm.input = {
+        simple:null
+    };
 
 //  save dependencies for later
     vm.$geoService = $geoService;
@@ -44,9 +45,9 @@ autodealio.ng.page.suggestControllerFactory = function (
 };
 
 autodealio.ng.addController(autodealio.ng.app.module
-    , "suggestController"
+    , "simpleSearchController"
     , ['$scope', '$baseController', "$geoService"]
-    , autodealio.ng.page.suggestControllerFactory);
+    , autodealio.ng.page.simpleSearchControllerFactory);
 
 
 autodealio.ng.page.geoControllerFactory = function (

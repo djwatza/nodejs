@@ -1,15 +1,21 @@
 <!-- Default home page -->
-
-<%- partial ('partials/search') %>
-<section class="browse-cars" data-ng-controller="geoController as geo">
+<section id="inventory-header">
     <div class="container">
-        <h4>Browse Used Cars by State</h4>
-
-        <ol id="states-list" isotope-container="isotope-container" ng-cloak="">
-            <li data-ng-repeat="state in geo.states track by state.state" isotope-item="isotope-item" class="state-item">
-                <a href="<%=sails.config.autodealio.site.base_url %>{{state.state}}">{{state.state_name}}</a> <br/>
-                <span>{{state.count}} Vehicles</span>
-            </li>
-        </ol>
+        <h1>Search Inventory</h1>
+    </div>
+</section>
+<%- partial ('partials/search/simple') %>
+<section class="browse-cars col-lg-12 col-md-12" data-ng-controller="geoController as geo">
+    <div class="container">
+        <div class="row">
+            <div  id="states-list" ng-cloak="">
+                <div data-ng-repeat="state in geo.states track by state.state" class="col-md-3">
+                    <div class="state-item">
+                    <a href="<%=sails.config.autodealio.site.base_url %>{{state.state}}">{{state.state_name}}</a> <br/>
+                    <span>{{state.count}} Vehicles</span>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </section>
