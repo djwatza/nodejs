@@ -1,7 +1,8 @@
 autodealio.ng.page.simpleSearchControllerFactory = function (
     $scope
     , $baseController
-    , $searchService)
+    , $searchService
+    , $geoService)
 {
 //  page initialization
 //  ---------------------------------------
@@ -12,20 +13,27 @@ autodealio.ng.page.simpleSearchControllerFactory = function (
 //  initialize controller properties
     vm.input = {
         simple:{
-            make:0
+            make:0,
+            model:0,
+            zip_code:null
         }
     };
 
     vm.makes = null;
     vm.models = null;
+    vm.selectedMake = null;
     vm.selectedModels = null;
 
 //  save dependencies for later
     vm.$searchService = $searchService;
+    vm.$geoService = $geoService;
     vm.$scope = $scope;
 
 //  expose public api
     vm.initialize = _initialize;
+    vm.query = _query;
+    vm.setMake = _setMake;
+    vm.getModelsDisabled = _getModelsDisabled;
 
 //  internal handler in case we need to fire angular refresh from outside event
     vm.notify = vm.$searchService.getNotifier($scope);
@@ -35,29 +43,75 @@ autodealio.ng.page.simpleSearchControllerFactory = function (
 //  main controller members
 //  ---------------------------------------
     function _initialize() {
-        vm.$searchService.vehicles({}, _onQuerySuccess, _onQueryError);
+        vm.$searchService.vehicles({}, _onGetVehicleSuccess, _onGetVehicleError);
+    }
+
+    function _query()
+    {
+        console.log("query cars", vm.input.simple);
+
+        vm.$geoService.zipcodeSearch(vm.input.simple.zip_code, _onQuerySuccess, _onQueryError);
+    }
+
+    function _setMake()
+    {
+        vm.selectedMake = vm.input.simple.make;
+
+        console.log("selected make", vm.selectedMake);
+
+        if(vm.models[vm.selectedMake.value])
+        {
+            vm.selectedModels = vm.models[vm.selectedMake.value];
+
+            vm.input.simple.model = vm.selectedModels[0];
+        }
+    }
+
+    function _getModelsDisabled()
+    {
+        return "false";// (vm.selectedModels && vm.selectedModels.length > 0) ? "false" : "disabled";
     }
 
 //  handlers
 //  ---------------------------------------
     function _onQuerySuccess(result)
     {
+        if(result.data.hits && result.data.hits.length > 0)
+        {
+            var zip = result.data.hits[0];
+
+            var url = "/" + zip.state + "/" + zip.city + "/" + vm.selectedMake.value;
+
+            window.location.href=url;
+        }
+
+    }
+
+    function _onQueryError(jqXhr, error) {
+        console.error("error while getting zip code query", error);
+    }
+
+    function _onGetVehicleSuccess(result)
+    {
         if(result.data.aggregations && result.data.aggregations.makes)
         {
             vm.models = vm.$searchService.parseModels(result.data.aggregations.makes);
             vm.makes = vm.$searchService.parseMakes(result.data.aggregations.makes);
+
             vm.input.simple.make = vm.makes[0];
+
+            vm.selectedModels = null;
         }
     }
 
-    function _onQueryError(jqXhr, error) {
-        console.error("error while getting simple search query", error);
+    function _onGetVehicleError(jqXhr, error) {
+        console.error("error while getting simple search vehicle query", error);
     }
 };
 
 autodealio.ng.addController(autodealio.ng.app.module
     , "simpleSearchController"
-    , ['$scope', '$baseController', "$searchService"]
+    , ['$scope', '$baseController', "$searchService", "$geoService"]
     , autodealio.ng.page.simpleSearchControllerFactory);
 
 
@@ -101,18 +155,6 @@ autodealio.ng.page.geoControllerFactory = function (
             _getStates();
             break;
     }
-
-    //$scope.$emit('iso-option', {
-    //    itemSelector: '.state-item',
-    //    layoutMode: 'masonry',
-    //    cellsByRow: {
-    //        columnWidth: 110,
-    //        rowHeight: 110
-    //    },
-    //    masonry: {
-    //        columnWidth: 110
-    //    }
-    //});
 
 //  main controller members
 //  ---------------------------------------

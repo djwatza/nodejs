@@ -91,7 +91,7 @@ module.exports.connections = {
 
   devElasticsearch: {
     adapter:'autodealio',
-    host: '127.0.0.1',
+    host: '54.69.169.39',
     es: {index : 'vehicle', type : 'vehicle'}
   }
 

@@ -83,7 +83,7 @@ autodealio.ng.app.services.searchFactory = function ($baseService, $http)
 
             this.push({
                 value:value.name,
-                label: value.name + " (" +value.count + ")"
+                label: value.name //+ " (" +value.count + ")"
             });
         }, makes);
 
@@ -101,7 +101,7 @@ autodealio.ng.app.services.searchFactory = function ($baseService, $http)
 
                 this.push({
                     value:model.name,
-                    label: model.name + " (" + model.count + ")"
+                    label: model.name //+ " (" + model.count + ")"
                 });
             }, makes);
 
