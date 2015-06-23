@@ -2,7 +2,8 @@ autodealio.ng.page.simpleSearchControllerFactory = function (
     $scope
     , $baseController
     , $searchService
-    , $geoService)
+    , $geoService
+    , $cookies)
 {
 //  page initialization
 //  ---------------------------------------
@@ -28,6 +29,7 @@ autodealio.ng.page.simpleSearchControllerFactory = function (
     vm.$searchService = $searchService;
     vm.$geoService = $geoService;
     vm.$scope = $scope;
+    vm.$cookies = $cookies;
 
 //  expose public api
     vm.initialize = _initialize;
@@ -80,7 +82,18 @@ autodealio.ng.page.simpleSearchControllerFactory = function (
         {
             var zip = result.data.hits[0];
 
-            var url = "/" + zip.state + "/" + zip.city + "/" + vm.selectedMake.value;
+            vm.$cookies[page_params.cookie_name] = JSON.stringify(zip);
+
+            var url = '/';
+
+            if(vm.selectedMake)
+            {
+                url = "/" + zip.state + "/" + zip.city + "/" + vm.selectedMake.value;
+            }
+            else
+            {
+                url = "/" + zip.state + "/" + zip.city;
+            }
 
             window.location.href=url;
         }
@@ -111,7 +124,7 @@ autodealio.ng.page.simpleSearchControllerFactory = function (
 
 autodealio.ng.addController(autodealio.ng.app.module
     , "simpleSearchController"
-    , ['$scope', '$baseController', "$searchService", "$geoService"]
+    , ['$scope', '$baseController', "$searchService", "$geoService", "$cookies"]
     , autodealio.ng.page.simpleSearchControllerFactory);
 
 
@@ -207,7 +220,8 @@ autodealio.ng.addController(autodealio.ng.app.module
 autodealio.ng.page.gridControllerFactory = function (
     $scope
     , $baseController
-    , $searchService)
+    , $searchService
+    , $cookies)
 {
 //  page initialization
 //  ---------------------------------------
@@ -217,6 +231,7 @@ autodealio.ng.page.gridControllerFactory = function (
     vm.busy = false;
     vm.query = {};
     vm.vehicles = null;
+    vm.zip_code = null;
     vm.meta = {
         total_items:0
     };
@@ -232,6 +247,7 @@ autodealio.ng.page.gridControllerFactory = function (
 //  save dependencies for later
     vm.$searchService = $searchService;
     vm.$scope = $scope;
+    vm.$cookies = $cookies;
 
 //  expose public api
     vm.searchVehicles = _searchVehicles;
@@ -244,8 +260,8 @@ autodealio.ng.page.gridControllerFactory = function (
     vm.notify = vm.$searchService.getNotifier($scope);
 
 //  initialize the grid
-    console.log(current_page);
-    console.log(page_params);
+    console.log("current page", current_page);
+    console.log("page params", page_params);
 
     var q = vm.paging;
 
@@ -256,7 +272,21 @@ autodealio.ng.page.gridControllerFactory = function (
             break;
 
         case 'landing_city':
-            $.extend( q, {state: page_params.state, city: page_params.city.fromSlug()});
+
+            if(vm.$cookies[page_params.cookie_name])
+            {
+                vm.zip_code = JSON.parse(vm.$cookies[page_params.cookie_name]);
+
+                console.log("found zip in cookie", vm.zip_code);
+
+                $.extend( q, {zip: vm.zip_code.zip_code});
+            }
+            else
+            {
+                $.extend( q, {state: page_params.state, city: page_params.city.fromSlug()});
+            }
+
+
             break;
 
         case 'landing_make':
@@ -310,5 +340,5 @@ autodealio.ng.page.gridControllerFactory = function (
 
 autodealio.ng.addController(autodealio.ng.app.module
     , "gridController"
-    , ['$scope', '$baseController', "$searchService"]
+    , ['$scope', '$baseController', "$searchService", "$cookies"]
     , autodealio.ng.page.gridControllerFactory);

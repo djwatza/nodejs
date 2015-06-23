@@ -13,6 +13,10 @@ page_params.api = {
     base: sails.config.autodealio.api.base_url
 };
 
+page_params.cookie_name = {
+    base: sails.config.autodealio.cookie_name
+};
+
 if(typeof meta_title == 'undefined' || UtilityService.empty(meta_title))
     meta_title = "Used Cars for Sale - Trucks, SUVs, Luxury, Sports Cars, Hybrid/Electric, and More.";
 
@@ -57,6 +61,7 @@ if(typeof meta_description == 'undefined' || UtilityService.empty(meta_descripti
                 <!--SCRIPTS-->
                 <script src="/js/dependencies/angular.jquery.min.js"></script>
                 <script src="/js/dependencies/angular.min.js"></script>
+                <script src="/js/dependencies/angular.ng-cookies.min.js"></script>
                 <script src="/js/dependencies/angular.ng-infinite-scroll.js"></script>
                 <script src="/js/dependencies/angular.ui-bootstrap-tpls-0.13.0.min.js"></script>
                 <script src="/js/dependencies/autodealio.ng.app.js"></script>

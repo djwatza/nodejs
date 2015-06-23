@@ -32,6 +32,8 @@ module.exports =
     },
     city: function (req, res)
     {
+
+
         res.view("landing/city",{
             current_page: "landing_city",
             meta_title: "Used Cars for Sale in " +  req.params.city.fromSlug() + ", " + req.params.state,
