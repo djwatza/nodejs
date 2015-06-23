@@ -17,7 +17,7 @@ module.exports =
             if (err)
                 return res.serverError(err);
 
-            if(req.query.zip.length >= 5)
+            if(req.query.zip && req.query.zip.length >= 5)
             {
                 res.cookie(sails.config.autodealio.cookie_name, { zip:req.query.zip });
             }
