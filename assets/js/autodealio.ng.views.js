@@ -84,20 +84,19 @@ autodealio.ng.page.simpleSearchControllerFactory = function (
 
             vm.$cookies[page_params.cookie_name] = JSON.stringify(zip);
 
-            var url = '/';
+            var url =  page_params.site.base;
 
             if(vm.selectedMake)
             {
-                url = "/" + zip.state + "/" + zip.city + "/" + vm.selectedMake.value;
+                url += zip.state + "/" + zip.city + "/" + vm.selectedMake.value;
             }
             else
             {
-                url = "/" + zip.state + "/" + zip.city;
+                url += zip.state + "/" + zip.city;
             }
 
             window.location.href=url;
         }
-
     }
 
     function _onQueryError(jqXhr, error) {
