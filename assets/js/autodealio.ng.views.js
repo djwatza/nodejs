@@ -271,12 +271,11 @@ autodealio.ng.page.gridControllerFactory = function (
             break;
 
         case 'landing_city':
-
             if(vm.$cookies[page_params.cookie_name])
             {
                 vm.zip_code = JSON.parse(vm.$cookies[page_params.cookie_name]);
 
-                console.log("found zip in cookie", vm.zip_code);
+                console.log("found zip in cookie (landing_city)", vm.zip_code);
 
                 $.extend( q, {zip: vm.zip_code.zip_code});
             }
@@ -284,12 +283,23 @@ autodealio.ng.page.gridControllerFactory = function (
             {
                 $.extend( q, {state: page_params.state, city: page_params.city.fromSlug()});
             }
-
-
             break;
 
         case 'landing_make':
-            $.extend( q, {state: page_params.state, city: page_params.city.fromSlug(), make: page_params.make.fromSlug()});
+            //  TODO: combine cookie logic so both cases can call service function instead of duplicating code here
+            if(vm.$cookies[page_params.cookie_name])
+            {
+                vm.zip_code = JSON.parse(vm.$cookies[page_params.cookie_name]);
+
+                console.log("found zip in cookie (landing_make)", vm.zip_code);
+
+                $.extend( q, {zip: vm.zip_code.zip_code, make: page_params.make.fromSlug()});
+            }
+            else
+            {
+                $.extend( q, {state: page_params.state, city: page_params.city.fromSlug(), make: page_params.make.fromSlug()});
+            }
+            
             break;
     }
 
