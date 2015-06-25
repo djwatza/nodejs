@@ -82,7 +82,11 @@ autodealio.ng.page.simpleSearchControllerFactory = function (
         {
             var zip = result.data.hits[0];
 
-            vm.$cookies[page_params.cookie_name] = JSON.stringify(zip);
+            var cookie_name = page_params.cookie_name.base;
+
+            console.log("set cookie name -> ", cookie_name);
+
+            vm.$cookies[cookie_name] = JSON.stringify(zip);
 
             var url =  page_params.site.base;
 
@@ -247,6 +251,7 @@ autodealio.ng.page.gridControllerFactory = function (
     vm.$searchService = $searchService;
     vm.$scope = $scope;
     vm.$cookies = $cookies;
+    vm.$cn = page_params.cookie_name.base;
 
 //  expose public api
     vm.searchVehicles = _searchVehicles;
@@ -271,9 +276,9 @@ autodealio.ng.page.gridControllerFactory = function (
             break;
 
         case 'landing_city':
-            if(vm.$cookies[page_params.cookie_name])
+            if(vm.$cookies[vm.$cn])
             {
-                vm.zip_code = JSON.parse(vm.$cookies[page_params.cookie_name]);
+                vm.zip_code = JSON.parse(vm.$cookies[vm.$cn]);
 
                 console.log("found zip in cookie (landing_city)", vm.zip_code);
 
@@ -287,9 +292,9 @@ autodealio.ng.page.gridControllerFactory = function (
 
         case 'landing_make':
             //  TODO: combine cookie logic so both cases can call service function instead of duplicating code here
-            if(vm.$cookies[page_params.cookie_name])
+            if(vm.$cookies[vm.$cn])
             {
-                vm.zip_code = JSON.parse(vm.$cookies[page_params.cookie_name]);
+                vm.zip_code = JSON.parse(vm.$cookies[vm.$cn]);
 
                 console.log("found zip in cookie (landing_make)", vm.zip_code);
 
@@ -299,7 +304,7 @@ autodealio.ng.page.gridControllerFactory = function (
             {
                 $.extend( q, {state: page_params.state, city: page_params.city.fromSlug(), make: page_params.make.fromSlug()});
             }
-            
+
             break;
     }
 

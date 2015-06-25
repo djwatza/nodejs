@@ -1,14 +1,7 @@
 <section class="cities">
-    <div class="container" id="cities-container">
-        <h1>Used Cars near <%=page_params.city.fromSlug() %>, <%=page_params.state.toUpperCase() %></h1>
-        <h3>Browse By Make</h3>
-        <p class="cities-count">0 makes located</p>
-
-        <ol id="make-list">
-            <li id="make-template" class="hidden">
-                <a href="#">Make Model Trim</a>
-            </li>
-        </ol>
+    <div class="container">
+        <h1>Used car inventory near <%=page_params.city.fromSlug() %>, <%=UtilityService.abbr_state(page_params.state) %></h1>
+        <%- partial ('../partials/search/landing', {}) %>
     </div>
 </section>
 

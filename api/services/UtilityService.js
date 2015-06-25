@@ -63,6 +63,9 @@ module.exports =
         { name: 'WISCONSIN', abbreviation: 'WI'},
         { name: 'WYOMING', abbreviation: 'WY' }
     ],
+    capitalizeFirst:function(word){
+        return word.charAt(0).toUpperCase() + word.toLowerCase().slice(1);
+    },
     state_abbr:function(state)
     {
         for (var i = 0, len = UtilityService._states.length; i < len; i++) {
@@ -76,7 +79,7 @@ module.exports =
     {
         for (var i = 0, len = UtilityService._states.length; i < len; i++) {
             if(abbr.toUpperCase() == UtilityService._states[i].abbreviation.toUpperCase())
-                return UtilityService._states[i].name;
+                return UtilityService.capitalizeFirst(UtilityService._states[i].name);
         }
 
         return '';

@@ -32,7 +32,12 @@ module.exports =
     },
     city: function (req, res)
     {
+        var zip = null;
 
+        if(req.cookies[sails.config.autodealio.cookie_name])
+        {
+            zip = req.cookies[sails.config.autodealio.cookie_name];
+        }
 
         res.view("landing/city",{
             current_page: "landing_city",
@@ -41,7 +46,8 @@ module.exports =
             page_params: {
                 state: req.params.state,
                 city: req.params.city
-            }
+            },
+            location:(zip) ? JSON.parse(zip) : null
         });
     },
     make: function (req, res)
