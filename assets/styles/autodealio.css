@@ -14,7 +14,7 @@ input.error{ border: 1px dashed red; }
 .nav-outer .navbar-nav > li > a:hover {color:#8dc711; }
 .nav-outer ul.navbar-nav {margin-top:15px; }
 .back a{ color:#b4b4b4; font-size:14px; font-family:Arial, Helvetica, sans-serif; position:relative; padding-left:18px; }
-.back a:before{position:absolute; left:0px; top:6px; width:18px; height:10px; background:url(img/back.png) left top no-repeat; content:''; }
+.back a:before{position:absolute; left:0px; top:6px; width:18px; height:10px; background:url(/images/back.png) left top no-repeat; content:''; }
 .back a:hover {color:#8dc711; text-decoration:none; }
 .cars h1{ font-family: 'Open Sans', sans-serif; font-size:24px; color:#000; margin-top:16px; margin-bottom:20px; }
 .gallery-outer{margin-bottom:35px; }
@@ -33,7 +33,7 @@ input.error{ border: 1px dashed red; }
 .heading-box:after {
 	top: 100%;
 	left: 50%;
-	width:21px; height:18px; content:''; background:url(img/drop-pointer.png) center center no-repeat; position:absolute; margin-left:-10px;
+	width:21px; height:18px; content:''; background:url(/images/drop-pointer.png) center center no-repeat; position:absolute; margin-left:-10px;
 }
 #inventory-header h1
 {
@@ -164,7 +164,7 @@ a.remove {position:absolute; width:50px; height:45px; background:#c8c8c8; top:0p
 .jssort01 .pav {border:2px solid #fff; }
 
 .jssort01 .p:hover .c, .jssort01 .pav:hover .c, .jssort01 .pav .c {
-	background: url(img/t01.png) center center;
+	background: url(/images/t01.png) center center;
 	border-width: 0px;
 	top: 2px;
 	left: 2px;
@@ -185,7 +185,7 @@ a.remove {position:absolute; width:50px; height:45px; background:#c8c8c8; top:0p
 	position: absolute;
 	cursor: pointer;
 	display: block;
-	background: url(img/a17.png) no-repeat;
+	background: url(/images/a17.png) no-repeat;
 	overflow:hidden;
 }
 .jssora05l { background-position: -10px -40px; }
