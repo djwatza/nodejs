@@ -1,15 +1,18 @@
 <section class="cities" data-ng-controller="geoController as geo">
     <div class="container" id="cities-container">
-        <h1>Used Cars near <%=page_params.state %></h1>
+        <h1>Used car inventory in <%=UtilityService.abbr_state(page_params.state) %></h1>
         <h3>Browse By City</h3>
-        <p class="cities-count">0 cities located with used cars for sale</p>
-
-        <ol id="cities-list" isotope-container="isotope-container" ng-cloak="">
-            <li data-ng-repeat="city in geo.cities track by city.city" isotope-item="isotope-item" class="city-item">
-                <a href="<%=sails.config.autodealio.site.base_url %><%=page_params.state %>/{{city.city}}">{{city.city}}</a> <br/>
-                <span>{{city.count}} Vehicles</span>
-            </li>
-        </ol>
+        <p class="cities-count">Used cars located in {{geo.citiesCount}} cities.</p>
+        <div class="row">
+            <div  id="cities-list" ng-cloak="">
+                <div data-ng-repeat="city in geo.cities track by city.city" class="col-md-3">
+                    <div class="city-item">
+                        <a href="<%=sails.config.autodealio.site.base_url %><%=page_params.state %>/{{city.city}}">{{city.city}}</a> <br/>
+                        <span>{{city.count}} Vehicles</span>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </section>
 

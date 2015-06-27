@@ -53,6 +53,7 @@ autodealio.ng.page.simpleSearchControllerFactory = function (
     vm.initialize = _initialize;
     vm.query = _query;
     vm.setMake = _setMake;
+    vm.fwdMake = _fwdMake;
     vm.getModelsDisabled = _getModelsDisabled;
     vm.getSelectedButton = _getSelectedButton;
     vm.selectButton = _selectButton;
@@ -98,6 +99,13 @@ autodealio.ng.page.simpleSearchControllerFactory = function (
 
             vm.input.simple.model = vm.selectedModels[0];
         }
+    }
+
+    function _fwdMake()
+    {
+        var url =  page_params.site.base + page_params.state + "/" + page_params.city + "/" + vm.input.landing.make.value;
+
+        window.location.href=url;
     }
 
     function _getModelsDisabled()
