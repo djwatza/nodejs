@@ -1,19 +1,26 @@
-<form id="landing-search">
-    <div class="row search-inner" >
+<div class="row search-inner" data-ng-controller="simpleSearchController as search"  data-ng-init="search.initialize('landing')">
+<form id="landing-search" name="search.forms.landing" >
         <div class="col-lg-6 col-md-6 clearfix">
             <div class="form-group clearfix">
                 <div class="col-lg-8 col-md-8 col-sm-6">
-                    <select class="form-control make" name="makes" id="makes">
-                        <option>Filter By Make</option>
+                    <select
+                            class="form-control"
+                            data-ng-options="make.label for make in search.makes"
+                            data-ng-model="search.input.landing.make"
+                            data-ng-change="search.setMake()"
+                            >
                     </select>
                 </div>
                 <div class="col-lg-4 col-md-4 col-sm-6">
-                    <select class="form-control year" name="year" id="year" disabled>
-                        <option>Select Year</option>
+                    <select
+                            class="form-control"
+                            data-ng-options="model.value for model in search.selectedModels"
+                            data-ng-model="search.input.landing.model"
+                            >
                     </select>
                 </div>
             </div>
-            <div class="form-group">
+            <div class="form-group" data-ng-show="false">
                 <div class="col-lg-8 col-md-8 col-sm-6">
                     <select class="form-control model" name="model" id="model" disabled>
                         <option>(Select Make)</option>
@@ -28,7 +35,12 @@
             <div class="sort">
                 <label class="control-label">Sort by</label>
             </div>
-            <div class="buttons"> <a href="#">Price</a> <a href="#">Mileage</a> <a href="#">Distance</a> </div>
+            <div class="buttons">
+                <a href="#" data-ng-class="search.getSelectedButton('price')" data-ng-click="search.selectButton('price')">Price</a>
+                <a href="#" data-ng-class="search.getSelectedButton('miles')" data-ng-click="search.selectButton('miles')">Mileage</a>
+                <a href="#" data-ng-class="search.getSelectedButton('distance')" data-ng-click="search.selectButton('distance')">Distance</a>
+            </div>
         </div>
-    </div>
+
 </form>
+</div>

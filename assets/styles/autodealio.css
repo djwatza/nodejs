@@ -102,7 +102,7 @@ input.error{ border: 1px dashed red; }
 .search-inner form input[type="submit"]:hover{color:#94c60b; background:#FFF; }
 
 .buttons a {background:#c1c1c1; border-radius:4px; display:inline-block; text-align:center; color:#fff; font-size:27px; text-decoration:none; line-height:42px; width:125px; margin-right:10px;}
-.buttons a:hover {background:#8dc711; }
+.buttons a:hover, .buttons a.selected {background:#8dc711; }
 a.remove {position:absolute; width:50px; height:45px; background:#c8c8c8; top:0px; right:0px; text-align:center; line-height:40px; }
 
 .car {position: relative; max-width: 295px; margin: 0 auto; min-height: 218px;}

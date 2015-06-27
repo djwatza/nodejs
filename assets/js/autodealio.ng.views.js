@@ -1,5 +1,6 @@
 autodealio.ng.page.simpleSearchControllerFactory = function (
     $scope
+    , $rootScope
     , $baseController
     , $searchService
     , $geoService
@@ -17,18 +18,34 @@ autodealio.ng.page.simpleSearchControllerFactory = function (
             make:0,
             model:0,
             zip_code:null
+        },
+        landing:{
+            make:0,
+            model:0,
+            year:0,
+            sort:'distance'
         }
     };
 
+    vm.forms = {
+        landing:null,
+        simple:null
+    };
+
+
     vm.makes = null;
     vm.models = null;
+    vm.years = null;
     vm.selectedMake = null;
     vm.selectedModels = null;
+    vm.selectedYear = null;
+    vm.formType = null;
 
 //  save dependencies for later
     vm.$searchService = $searchService;
     vm.$geoService = $geoService;
     vm.$scope = $scope;
+    vm.$rootScope = $rootScope;
     vm.$cookies = $cookies;
 
 //  expose public api
@@ -36,16 +53,31 @@ autodealio.ng.page.simpleSearchControllerFactory = function (
     vm.query = _query;
     vm.setMake = _setMake;
     vm.getModelsDisabled = _getModelsDisabled;
+    vm.getSelectedButton = _getSelectedButton;
+    vm.selectButton = _selectButton;
 
 //  internal handler in case we need to fire angular refresh from outside event
     vm.notify = vm.$searchService.getNotifier($scope);
 
-    _initialize();
 
 //  main controller members
 //  ---------------------------------------
-    function _initialize() {
-        vm.$searchService.vehicles({}, _onGetVehicleSuccess, _onGetVehicleError);
+    function _initialize(formType) {
+        vm.formType = formType;
+
+        switch (vm.formType)
+        {
+            case 'simple':
+                vm.$searchService.vehicles({}, _onGetVehicleSuccess, _onGetVehicleError);
+                break;
+
+            case 'landing':
+                console.log("initilize landing page!");
+
+                vm.$rootScope.$on('vehicleSuccess', _onEventVehicleSuccess);
+                break;
+        }
+
     }
 
     function _query()
@@ -74,6 +106,16 @@ autodealio.ng.page.simpleSearchControllerFactory = function (
         return "false";// (vm.selectedModels && vm.selectedModels.length > 0) ? "false" : "disabled";
     }
 
+    function _getSelectedButton(btn)
+    {
+        return (btn  == vm.input.landing.sort) ? "selected" : "inactive";
+    }
+
+    function _selectButton(btn)
+    {
+        vm.input.landing.sort = btn;
+    }
+
 //  handlers
 //  ---------------------------------------
     function _onQuerySuccess(result)
@@ -83,8 +125,6 @@ autodealio.ng.page.simpleSearchControllerFactory = function (
             var zip = result.data.hits[0];
 
             var cookie_name = page_params.cookie_name.base;
-
-            console.log("set cookie name -> ", cookie_name);
 
             vm.$cookies[cookie_name] = JSON.stringify(zip);
 
@@ -107,6 +147,13 @@ autodealio.ng.page.simpleSearchControllerFactory = function (
         console.error("error while getting zip code query", error);
     }
 
+    function _onEventVehicleSuccess(event, message)
+    {
+        console.log("search event vehicle success", message);
+
+        _onGetVehicleSuccess(message);
+    }
+
     function _onGetVehicleSuccess(result)
     {
         if(result.data.aggregations && result.data.aggregations.makes)
@@ -114,7 +161,7 @@ autodealio.ng.page.simpleSearchControllerFactory = function (
             vm.models = vm.$searchService.parseModels(result.data.aggregations.makes);
             vm.makes = vm.$searchService.parseMakes(result.data.aggregations.makes);
 
-            vm.input.simple.make = vm.makes[0];
+            vm.input[vm.formType].make = vm.makes[0];
 
             vm.selectedModels = null;
         }
@@ -127,7 +174,7 @@ autodealio.ng.page.simpleSearchControllerFactory = function (
 
 autodealio.ng.addController(autodealio.ng.app.module
     , "simpleSearchController"
-    , ['$scope', '$baseController', "$searchService", "$geoService", "$cookies"]
+    , ['$scope', '$rootScope', '$baseController', "$searchService", "$geoService", "$cookies"]
     , autodealio.ng.page.simpleSearchControllerFactory);
 
 
@@ -222,6 +269,7 @@ autodealio.ng.addController(autodealio.ng.app.module
 
 autodealio.ng.page.gridControllerFactory = function (
     $scope
+    , $rootScope
     , $baseController
     , $searchService
     , $cookies)
@@ -250,6 +298,7 @@ autodealio.ng.page.gridControllerFactory = function (
 //  save dependencies for later
     vm.$searchService = $searchService;
     vm.$scope = $scope;
+    vm.$rootScope = $rootScope;
     vm.$cookies = $cookies;
     vm.$cn = page_params.cookie_name.base;
 
@@ -344,6 +393,8 @@ autodealio.ng.page.gridControllerFactory = function (
         }
 
         vm.vehicles = vm.vehicles.concat(result.data.hits);
+
+        vm.$rootScope.$broadcast('vehicleSuccess', result);
     }
 
     function _onVehicleError(jqXhr, error) {
@@ -354,5 +405,5 @@ autodealio.ng.page.gridControllerFactory = function (
 
 autodealio.ng.addController(autodealio.ng.app.module
     , "gridController"
-    , ['$scope', '$baseController', "$searchService", "$cookies"]
+    , ['$scope','$rootScope', '$baseController', "$searchService", "$cookies"]
     , autodealio.ng.page.gridControllerFactory);
