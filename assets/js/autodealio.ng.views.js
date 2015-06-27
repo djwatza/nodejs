@@ -143,7 +143,7 @@ autodealio.ng.page.simpleSearchControllerFactory = function (
 
             var cookie_name = page_params.cookie_name.base;
 
-            vm.$cookies[cookie_name] = JSON.stringify(zip);
+            //vm.$cookies[cookie_name] = JSON.stringify(zip);
 
             var url =  page_params.site.base;
 
@@ -156,7 +156,7 @@ autodealio.ng.page.simpleSearchControllerFactory = function (
                 url += zip.state + "/" + zip.city;
             }
 
-            window.location.href=url;
+            window.location.href=url + "?zip=" + zip.zip_code;
         }
     }
 
@@ -342,13 +342,9 @@ autodealio.ng.page.gridControllerFactory = function (
             break;
 
         case 'landing_city':
-            if(vm.$cookies[vm.$cn])
+            if(page_params.zip)
             {
-                vm.zip_code = JSON.parse(vm.$cookies[vm.$cn]);
-
-                console.log("found zip in cookie (landing_city)", vm.zip_code);
-
-                $.extend( q, {zip: vm.zip_code.zip_code});
+                $.extend( q, {zip: page_params.zip});
             }
             else
             {

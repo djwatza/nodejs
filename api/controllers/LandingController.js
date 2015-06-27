@@ -32,12 +32,7 @@ module.exports =
     },
     city: function (req, res)
     {
-        var zip = null;
-
-        if(req.cookies[sails.config.autodealio.cookie_name])
-        {
-            zip = req.cookies[sails.config.autodealio.cookie_name];
-        }
+        var zip = (req.query.zip) ? req.query.zip : null;
 
         res.view("landing/city",{
             current_page: "landing_city",
@@ -45,9 +40,9 @@ module.exports =
             meta_description: "Looking to buy a Used Car in " +  req.params.city.fromSlug() + ", " + req.params.state + "? Search though our Inventory of Hundreds of Vehicles for Sale from Multiple Dealers in your Area.",
             page_params: {
                 state: req.params.state,
-                city: req.params.city
-            },
-            location:(zip) ? JSON.parse(zip) : null
+                city: req.params.city,
+                zip:zip
+            }
         });
     },
     make: function (req, res)
