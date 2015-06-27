@@ -34,6 +34,15 @@ module.exports =
         var radius = (UtilityService.empty(params.radius)) ? 50 : params.radius;
         var sort = (UtilityService.empty(params.sort)) ? 'default' : params.sort;
 
+        var desc = false;
+
+        if(typeof(params.desc) != 'undefined')
+        {
+            desc = params.desc;
+        }
+
+        var order = (desc == true || desc == 'true') ? "desc" : "asc";
+
         if(random)
         {
             var q = {
@@ -72,6 +81,23 @@ module.exports =
 
         q.sort = [];
 
+        switch(sort)
+        {
+            case "miles":
+                q.sort.push
+                ({
+                    "mileage": {"order": order}
+                });
+                break;
+
+            case "price":
+                q.sort.push
+                ({
+                    "price": {"order": order}
+                });
+                break;
+        }
+
         var geo_filter = false;
 
         if(!UtilityService.empty(lat) && !UtilityService.empty(lon))
@@ -95,7 +121,7 @@ module.exports =
                         "lat": lat,
                         "lon": lon
                     },
-                    "order": "asc",
+                    "order": order,
                     "unit": "mi",
                     "distance_type": "sloppy_arc"
                 }

@@ -23,7 +23,8 @@ autodealio.ng.page.simpleSearchControllerFactory = function (
             make:0,
             model:0,
             year:0,
-            sort:'distance'
+            sort:'distance',
+            desc:false
         }
     };
 
@@ -72,8 +73,6 @@ autodealio.ng.page.simpleSearchControllerFactory = function (
                 break;
 
             case 'landing':
-                console.log("initilize landing page!");
-
                 vm.$rootScope.$on('vehicleSuccess', _onEventVehicleSuccess);
                 break;
         }
@@ -113,7 +112,17 @@ autodealio.ng.page.simpleSearchControllerFactory = function (
 
     function _selectButton(btn)
     {
-        vm.input.landing.sort = btn;
+        if(vm.input.landing.sort == btn)
+        {
+            vm.input.landing.desc = !vm.input.landing.desc;
+        }
+        else
+        {
+            vm.input.landing.desc = false;
+            vm.input.landing.sort = btn;
+        }
+
+        vm.$rootScope.$broadcast('sortVehicles', {field:btn, desc: vm.input.landing.desc });
     }
 
 //  handlers
@@ -363,6 +372,8 @@ autodealio.ng.page.gridControllerFactory = function (
 
     _queryVehicles();
 
+    vm.$rootScope.$on('sortVehicles', _onEventsortVehicles);
+
 //  main controller members
 //  ---------------------------------------
     function _searchVehicles(query) {
@@ -383,6 +394,17 @@ autodealio.ng.page.gridControllerFactory = function (
 
 //  handlers
 //  ---------------------------------------
+
+    function _onEventsortVehicles(event, message)
+    {
+        vm.query.sort = message.field;
+        vm.query.desc = message.desc;
+        vm.query.page = 1;
+        vm.vehicles = [];
+
+        _queryVehicles();
+    }
+
     function _onVehicleSuccess(result) {
         vm.busy = false;
 
