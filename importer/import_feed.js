@@ -136,6 +136,16 @@ var Importer =
         row.image_urls = data.ImageUrls.split("|");
         row.features = data.Features.split(",");
         row.today = Importer.today;
+        row.price_monthly = 0;
+        if(row.price)
+        {
+            var price = Number(row.price);
+
+            if(price > 0)
+            {
+                row.price_monthly = Math.round(((price *.0199) + price) / 72); //  {Price x 0.0199 + Price / 72}
+            }
+        }
 
         for (index = 0; index < row.features.length; ++index)
         {
