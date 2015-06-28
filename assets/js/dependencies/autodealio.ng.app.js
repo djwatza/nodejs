@@ -34,6 +34,14 @@ autodealio.ng.app.module = angular.module('autodealioApp', autodealio.ng.getModu
                     .replace(/ +/g,'-');
             }
         }
+    })
+    .filter('monthPrice', function () {
+        return function (input) {
+            if (input) {
+                var p = Number(input);
+                return Math.round(((p *.0199) + p) / 72)
+            }
+        }
     });
 
 autodealio.ng.app.module.value('$autodealio', autodealio  );
