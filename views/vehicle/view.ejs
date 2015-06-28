@@ -9,8 +9,8 @@
     <div class="container"> <a href="/<%=vehicle.zip_code %>">Back to Search</a> </div>
 </div>
 <section class="cars">
-    <div class="container">
-        <h1><%= vehicle.year %> <%= vehicle.make %> <%= vehicle.model %> <%= vehicle.series %> - $<%= parseInt(vehicle.price).format(0, 3) %></h1>
+    <div class="container" itemscope itemtype="http://schema.org/Car">
+        <h1 itemprop="name"><%= vehicle.year %> <%= vehicle.make %> <%= vehicle.model %> <%= vehicle.series %> </h1>
         <div class="row">
             <div class="col-lg-6 col-md-6 col-sm-6">
                 <div class="gallery-outer">
@@ -57,6 +57,13 @@
                     <ul>
                         <li>
                             <div class="row">
+                                <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">Year: </div>
+                                <div class="col-lg-7 col-md-7 col-md-7 col-xs-7" itemprop="vehicleModelDate"><%= vehicle.year %></div>
+                            </div>
+                        </li>
+
+                        <li>
+                            <div class="row">
                                 <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">Dealer's Price: </div>
                                 <div class="col-lg-7 col-md-7 col-md-7 col-xs-7">$<%= parseInt(vehicle.price).format(0, 3) %></div>
                             </div>
@@ -70,31 +77,31 @@
                         <li>
                             <div class="row">
                                 <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">Mileage:</div>
-                                <div class="col-lg-7 col-md-7 col-md-7 col-xs-7"><%= vehicle.mileage %> miles</div>
+                                <div class="col-lg-7 col-md-7 col-md-7 col-xs-7" itemprop="mileageFromOdometer"><%= vehicle.mileage %> miles</div>
                             </div>
                         </li>
                         <li>
                             <div class="row">
                                 <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">Transmission:</div>
-                                <div class="col-lg-7 col-md-7 col-md-7 col-xs-7"><%= vehicle.transmission_type %></div>
+                                <div class="col-lg-7 col-md-7 col-md-7 col-xs-7" itemprop="vehicleTransmission"><%= vehicle.transmission_type %></div>
                             </div>
                         </li>
                         <li>
                             <div class="row">
                                 <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">Exterior Color:</div>
-                                <div class="col-lg-7 col-md-7 col-md-7 col-xs-7"><%= vehicle.exterior_color %></div>
+                                <div class="col-lg-7 col-md-7 col-md-7 col-xs-7" itemprop="color"><%= vehicle.exterior_color %></div>
                             </div>
                         </li>
                         <li>
                             <div class="row">
                                 <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">Interior Color: </div>
-                                <div class="col-lg-7 col-md-7 col-md-7 col-xs-7"><%= vehicle.interior_color %></div>
+                                <div class="col-lg-7 col-md-7 col-md-7 col-xs-7" itemprop="vehicleInteriorColor"><%= vehicle.interior_color %></div>
                             </div>
                         </li>
                         <li>
                             <div class="row">
                                 <div class="col-lg-5 col-md-5 col-sm-5 col-xs-5">Number of Doors:</div>
-                                <div class="col-lg-7 col-md-7 col-md-7 col-xs-7"><%= vehicle.num_doors %></div>
+                                <div class="col-lg-7 col-md-7 col-md-7 col-xs-7" itemprop="numberOfDoors"><%= vehicle.num_doors %></div>
                             </div>
                         </li>
                         <li>
@@ -222,9 +229,9 @@
                     <h3>Major Options</h3>
                     <p><%= vehicle.features.join(", ") %></p>
                 </div>
-                <div class="description">
+                <div class="description" >
                     <h3>Dealer's Description</h3>
-                    <p><%= vehicle.comments %></p>
+                    <p itemprop="description"><%= vehicle.comments %></p>
                 </div>
             </div>
         </div>
