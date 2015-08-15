@@ -179,7 +179,7 @@ module.exports =
                     "order": {
                         "_term": "asc"
                     },
-                    "size": 10
+                    "size": 100
                 },
                 "aggs": {
                     "models": {
@@ -188,7 +188,7 @@ module.exports =
                             "order": {
                                 "_term": "asc"
                             },
-                            "size": 20
+                            "size": 50
                         }
                     }
                 }
