@@ -1,7 +1,7 @@
 <section class="browse-cars" data-ng-controller="simpleSearchController as search" data-ng-init="search.initialize('simple')">
 <div class="container">
-    <div class="search-inner col-lg-12 col-md-12 clearfix">
-    <form method="get" action="#" name="search.input.simple" data-ng-submit="search.query()">
+    <div class="search-inner col-lg-12 col-md-12 clearfix" ng-cloak>
+    <form novalidate method="get" name="search.forms.simple" data-ng-submit="search.query()">
         <div class="row">
                 <div class="form-group clearfix">
                     <div class="col-lg-3 col-md-3 col-sm-3">
@@ -24,10 +24,22 @@
 
                     <div class="col-lg-3 col-md-3 col-sm-3">
                         <input
-                                class="form-control"
+                                class="form-control ng-class:{'error': search.showErrors && !search.forms.simple.zip_code.$valid}"
                                 type="text"
                                 placeholder="Zip Code"
-                                data-ng-model="search.input.simple.zip_code"/>
+                                data-ng-model="search.input.simple.zip_code"
+                                name="zip_code"
+                                data-ng-minlength="5"
+                                data-ng-maxlength="5"
+                                required
+                                maxlength="5"
+                          />
+
+                      <div role="alert" class="help-inline error">
+                        <label class="error" ng-show="search.showErrors && search.forms.simple.zip_code.$error.required">Zip code is required</label>
+                        <label class="error" ng-show="search.showErrors && search.forms.simple.zip_code.$error.minlength">At Least 5 Digits</label>
+                        <label class="error" ng-show="search.showErrors && search.forms.simple.zip_code.$error.maxlength">Only 5 Digits</label>
+                      </div>
                     </div>
 
                     <div class="col-lg-3 l-md-3 col-sm-3">

@@ -41,6 +41,7 @@ autodealio.ng.page.simpleSearchControllerFactory = function (
     vm.selectedModels = null;
     vm.selectedYear = null;
     vm.formType = null;
+    vm.showErrors = false;
 
 //  save dependencies for later
     vm.$searchService = $searchService;
@@ -82,9 +83,18 @@ autodealio.ng.page.simpleSearchControllerFactory = function (
 
     function _query()
     {
-        console.log("query cars", vm.input.simple);
+        if (vm.forms.simple.$valid)
+        {
+          vm.showErrors = false;
 
-        vm.$geoService.zipcodeSearch(vm.input.simple.zip_code, _onQuerySuccess, _onQueryError);
+          console.log("data is valid! go search zip -> ", vm.input.simple.zip_code);
+
+          vm.$geoService.zipcodeSearch(vm.input.simple.zip_code, _onQuerySuccess, _onQueryError);
+        }
+        else
+        {
+          vm.showErrors = true;
+        }
     }
 
     function _setMake()

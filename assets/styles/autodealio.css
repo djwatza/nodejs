@@ -5,7 +5,7 @@ body{margin:0px; padding:0px; font-family:Arial, Helvetica, sans-serif; }
 img{max-width:100%; height:auto;}
 a{ transition:all ease-in-out 0.4s; -webkit-transition:all ease-in-out 0.4s;  -moz-transition:all ease-in-out 0.4s;  -o-transition:all ease-in-out 0.4s; text-decoration:none;}
 header{padding-top:30px; }
-label.error{ color:#FF0000; }
+label.error{ color:#FF0000; font-weight: normal; padding-top:5px; }
 p.error{ color:#FF0000; font-weight: bold; }
 input.error{ border: 1px dashed red; }
 .nav-outer .navbar-default{background:none; outline:none; border-radius:0px; border:none; }
@@ -68,7 +68,7 @@ input.error{ border: 1px dashed red; }
    color: #999;
 }
 
-.contact-outer form :-ms-input-placeholder {  
+.contact-outer form :-ms-input-placeholder {
    color: #999;
 }
 .options, .description{ background:#eeeeee; padding:15px 45px 20px 34px; margin-bottom:22px; }
@@ -81,6 +81,8 @@ input.error{ border: 1px dashed red; }
 
 .search-inner h2{ font-size:32px; color:#6b6b6b; font-family: 'Open Sans', sans-serif; margin:0px; padding:0px; text-align:center; margin-bottom:20px;  }
 .search-inner select.form-control, .search-inner input.form-control{ height:45px; background:#fff; border-radius:0px; box-shadow:none; border:none; font-size:17px; }
+.search-inner select.form-control.error, .search-inner input.form-control.error{border:1px solid red; }
+
 .search-inner .form-group{ margin:0; }
 .search-inner .form-group [class*='col-']{}
 .search-inner .sort {min-height:45px; line-height:45px; text-align:center; font-size:26px; color:#6b6b6b; font-weight:normal; }

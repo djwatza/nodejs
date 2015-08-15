@@ -76,7 +76,7 @@ autodealio.ng.app.services.searchFactory = function ($baseService, $http)
     {
         var makes = [{
             value:0,
-            label: "Makes"
+            label: "All Makes"
         }];
 
         angular.forEach(agg, function(value, key) {
@@ -96,7 +96,11 @@ autodealio.ng.app.services.searchFactory = function ($baseService, $http)
 
         angular.forEach(agg, function(make, key) {
 
-            var makes = [];
+            var makes = [{
+              value:"All Models",
+              label: "All Models"
+            }];
+
             angular.forEach(make.models, function(model, key) {
 
                 this.push({
