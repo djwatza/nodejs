@@ -217,7 +217,7 @@ module.exports =
                 return callback(err, null);
 
             if(UtilityService.empty(data.aggregations))
-                return callback(null, data);
+                return VehicleService.decorate_urls(data, callback);
 
             var buckets = (UtilityService.empty(data.aggregations.location)) ? data.aggregations.makes.buckets : data.aggregations.location.makes.buckets;
 
@@ -248,8 +248,22 @@ module.exports =
                 makes: makes
             };
 
-            return callback(null, data);
+            return VehicleService.decorate_urls(data, callback);
         });
+    },
+    decorate_urls:function(data, callback)
+    {
+      if(data.hits && data.hits.length > 0)
+      {
+        for (var i = 0; i < data.hits.length; i++) {
+
+          var t = data.hits[i];
+
+          data.hits[i]['vehicle_slug'] = t.year.toSlug() + "-" + t.make.toSlug() + "-" + t.model.toSlug() + "-" + t.series.toSlug() + "-" + t.vin;
+        }
+      }
+
+      return callback(null, data);
     },
     get_vehicle_by_zip_and_id: function(zip, id, callback)
     {
