@@ -22,7 +22,16 @@ module.exports =
         VehicleService.list(req.query, function(err, data)
         {
             if (err)
+            {
+              if(err === 402)
+              {
+                return res.json(402, "Unable to locate zip code");
+              }
+              else{
                 return res.serverError(err);
+              }
+            }
+
 
             res.jsonx(data);
         });

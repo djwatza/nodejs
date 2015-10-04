@@ -17,6 +17,10 @@ module.exports =
                   params.lat = zip_data.pin.location.lat;
                   params.lon = zip_data.pin.location.lon;
                 }
+                else
+                {
+                  return callback(402);
+                }
 
                 VehicleService._query(params, callback);
             });
