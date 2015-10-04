@@ -12,8 +12,11 @@ module.exports =
         {
             ZipCode.findOne({id:zip, type:"zip_code"}, function(err, zip_data)
             {
-                params.lat = zip_data.pin.location.lat;
-                params.lon = zip_data.pin.location.lon;
+                if(zip_data && zip_data.pin)
+                {
+                  params.lat = zip_data.pin.location.lat;
+                  params.lon = zip_data.pin.location.lon;
+                }
 
                 VehicleService._query(params, callback);
             });
